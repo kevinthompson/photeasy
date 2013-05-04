@@ -2,13 +2,11 @@
 <html>
 <head>
   <title>Photeasy</title>
-  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
-  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag 'lib/require', 'data-main' => 'assets/photeasy' %>
   <%= csrf_meta_tags %>
 </head>
 <body>
-<p class="notice"><%= notice %></p>
-<p class="alert"><%= alert %></p>
-<%= yield %>
+<div id="main">
+</div>
 </body>
 </html>
