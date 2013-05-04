@@ -2,6 +2,7 @@
  * Photeasy
  */
 require.config({
+  urlArgs: 'bust=' + (new Date()).getTime(),
   shim: {
     underscore: {
       exports: '_'
@@ -15,27 +16,45 @@ require.config({
     }
   },
   paths: {
-    jquery: 'lib/jquery',
-    underscore: 'lib/underscore',
-    backbone: 'lib/backbone',
-    dust: 'lib/dust',
-    speck: 'lib/speck',
-    text: 'lib/text'
+    // app
+    view: 'views/base',
+    model: 'models/base',
+    collection: 'collections/base',
+
+    // libs
+    jquery: 'libs/jquery',
+    underscore: 'libs/underscore',
+    backbone: 'libs/backbone',
+    text: 'libs/text',
+    dust: 'libs/dust',
+    dusty: 'libs/dusty',
+
+    // utils
+    eventbus: 'utils/eventbus'
   }
 });
 
-define(function(require){
-  var Backbone = require('backbone'),
+define([
+  'backbone',
+  'eventbus',
+  'views/index'],
+
+function(Backbone, Bus, Index){
+  var Photeasy,
+    $doc = $(document),
+    TITLE_PREFIX = 'Photeasy | ';
 
   Photeasy = Backbone.Router.extend({
-    routes: {
-      '': 'index'
-    },
+    routes: { '': 'index' },
     index: function() {
-      var Index = require('views/index'),
-          index = new Index();
-      return this;
+      var index = new Index();
+      index.$el.append(index.render().$el);
     }
+  });
+
+  // event listeners
+  Bus.on('document:title', function(title) {
+    $doc.prop('title', TITLE_PREFIX + title);
   });
 
   new Photeasy();

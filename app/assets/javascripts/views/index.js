@@ -1,13 +1,13 @@
-define(['backbone', 'speck!templates/index'], function(Backbone, template) {
-  return Backbone.View.extend({
-    initialize: function() {
-      this.$el = $('#main');
-      this.render();
-      return this;
-    },
-    render: function() {
-      template.view(this);
-      return this;
-    }
+define([
+  'view',
+  'eventbus',
+  'models/sample',
+  'dusty!templates/index'],
+
+function(BaseView, Bus, Model, template, Header) {
+  return BaseView.extend({
+    el: 'body',
+    model: new Model(),
+    template: template
   });
 });

@@ -18,6 +18,8 @@ gem 'rails', '3.2.13'
 gem 'sass-rails'
 gem 'simple_form'
 gem 'uglifier'
+gem 'dust-rails'
+
 
 group :doc do
   gem 'sdoc', require: false
