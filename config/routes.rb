@@ -3,7 +3,7 @@ Photeasy::Application.routes.draw do
   root to: 'high_voltage/pages#show', id: 'index'
 
   # Authentication
-  devise_for :users
+  devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
   devise_for :admin_users, ActiveAdmin::Devise.config
 
   # Administration
