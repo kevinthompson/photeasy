@@ -7,9 +7,12 @@ class User < ActiveRecord::Base
          :omniauthable, omniauth_providers: [:dropbox]
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :name, :password, :password_confirmation, :provider, :remember_me, :uid
+  attr_accessible :email, :name,
+                  :password, :password_confirmation, :remember_me,
+                  :provider, :uid, :dropbox_token, :dropbox_secret
 
   def self.find_for_dropbox_oauth(auth, signed_in_resource=nil)
+    logger.debug auth.inspect
     user = User.where(provider: auth.provider, uid: auth.uid.to_s).first
     unless user
       user = User.create(
@@ -17,9 +20,21 @@ class User < ActiveRecord::Base
         provider: auth.provider,
         uid: auth.uid,
         email: auth.info.email,
-        password: Devise.friendly_token[0,20]
+        password: password_token,
+        dropbox_token: auth.credentials.token,
+        dropbox_secret: auth.credentials.secret
       )
     end
     user
+  end
+
+  def dropbox
+    ::Dropbox::API::Client.new(token: dropbox_token, secret: dropbox_secret)
+  end
+
+  private
+
+  def self.password_token
+    Devise.friendly_token[0,20]
   end
 end

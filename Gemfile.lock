@@ -84,6 +84,10 @@ GEM
       warden (~> 1.2.1)
     diff-lcs (1.2.4)
     dotenv (0.7.0)
+    dropbox-api (0.3.2)
+      hashie
+      multi_json
+      oauth
     erubis (2.7.0)
     eventmachine (1.0.3)
     execjs (1.4.0)
@@ -314,6 +318,7 @@ DEPENDENCIES
   coffee-rails
   database_cleaner
   devise
+  dropbox-api
   factory_girl_rails (~> 4.0.0)
   fakeweb
   figaro
