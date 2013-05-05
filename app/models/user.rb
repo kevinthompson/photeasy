@@ -28,13 +28,10 @@ class User < ActiveRecord::Base
     user
   end
 
-  def dropbox
-    ::Dropbox::API::Client.new(token: dropbox_token, secret: dropbox_secret)
-  end
-
   private
 
   def self.password_token
     Devise.friendly_token[0,20]
   end
+
 end

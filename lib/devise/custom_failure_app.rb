@@ -1,0 +1,17 @@
+class Devise::CustomFailureApp < Devise::FailureApp
+  def http_auth_body
+    return i18n_message unless request_format
+    method = "to_#{request_format}"
+    if method == "to_xml"
+      { :error => i18n_message }.to_xml(:root => "errors")
+    elsif {}.respond_to?(method)
+      {
+        data: {},
+        errors: Array(i18n_message),
+        status: 401
+      }.send(method)
+    else
+      i18n_message
+    end
+  end
+end
