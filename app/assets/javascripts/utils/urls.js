@@ -15,7 +15,7 @@ define(function(global) {
       return $('<a/>').text(text || '').attr('href', this.urlTo(key));
     },
     apiTo: function(key, id) {
-      return url.api + urlTo(key, id);
+      return urls.api + this.urlTo(key, id) + '.json';
     }
   };
 }(this));

@@ -14,12 +14,6 @@ function(BaseView, Bus, Url, template) {
       Bus.on('page:change', this.updateCurrent);
     },
 
-    updateCurrent: function(page) {},
-
-    helpers: {
-      photosLink: function() {
-        return Url.linkTo('photos', 'Photos')[0];
-      }
-    }
+    updateCurrent: function(page) {}
   });
 });

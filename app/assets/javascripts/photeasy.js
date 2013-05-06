@@ -18,7 +18,8 @@ require.config({
     dusty: 'libs/dusty',
 
     // utils
-    eventbus: 'utils/eventbus'
+    eventbus: 'utils/eventbus',
+    urls: 'utils/urls'
   },
   shim: {
     underscore: {
