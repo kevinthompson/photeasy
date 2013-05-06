@@ -1,2 +1,4 @@
 DROPBOX_KEY: 'xxxxxxxxxx'
 DROPBOX_SECRET: 'xxxxxxxxxx'
+MANDRILL_USERNAME: 'xxxxxxxxxx'
+MANDRILL_APIKEY: 'xxxxxxxxxx'
