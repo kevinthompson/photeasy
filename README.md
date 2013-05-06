@@ -1,8 +1,8 @@
 Photeasy
 ====================
 
-1. Overview
-2. Installation
+1. [Overview](#overview)
+2. [Installation](#installation)
 
 --------------------
 
@@ -12,6 +12,8 @@ Photeasy
 - Ruby 2.0.0-p0
 - Backbone.js
 - Dust.js (Templating)
+
+[Back to Top ↑](#readme)
 
 ## Installation
 
@@ -26,3 +28,5 @@ Photeasy
 5. Copy `config/database.yml.example` to `config/database.yml` and update credentials
 6. Migrate the database: `rake db:migrate`
 7. Copy `config/application.yml.example` to `config/application.yml` and enter credentials
+
+[Back to Top ↑](#readme)
