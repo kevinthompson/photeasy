@@ -2,19 +2,7 @@
  * Photeasy
  */
 require.config({
-  urlArgs: 'bust=' + (new Date()).getTime(),
-  shim: {
-    underscore: {
-      exports: '_'
-    },
-    backbone: {
-      deps: ['underscore', 'jquery'],
-      exports: 'Backbone'
-    },
-    dust: {
-      exports: 'dust'
-    }
-  },
+  urlArgs: 'cachebust=' + (new Date()).getTime(),
   paths: {
     // app
     view: 'views/base',
@@ -31,32 +19,49 @@ require.config({
 
     // utils
     eventbus: 'utils/eventbus'
+  },
+  shim: {
+    underscore: {
+      exports: '_'
+    },
+    backbone: {
+      deps: ['underscore', 'jquery'],
+      exports: 'Backbone'
+    },
+    dust: {
+      exports: 'dust'
+    }
   }
 });
 
 define([
   'backbone',
-  'eventbus',
-  'views/index'],
+  'router',
+  'views/layout',
+  'libs/dust_helpers'],
 
-function(Backbone, Bus, Index){
-  var Photeasy,
-    $doc = $(document),
-    TITLE_PREFIX = 'Photeasy | ';
+function(Backbone, Router, LayoutView){
+  var $doc = $(document);
 
-  Photeasy = Backbone.Router.extend({
-    routes: { '': 'index' },
-    index: function() {
-      var index = new Index();
-      index.$el.append(index.render().$el);
-    }
-  });
+  new LayoutView();
+  new Router();
+  Backbone.history.start({pushState: true});
 
-  // event listeners
-  Bus.on('document:title', function(title) {
-    $doc.prop('title', TITLE_PREFIX + title);
-  });
-
-  new Photeasy();
-  Backbone.history.start();
+  if (Backbone.history && Backbone.history._hasPushState) {
+    // Use delegation to avoid initial DOM selection and allow all matching elements to bubble
+    $doc.delegate('a', 'click', function(evt) {
+      // Get the anchor href and protcol
+      var href = $(this).attr('href');
+      var protocol = this.protocol + '//';
+      // Ensure the protocol is not part of URL, meaning its relative.
+      // Stop the event bubbling to ensure the link will not cause a page refresh.
+      if (href.slice(protocol.length) !== protocol) {
+        evt.preventDefault();
+        // Note by using Backbone.history.navigate, router events will not be
+        // triggered.  If this is a problem, change this to navigate on your
+        // router.
+        Backbone.history.navigate(href, true);
+      }
+    });
+  }
 });

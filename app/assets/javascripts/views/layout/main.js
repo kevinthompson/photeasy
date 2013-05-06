@@ -1,10 +1,11 @@
 define([
   'view',
-  'dusty!templates/index'],
+  'dusty!templates/layout/header'],
 
 function(BaseView, template) {
   return BaseView.extend({
-    el: '#main',
-    template: template
+    id: 'main',
+    tagName: 'section'
   });
 });
+

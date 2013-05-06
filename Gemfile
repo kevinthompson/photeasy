@@ -23,6 +23,7 @@ gem 'sass-rails'
 gem 'simple_form'
 gem 'uglifier'
 gem 'dust-rails'
+gem 'compass-rails'
 
 
 group :doc do

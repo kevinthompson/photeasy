@@ -8,10 +8,15 @@ function(module, text, dust) {
 
   module.config();
 
+  /**
+   * Turns a model's attributes into json
+   * @name jsonify
+   * @function
+   * @private
+   * @param obj {Object} object to be turned to json
+   */
   function jsonify(obj) {
-    if (!obj || !(obj instanceof Object)) {
-      return;
-    }
+    if (!obj || !(obj instanceof Object)) return;
     return JSON.parse(JSON.stringify(obj));
   }
 
@@ -22,6 +27,19 @@ function(module, text, dust) {
         dust.loadSource(template);
 
         load({
+          /**
+           * Creates a dust context from a 
+           * views model and helper attributes,
+           * applies that context to the retrieved
+           * dust template, and renders the template.
+           * If no view is passed, then it renders
+           * the template. If the render errors,
+           * it emits an event on the view object.
+           * @name render
+           * @function
+           * @public
+           * @param view {Object} Backbone view
+           */
           render: function(view) {
             var model, helpers, base, context,
               result = '';
@@ -37,10 +55,9 @@ function(module, text, dust) {
 
             dust.render(key, context, function(error, output) {
               if (error) {
-                view.trigger('dust:render:error', error);
+                view.$el.trigger('dust:error', error);
               } else {
                 result = output;
-                view.trigger('dust:render:success', output);
               }
             });
 
