@@ -1,7 +1,0 @@
-<nav>
-  <h1>{@link key="root" text="Photeasy"/}</h1>
-  <ul>
-    <li>{@link key="photos" text="Photos"/}</li>
-    <li>{@link key="users" text="User"/}</li>
-  <ul>
-</nav>

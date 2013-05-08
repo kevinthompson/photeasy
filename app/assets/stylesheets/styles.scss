@@ -4,15 +4,76 @@
  *= require_tree .
  */
 
+@import 'compass';
+
 // --------------------
 //  Layout
 // --------------------
 
-html {}
-body {}
+html {
+  background: #f6f6f6;
+}
+body {
+  padding-top: 60px;
+}
 
-#header {}
-#main {}
+#header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 0 20px;
+  background: #68c2a0;
+  h1 {
+    @include inline-block;
+    vertical-align: middle;
+    margin: 0;
+    line-height: 60px;
+  }
+  ul {
+    float: right;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    line-height: 60px;
+  }
+
+  li {
+    @include inline-block;
+    margin: 0 10px;
+    vertical-align: middle;
+  }
+
+  a {
+    color: #000000;
+    text-decoration: none;
+  }
+}
+#main {
+  padding: 10px;
+  h1 {
+    padding: 0 10px;
+  }
+
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  li {
+    @include inline-block;
+  }
+
+}
+
+.photo {
+  width: 150px;
+  height: 150px;
+  margin: 10px;
+  @include background-size(cover);
+  background-position: center;
+}
 
 
 
