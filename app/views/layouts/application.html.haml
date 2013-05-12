@@ -3,11 +3,14 @@
   %head
     %title Photeasy
     = stylesheet_link_tag 'styles'
-    = javascript_include_tag 'app/libs/require', 'data-main' => '/assets/app.js'
+    = javascript_include_tag 'vendor/requirejs/require', 'data-main' => '/assets/app.js'
     = csrf_meta_tags
   %body
     #wrap
       %header#header
+        %nav#navigation
+        %secion#alert
       %section#main
         = yield
       %footer#footer
+      #modal

@@ -3,3 +3,8 @@ define ['marionette', 'dusty!photo'], (Marionette, template) ->
     tagName: 'li'
     template: template
 
+    onRender: ->
+      @$('img').load => @onImageLoad()
+
+    onImageLoad: (event) ->
+      @$('.photo').addClass 'loaded'

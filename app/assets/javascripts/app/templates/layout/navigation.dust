@@ -1,0 +1,6 @@
+<h1>{@link key="root" text="Photeasy"/}</h1>
+<ul>
+  <li>{@link key="photos" text="Photos"/}</li>
+  <li>{@link key="sign_in" text="Sign In" pushState="false"/}</li>
+  <li>{@link key="sign_out" text="Sign Out" pushState="false"/}</li>
+</ul>

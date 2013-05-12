@@ -1,0 +1,19 @@
+{?text}
+
+  {<class}
+    {?type}
+      {type}-alert
+    {:else}
+      default-alert
+    {/type}
+  {/class}
+
+
+  <div class="{+class/}">
+    {?icon}
+      <span class="{icon}-icon"></span>
+    {/icon}
+    <p>{text}</p>
+  </div>
+
+{/text}
