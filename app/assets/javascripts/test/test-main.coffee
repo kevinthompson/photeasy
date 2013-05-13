@@ -1,6 +1,8 @@
 tests = Object.keys(window.__karma__.files).filter (file) ->
   return /base\/test\/(.*?)_spec/.test(file)
 
+tests.push('expect')
+
 require.config
   # path configuration
   baseUrl: '/base/app/'
@@ -12,7 +14,8 @@ require.config
     'backbone.wreqr': '../vendor/backbone.wreqr/lib/amd/backbone.wreqr'
     'backbone.babysitter': '../vendor/backbone.babysitter/lib/amd/backbone.babysitter'
     'text': '../vendor/text/text'
-    'dust': '../vendor/dustjs-linkedin/dist/dust-full-1.2.2'
+    'expect': '../vendor/expect/expect'
+    'dust': '../lib/dust'
     'dusty': '../lib/dusty'
     'dust.helpers': '../lib/dust.helpers'
     'json2': '../vendor/json2/json2'
@@ -21,6 +24,8 @@ require.config
   shim:
     dust:
       exports: 'dust'
+    chunk:
+      exports: 'Chunk'
 
   # dust is retarded
   deps: tests

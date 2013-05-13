@@ -13,4 +13,6 @@ function(dust, _, url) {
       return chunk.write(url.linkTo(params.key, params.text, params.pushState)[0].outerHTML);
     }
   });
+
+  return dust;
 });

@@ -22,4 +22,3 @@ define ['marionette', 'utils/vent', 'views/layout/navigation', 'regions/alert', 
         @alert.show new AlertView(options)
 
   return new Layout()
-

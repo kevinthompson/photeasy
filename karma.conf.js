@@ -8,12 +8,11 @@ basePath = 'app/assets/javascripts/';
 
 // list of files / patterns to load in the browser
 files = [
-  JASMINE,
-  JASMINE_ADAPTER,
+  MOCHA,
+  MOCHA_ADAPTER,
   REQUIRE,
   REQUIRE_ADAPTER,
   {pattern: 'app/**/*.coffee', included: false},
-  {pattern: 'lib/**/*.coffee', included: false},
   {pattern: 'app/**/*.js', included: false},
   {pattern: 'lib/**/*.js', included: false},
   {pattern: 'app/**/*.dust', included: false},
@@ -25,13 +24,13 @@ files = [
 
 // list of files to exclude
 exclude = [
-  'app.js.coffee'
+  'app.coffee'
 ];
 
 
 // test results reporter to use
 // possible values: 'dots', 'progress', 'junit'
-reporters = ['progress'];
+reporters = ['progress', 'growl'];
 
 
 // web server port

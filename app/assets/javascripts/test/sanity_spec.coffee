@@ -1,4 +1,4 @@
 define ->
   describe 'Sanity', ->
-    it 'should work', ->
-      expect(true).toEqual(true)
+    it 'should work!', ->
+      expect(true).to.equal(true)
