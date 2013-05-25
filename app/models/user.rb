@@ -28,6 +28,18 @@ class User < ActiveRecord::Base
     user
   end
 
+  def providers
+    [DropboxProvider.new(dropbox_token, dropbox_secret)]
+  end
+
+  def photos
+    providers.map(&:photos).flatten
+  end
+
+  def is_admin?
+    true
+  end
+
   private
 
   def self.password_token
