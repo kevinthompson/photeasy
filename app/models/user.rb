@@ -9,9 +9,12 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :name,
                   :password, :password_confirmation, :remember_me,
-                  :provider, :uid, :dropbox_token, :dropbox_secret
+                  :provider, :uid, :dropbox_token, :dropbox_secret,
+                  :photos_imported_at
 
   has_many :photos
+
+  after_create :import_photos
 
   def self.find_for_dropbox_oauth(auth, signed_in_resource=nil)
     user = User.where(provider: auth.provider, uid: auth.uid.to_s).first
@@ -35,6 +38,10 @@ class User < ActiveRecord::Base
 
   def is_admin?
     admin
+  end
+
+  def import_photos
+    PhotoImportWorker.perform_async(self.id)
   end
 
   private
