@@ -15,6 +15,10 @@ describe User do
     context 'when the user does not exist' do
       it 'creates a user using the dropbox auth credentials' do
         auth = Hashie::Mash.new(
+          credentials: {
+            token: 'foo',
+            secret: 'bar'
+          },
           extra: {
             raw_info: {
               name: 'New User'
