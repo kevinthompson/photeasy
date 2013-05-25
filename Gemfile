@@ -26,7 +26,9 @@ gem 'simple_form'
 gem 'uglifier'
 gem 'compass-rails'
 gem 'pusher'
-
+gem 'sidekiq'
+gem 'slim', '>= 1.3.0'
+gem 'sinatra', '>= 1.3.0', :require => nil
 
 group :doc do
   gem 'sdoc', require: false
