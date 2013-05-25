@@ -25,6 +25,7 @@ gem 'sass-rails'
 gem 'simple_form'
 gem 'uglifier'
 gem 'compass-rails'
+gem 'pusher'
 
 
 group :doc do
