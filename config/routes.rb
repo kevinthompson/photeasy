@@ -18,5 +18,5 @@ Photeasy::Application.routes.draw do
   end
 
   # Catch All
-  match '*path' => 'high_voltage/pages#show', id: 'index'
+  match '*path' => 'high_voltage/pages#show', id: 'index', constraints: lambda { |request| !(request.path =~ /^\/assets/) }
 end
