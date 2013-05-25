@@ -1,6 +1,6 @@
 class Photo < ActiveRecord::Base
   MIN_BYTE_SIZE = 1048576
-  IMAGE_SIZES = [:small, :medium, :large]
+  IMAGE_SIZES = %w[small medium large]
 
   attr_accessible :filename, :provider, :provider_id, :url, :user_id
   belongs_to :user
@@ -18,14 +18,14 @@ class Photo < ActiveRecord::Base
 
   def thumbnail(size = :medium)
     raise ArgumentError unless IMAGE_SIZES.include?(size)
-    user.dropbox.client.raw.thumbnails({ path: url, size: size.to_s[0] })
+    user.dropbox.client.raw.thumbnails({ path: url, size: size[0] })
   end
 
   def image_urls
     @image_urls ||= begin
       image_urls = {}
       IMAGE_SIZES.map do |size|
-        image_urls[size] = Rails.application.routes.url_helpers.photo_image(size: size)
+        image_urls[size] = Rails.application.routes.url_helpers.photo_thumbnail_path(photo_id: id, size: size)
       end
       image_urls
     end

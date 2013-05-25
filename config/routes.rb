@@ -31,7 +31,7 @@ Photeasy::Application.routes.draw do
   end
 
   resources :photos, only: [] do
-    get :image
+    get :thumbnail
   end
 
   # Catch All
