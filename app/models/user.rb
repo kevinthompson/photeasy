@@ -11,8 +11,9 @@ class User < ActiveRecord::Base
                   :password, :password_confirmation, :remember_me,
                   :provider, :uid, :dropbox_token, :dropbox_secret
 
+  has_many :photos
+
   def self.find_for_dropbox_oauth(auth, signed_in_resource=nil)
-    logger.debug auth.inspect
     user = User.where(provider: auth.provider, uid: auth.uid.to_s).first
     unless user
       user = User.create(
@@ -28,16 +29,12 @@ class User < ActiveRecord::Base
     user
   end
 
-  def providers
-    [DropboxProvider.new(dropbox_token, dropbox_secret)]
-  end
-
-  def photos
-    providers.map(&:photos).flatten
+  def dropbox
+    DropboxProvider.new(dropbox_token, dropbox_secret)
   end
 
   def is_admin?
-    true
+    admin
   end
 
   private

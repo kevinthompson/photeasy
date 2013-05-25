@@ -6,13 +6,7 @@ class DropboxProvider < BaseProvider
   end
 
   def photos
-    files = client.ls.select{ |entry| entry['is_dir'] == false && entry['mime_type'][/image/] }
-    files.map do |file|
-      {
-        id: file.rev,
-        url: file.direct_url.url
-      }
-    end
+    client.ls.select(&:is_photo?)
   end
 
 end
