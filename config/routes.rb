@@ -11,7 +11,8 @@ Photeasy::Application.routes.draw do
   end
 
   # Authentication
-  devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' } do
+  devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
+  devise_scope :user do
     get '/sign_in' => 'devise/sessions#new'
     get '/sign_out' => 'devise/sessions#destroy'
   end
@@ -22,9 +23,15 @@ Photeasy::Application.routes.draw do
   # API
   namespace :api, format: true, constraints: { format: :json } do
     namespace :v1 do
-      resources :photos, only: [:index]
+      resources :photos, only: [:index, :show] do
+
+      end
       resources :users, only: [:show]
     end
+  end
+
+  resources :photos, only: [] do
+    get :image
   end
 
   # Catch All
