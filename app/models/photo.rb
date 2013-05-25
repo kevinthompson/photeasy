@@ -16,6 +16,11 @@ class Photo < ActiveRecord::Base
     }
   end
 
+  def thumbnail(size = :medium)
+    raise ArgumentError unless IMAGE_SIZES.include?(size)
+    user.dropbox.client.raw.thumbnails({ path: url, size: size.to_s[0] })
+  end
+
   def image_urls
     @image_urls ||= begin
       image_urls = {}
