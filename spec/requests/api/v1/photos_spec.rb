@@ -14,9 +14,7 @@ describe '/api/v1/photos', type: :api do
   end
 
   context 'when the user is signed in' do
-
     describe 'GET /api/v1/photos' do
-
       before do
         create(:photo, user: user)
       end
@@ -30,9 +28,8 @@ describe '/api/v1/photos', type: :api do
 
         response_json['errors'].should be_empty
         photos = response_json['data']
-        photos.any?{ |p| p['filename'] == 'example.jpg' }.should be_true
+        photos.any?{ |photo| photo['filename'] == 'example.jpg' }.should be_true
       end
     end
-
   end
 end
