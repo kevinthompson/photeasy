@@ -3,7 +3,10 @@ class Photo < ActiveRecord::Base
   IMAGE_SIZES = %w[small medium large]
 
   attr_accessible :filename, :provider, :provider_id, :url, :user_id
+
   belongs_to :user
+  has_many :prints
+  has_and_belongs_to_many :collections
 
   validates :provider, :provider_id, :user_id, presence: true
   validates :provider_id, uniqueness: { scope: [:provider, :user_id] }
