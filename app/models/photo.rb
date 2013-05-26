@@ -1,8 +1,9 @@
 class Photo < ActiveRecord::Base
   MIN_BYTE_SIZE = 1048576
-  IMAGE_SIZES = %w[small medium large]
+  IMAGE_SIZES = %w[small large]
 
-  attr_accessible :filename, :provider, :provider_id, :url, :user_id
+  attr_accessible :filename, :provider, :provider_id, :thumbnail, :url, :user_id
+  has_attached_file :thumbnail, styles: { small: '256x256#', large: '1024x1024>' }
 
   belongs_to :user
   has_many :prints
@@ -19,19 +20,24 @@ class Photo < ActiveRecord::Base
     }
   end
 
-  def thumbnail(size = :medium)
-    raise ArgumentError unless IMAGE_SIZES.include?(size)
-    user.dropbox.client.raw.thumbnails({ path: url, size: size[0] })
-  end
-
   def image_urls
     @image_urls ||= begin
       image_urls = {}
       IMAGE_SIZES.map do |size|
-        image_urls[size] = Rails.application.routes.url_helpers.photo_thumbnail_path(photo_id: id, size: size)
+        image_urls[size] = thumbnail.url(size)
       end
       image_urls
     end
+  end
+
+  def upload_from_dropbox
+    image = Tempfile.new("thumbnail_#{provider_id}")
+    image.binmode
+    image_data = user.dropbox.client.raw.thumbnails({ path: url, size: :xl })
+    image.write(image_data)
+    self.update_attribute(:thumbnail, image)
+    image.close
+    image.unlink
   end
 
 end

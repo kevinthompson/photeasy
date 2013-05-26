@@ -7,6 +7,7 @@ class PhotoImportWorker < BaseWorker
     user.dropbox.photos.each do |file|
       photo = user.photos.where(provider: :dropbox, provider_id: file.id).first_or_initialize
       photo.update_attributes(url: file.path, filename: file.filename)
+      photo.upload_from_dropbox
     end
     user.update_attribute(:photos_imported_at, Time.now)
   end
