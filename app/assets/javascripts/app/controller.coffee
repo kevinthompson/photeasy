@@ -11,4 +11,7 @@ define ['marionette', 'layout'], (Marionette, Layout) ->
       require ['views/404'], (NotFoundView)->
         Layout.main.show new NotFoundView()
 
+    ignoreRoute: ->
+      return false
+
   return new Controller
