@@ -1,30 +1,41 @@
 source 'https://rubygems.org'
 ruby '2.0.0'
 
+# Platform
 gem 'activeadmin'
 gem 'aws-sdk'
 gem 'devise'
 gem 'dropbox-api'
 gem 'figaro'
 gem 'foreman'
-gem 'haml'
 gem 'high_voltage'
 gem 'jbuilder'
-gem 'mandrill-api'
-gem 'mandrill-rails'
 gem 'newrelic_rpm'
-gem 'omniauth'
-gem 'omniauth-dropbox'
-gem 'paperclip'
 gem 'pg'
 gem 'puma'
+gem 'pusher'
 gem 'rails', '3.2.13'
+
+# Background Jobs
+gem 'sidekiq'
+gem 'sinatra', '>= 1.3.0', :require => nil
+gem 'slim', '>= 1.3.0'
+
+# Email
+gem 'mandrill-api'
+gem 'mandrill-rails'
+
+# Authentication
+gem 'omniauth'
+gem 'omniauth-dropbox'
+
+# File Management
+gem 'paperclip'
+
+# User Interface
+gem 'haml'
 gem 'simple_form'
 gem 'uglifier'
-gem 'pusher'
-gem 'sidekiq'
-gem 'slim', '>= 1.3.0'
-gem 'sinatra', '>= 1.3.0', :require => nil
 
 group :assets do
   gem 'jquery-rails'
@@ -39,9 +50,15 @@ group :doc do
   gem 'sdoc', require: false
 end
 
+group :development do
+  gem 'better_errors'
+  gem 'binding_of_caller'
+end
+
 group :development, :test do
   gem 'capybara'
   gem 'database_cleaner'
+  gem 'fakeweb'
   gem 'factory_girl_rails', '~> 4.0.0'
   gem 'guard'
   gem 'guard-spork'
@@ -49,12 +66,10 @@ group :development, :test do
   gem 'guard-rails'
   gem 'guard-rspec'
   gem 'mailcatcher'
+  gem 'meta_request'
+  gem 'pry-rails'
+  gem 'quiet_assets'
   gem 'rb-fsevent'
   gem 'rspec-rails'
   gem 'shoulda-matchers'
-  gem 'meta_request'
-  gem 'fakeweb'
-  gem 'pry-rails'
-  gem 'binding_of_caller'
-  gem 'quiet_assets'
 end
