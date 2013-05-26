@@ -13,6 +13,7 @@ class User < ActiveRecord::Base
                   :photos_imported_at
 
   has_many :photos
+  has_many :collections
 
   after_create :import_photos
 

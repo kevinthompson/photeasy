@@ -23,10 +23,10 @@ Photeasy::Application.routes.draw do
   # API
   namespace :api, format: true, constraints: { format: :json } do
     namespace :v1 do
-      resources :photos, only: [:index, :show] do
-
+      resources :photos, only: [:index]
+      resources :users, only: [:show] do
+        resources :collections
       end
-      resources :users, only: [:show]
     end
   end
 
