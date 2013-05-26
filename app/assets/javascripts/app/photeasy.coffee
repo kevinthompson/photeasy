@@ -23,8 +23,7 @@ define ['marionette', 'layout', 'router'], (Marionette, layout) ->
         href = $(@).attr 'href'
         # check if link is external and don't have a push state false data attribute
         protocol = @protocol + "//"
-        console.log $(@).data('push-state')
-        if href.slice(protocol.length) != protocol and !$(@).data('push-state')
+        if href.slice(protocol.length) != protocol and !$(@).data('push-state') and !href.match(/(sign_in|sign_out|sign_up|users)/)
           event.preventDefault()
           # set the url using push state which will trigger the router
           Backbone.history.navigate href, true
