@@ -32,6 +32,9 @@ gem 'omniauth-dropbox'
 # File Management
 gem 'paperclip'
 
+# Order Processing
+gem 'stripe'
+
 # User Interface
 gem 'haml'
 gem 'simple_form'
