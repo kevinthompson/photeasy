@@ -15,7 +15,7 @@
         #pages
         = yield
       %footer#footer
-      #modal
+      #overlay
 
     = javascript_include_tag "//js.pusher.com/#{ENV['PUSHER_VERSION']}/pusher.min.js"
     - if Rails.env.development?

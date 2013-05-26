@@ -3,8 +3,8 @@ define ['marionette', 'controller'], (Marionette, controller) ->
     controller: controller
 
     appRoutes:
-      '': 'showRoot'
-      'photos': 'showPhotos'
+      '(/)': 'showRoot'
+      'photos(/)': 'showPhotos'
       '*path': 'show404'
 
   return new Router()
