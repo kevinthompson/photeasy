@@ -1,0 +1,9 @@
+.photo-detail
+  img
+    +opacity(0)
+    +animate(fade-out, 0.5s)
+
+  &.loaded
+    img
+      +animate(fade-in, 0.5s)
+      +opacity(1)

@@ -5,15 +5,15 @@ define ['marionette'], (Marionette) ->
     el: '#overlay'
 
     initialize: (options) ->
-      $(@el).on 'click', => @onClick()
+      self = @
+      $(@el).on 'click', (event) ->
+        self.onClick() if event.target == @
 
     onShow: ->
       @$el.addClass(SHOW)
 
     onClose: ->
-      console.log 'on close'
       @$el.removeClass(SHOW)
 
     onClick: ->
-      console.log 'on click'
       @close()

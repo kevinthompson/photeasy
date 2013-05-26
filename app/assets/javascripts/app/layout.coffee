@@ -17,7 +17,6 @@ define ['marionette', 'utils/vent', 'views/layout/header', 'regions/alert', 'reg
         @showAlert(options)
 
       vent.on 'photo-detail', (options) =>
-        console.log options.attributes
         @showPhotoDetail(options)
 
     showAlert: (options) ->
@@ -26,6 +25,6 @@ define ['marionette', 'utils/vent', 'views/layout/header', 'regions/alert', 'reg
 
     showPhotoDetail: (options) ->
       require ['views/photo_detail'], (PhotoDetailView) =>
-        @overlay.show(new PhotoDetailView(options.model))
+        @overlay.show(new PhotoDetailView(model: options))
 
   return new Layout()
