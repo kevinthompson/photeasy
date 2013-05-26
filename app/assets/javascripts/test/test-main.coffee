@@ -24,8 +24,6 @@ require.config
   shim:
     dust:
       exports: 'dust'
-    chunk:
-      exports: 'Chunk'
 
   # dust is retarded
   deps: tests

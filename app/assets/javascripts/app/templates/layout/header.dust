@@ -1,0 +1,23 @@
+<div id="fixed-header">
+  <abbr id="logo-mark" class="icon-logo-mark" title="Photeasy Icon"></abbr>
+</div>
+<nav id="nav">
+  <div class="inner">
+    <h1 id="logo">
+      <a href="{@url key="root"/}">
+        <abbr class="icon-logo-mark" title="Photeasy Icon"></abbr>
+        PHOTEASY
+      </a>
+    </h1>
+    <nav id="user">
+      <button>
+        <abbr class="icon-dropbox" title="Drop Box"></abbr>
+        <span id="user-name">User Name</span>
+        <abbr class="icon-menu-xsmall" title="Show User Menu"></abbr>
+      </button>
+      <ul>
+        <li><a href="javascript:void(0)">Logout</a></li>
+      </ul>
+    </nav>
+  </div>
+</nav>

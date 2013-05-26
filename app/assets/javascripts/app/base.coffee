@@ -5,27 +5,23 @@ define ['marionette', 'utils/url'], (Marionette, url) ->
   class Base.CollectionView extends Marionette.CollectionView
 
   class Base.Collection extends Backbone.Collection
-    url: ->
-      return url.apiTo(@api) or undefined
+    url: -> url.apiTo(@api) or undefined
     initialize: ->
-      if @url?
-        @fetch()
+      @fetch() if @url?
       super()
     parse: (response) ->
       if response.data?
-        response = _.find response.data, -> return true
+        response = response.data
       return response
 
   class Base.Model extends Backbone.Model
-    url: ->
-      return if url.apiTo(@api) then "#{url.apiTo(@api)}/#{@id}" else undefined
+    url: -> if url.apiTo(@api) then "#{url.apiTo(@api)}/#{@id}" else undefined
     initialize: ->
-      if @url?
-        @fetch()
+      @fetch() if @url?
       super()
     parse: (response) ->
       if response.data?
-        response = _.find response.data, -> return true
+        response = response.data
       return response
 
   return Base

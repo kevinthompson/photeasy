@@ -13,8 +13,8 @@ files = [
   REQUIRE,
   REQUIRE_ADAPTER,
   {pattern: 'app/**/*.coffee', included: false},
-  {pattern: 'app/**/*.js', included: false},
   {pattern: 'lib/**/*.js', included: false},
+  {pattern: 'lib/**/*.coffee', included: false},
   {pattern: 'app/**/*.dust', included: false},
   {pattern: 'vendor/**/*.js', included: false},
   {pattern: 'test/**/*_spec.coffee', included: false},
@@ -30,7 +30,7 @@ exclude = [
 
 // test results reporter to use
 // possible values: 'dots', 'progress', 'junit'
-reporters = ['progress', 'growl'];
+reporters = ['dots', 'growl'];
 
 
 // web server port
@@ -75,5 +75,7 @@ singleRun = false;
 
 // Preprocessors
 preprocessors = {
-  '**/*.coffee': 'coffee'
+  '**/*.coffee': 'coffee',
+  'app/**/*.coffee': 'coverage',
+  'app/**/*.js': 'coverage'
 };

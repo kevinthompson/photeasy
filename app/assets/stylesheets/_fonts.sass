@@ -1,0 +1,22 @@
+//    ___               __
+//  /'___\             /\ \__
+// /\ \__/  ___     ___\ \ ,_\   ____
+// \ \ ,__\/ __`\ /' _ `\ \ \/  /',__\
+//  \ \ \_/\ \L\ \/\ \/\ \ \ \_/\__, `\
+//   \ \_\\ \____/\ \_\ \_\ \__\/\____/
+//    \/_/ \/___/  \/_/\/_/\/__/\/___/
+
+///////////////////////////////////////////////////////////////////////////
+// Cross-browser support for @font-face. Supports IE, Gecko, Webkit, Opera.
+///////////////////////////////////////////////////////////////////////////
+// - $name is required, arbitrary, and what you will use in font stacks.
+// - $font-files is required using font-files('relative/location', 'format').
+//   for best results use this order: woff, opentype/truetype, svg
+// - $eot is required by IE, and is a relative location of the eot file.
+// - $weight shows if the font is bold, defaults to normal
+// - $style defaults to normal, might be also italic
+// - For android 2.2 Compatiblity, please ensure that your web page has a meta
+//   viewport tag.  To support iOS < 4.2, an SVG file must be provided
+
++font-face('Photeasy Icons', font-files('icons/icons.woff', 'icons/icons.ttf', 'icons/icons.svg'), 'icons/icons.eot')
+

@@ -1,25 +1,26 @@
 define ['marionette', 'views/photo', 'collections/photos'], (Marionette, PhotoView, PhotosCollection) ->
   class PhotosView extends Marionette.CollectionView
+    id: 'photos'
+    className: 'page'
     tagName: 'ul'
     itemView: PhotoView
     collection: new PhotosCollection()
 
     delay: 0
-    delayDuration: 250
+    delayDuration: 100
     viewsRendered: 0
 
     incrementDelay: ->
+      delay = @delay
       @viewsRendered += 1
       @delay += @delayDuration
-      if (@collection.length - 1) * @delayDuration >= @delay
-        @delay = 0
+      @delay = 0 if (@collection.length - 1) * @delayDuration <= @delay
+      return delay
 
     renderItemView:(view, index) ->
-      delay = @delay
+      delay = @incrementDelay()
       _.delay =>
-        console.log delay
         super view, index
       , delay
 
-      @incrementDelay()
 

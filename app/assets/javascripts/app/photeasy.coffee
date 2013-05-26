@@ -18,13 +18,14 @@ define ['marionette', 'layout', 'router'], (Marionette, layout) ->
     # check if push state is enabled
     if Backbone.history and Backbone.history._hasPushState
       # delegate anchor clicks
-      $(document).delegate 'a', 'click', (evt) ->
+      $(document).delegate 'a', 'click', (event) ->
         # get the href of clicked link
         href = $(@).attr 'href'
         # check if link is external and don't have a push state false data attribute
         protocol = @protocol + "//"
-        if href.slice(protocol.length) != protocol and !$(@).data('pushstate')
-          evt.preventDefault()
+        console.log $(@).data('push-state')
+        if href.slice(protocol.length) != protocol and !$(@).data('push-state')
+          event.preventDefault()
           # set the url using push state which will trigger the router
           Backbone.history.navigate href, true
 

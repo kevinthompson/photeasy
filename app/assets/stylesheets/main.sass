@@ -1,0 +1,76 @@
+// Get me that compass shit
+@import compass
+
+// No styles imported
+@import _vars
+@import _placeholders
+@import _mixins
+
+// Styles imported
+@import _fonts
+@import compass/reset
+@import _typography
+@import _grids
+@import _icons
+@import _animations
+
+///////////////////////////////////////
+// Views
+///////////////////////////////////////
+@import views/_header
+@import views/_photos
+@import views/_photo
+
+///////////////////////////////////////
+// Global Styles
+///////////////////////////////////////
+
+// stuff here
+html
+  +background($primary-color)
+
+#main
+  +background($primary-color)
+  #pages
+    +clearfix
+    +box-sizing(border-box)
+    +background($light-neutral-color)
+    margin: 0 auto
+    width: 100%
+    max-width: $max-width
+    +breakpoint($bp-desktop)
+      width: $desktop-width
+
+    +breakpoint($bp-max)
+      width: $max-width
+
+
+button
+  margin: 0
+  padding: 0
+  outline: none
+  border: none
+  background: transparent
+  display: inline
+  color: inherit
+
+// // Print
+// @media print
+//
+// // 480px
+// @media only screen and (min-width: 480px)
+//
+// // 600px
+// @media only screen and (min-width: 600px)
+//
+// // 768px
+// @media only screen and (min-width: 768px)
+//
+// // 992px
+// @media only screen and (min-width: 992px)
+//
+// // 1382px
+// @media only screen and (min-width: 1382px)
+//
+// // 2x
+// @media only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min--moz-device-pixel-ratio: 1.5), only screen and (min-device-pixel-ratio: 1.5)

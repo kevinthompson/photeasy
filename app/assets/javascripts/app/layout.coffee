@@ -1,17 +1,16 @@
-define ['marionette', 'utils/vent', 'views/layout/navigation', 'regions/alert', 'regions/main'], (Marionette, vent, NavigationView, AlertRegion, MainRegion) ->
+define ['marionette', 'utils/vent', 'views/layout/header', 'regions/alert', 'regions/pages'], (Marionette, vent, HeaderView, AlertRegion, PagesRegion) ->
   class Layout extends Marionette.Layout
     el: '#wrap'
 
     regions:
       header: '#header'
-      navigation: '#navigation'
-      alert: AlertRegion
-      main: MainRegion
+      # alert: AlertRegion
+      main: PagesRegion
       footer: '#footer'
       modal: '#modal'
 
     onRender: ->
-      @navigation.show new NavigationView()
+      @header.show new HeaderView()
 
     initialize: ->
       vent.on 'alert', (options) =>

@@ -1,0 +1,42 @@
+//  __
+// /\_\    ___    ___     ___     ____
+// \/\ \  /'___\ / __`\ /' _ `\  /',__\
+//  \ \ \/\ \__//\ \L\ \/\ \/\ \/\__, `\
+//   \ \_\ \____\ \____/\ \_\ \_\/\____/
+//    \/_/\/____/\/___/  \/_/\/_/\/___/
+
+///////////////////////////////////////
+
+abbr[class^='icon-']
+  +inline-block
+  font-family: 'Photeasy Icons'
+  font-size: $base-font-size
+  font-weight: 100
+  vertical-align: middle
+
+
+  &[class$='-xsmall']
+    &:before
+      +adjust-font-size-to(10px)
+  &[class$='-small']
+    &:before
+      +adjust-font-size-to(12px)
+  &[class$='-large']
+    &:before
+      +adjust-font-size-to(24px)
+
+  &[class$='-xlarge']
+    &:before
+      +adjust-font-size-to(36px)
+
+[class^='icon-logo-mark']
+  &:before
+    content: 'p'
+
+[class^='icon-dropbox']
+  &:before
+    content: 'd'
+
+[class^='icon-menu']
+  &:before
+    content: 'm'

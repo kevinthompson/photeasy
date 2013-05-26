@@ -1,0 +1,30 @@
+#photos
+  margin: 20px 19px 19px 20px
+  +breakpoint($bp-desktop)
+    margin: 40px 39px 39px 40px
+  li
+    position: relative
+    +inline-block
+    +box-sizing(border-box)
+    border-color: transparent
+    border-style: solid
+    border-width: 0 1px 1px 0
+    width: 50%
+    padding-top: 50%
+    +breakpoint($bp-small)
+      width: 33.3333%
+      padding-top: 33.3333%
+    +breakpoint($bp-medium)
+      width: 25%
+      padding-top: 25%
+    +breakpoint($bp-desktop)
+      width: 20%
+      padding-top: 20%
+    .photo
+      +background($light-font-color)
+      overflow: hidden
+      position: absolute
+      top: 0
+      left: 0
+      right: 0
+      bottom: 0

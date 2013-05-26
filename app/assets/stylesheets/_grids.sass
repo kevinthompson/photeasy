@@ -1,0 +1,11 @@
+=breakpoint($point)
+  @media (min-width: $point)
+    @content
+
+=portrait
+  @media screen and (max-device-aspect-ratio: $bp-orientation)
+    @content
+
+=landscape
+  @media screen and (min-device-aspect-ratio: $bp-orientation)
+    @content

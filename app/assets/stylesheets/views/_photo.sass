@@ -1,0 +1,13 @@
+.photo
+  +animate(fade-in, 0.25s)
+  img
+    height: 100%
+
+  &.loaded
+    img
+      +animate(fade-in, 0.25s)
+
+  &.portrait
+    img
+      height: auto
+      width: 100%

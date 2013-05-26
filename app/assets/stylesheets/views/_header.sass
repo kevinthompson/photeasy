@@ -1,0 +1,116 @@
+//  __                          __
+// /\ \                        /\ \
+// \ \ \___      __     __     \_\ \     __   _ __
+//  \ \  _ `\  /'__`\ /'__`\   /'_` \  /'__`\/\`'__\
+//   \ \ \ \ \/\  __//\ \L\.\_/\ \L\ \/\  __/\ \ \/
+//    \ \_\ \_\ \____\ \__/.\_\ \___,_\ \____\\ \_\
+//     \/_/\/_/\/____/\/__/\/_/\/__,_ /\/____/ \/_/
+
+$fixed-header-height: 300px
+$nav-height: 50px
+
+#header
+  +clearfix
+  padding-top: $fixed-header-height - $nav-height
+  position: relative
+
+#fixed-header
+  position: fixed
+  top: 0
+  width: 100%
+  height: $fixed-header-height
+  text-align: center
+  z-index: -1
+  color: $light-neutral-color
+
+  +background-image($bg-collage)
+  +background-size(auto 100%)
+  background-position: center bottom
+  +portrait
+    +background-size(100% auto)
+    +background(red)
+
+  &:after
+    +inline-block
+    height: $fixed-header-height - $nav-height
+    content: ''
+
+#logo-mark
+  +adjust-font-size-to(80px)
+
+#nav
+  position: relative
+  text-align: center
+  height: $nav-height
+  .inner
+    position: absolute
+    height: $nav-height
+    width: 100%
+    left: 0
+    z-index: 1
+    +breakpoint($bp-desktop)
+      width: $desktop-width
+      left: $desktop-left
+
+    +breakpoint($bp-max)
+      left: 50%
+      width: $max-width
+      margin-left: -$max-width / 2
+
+    +background($medium-neutral-color)
+
+  &.fixed
+    .inner
+      position: fixed
+      top: 0
+
+    #logo
+      +inline-block
+
+#logo
+  position: absolute
+  left: 0
+  top: 0
+  line-height: $nav-height
+  height: $nav-height
+  font-family: 'proxima-nova'
+  font-weight: 300
+  letter-spacing: 0.15em
+  +breakpoint($bp-small)
+    border-right: 1px solid $light-font-color
+
+  a
+    display: block
+    padding: 0 20px
+    +breakpoint($bp-desktop)
+      padding: 0 20px 0 40px
+    color: inherit
+    text-decoration: none
+
+  [class^='icon-']
+    position: relative
+    top: -0.1em
+    margin-right: 0.25em
+
+#user
+  position: absolute
+  padding: 0 20px
+  +breakpoint($bp-desktop)
+    padding: 0 40px 0 20px
+  right: 0
+  top: 0
+  line-height: $nav-height
+  height: $nav-height
+  border-left: 1px solid $light-font-color
+  ul
+    display: none
+
+  [class^='icon-dropbox']
+    margin-right: 10px
+
+#user-name
+  display: none
+  padding-right: 15px
+  +breakpoint($bp-medium)
+    display: inline
+

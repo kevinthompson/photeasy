@@ -3,7 +3,6 @@ ruby '2.0.0'
 
 gem 'activeadmin'
 gem 'aws-sdk'
-gem 'coffee-rails'
 gem 'devise'
 gem 'dropbox-api'
 gem 'figaro'
@@ -11,7 +10,6 @@ gem 'foreman'
 gem 'haml'
 gem 'high_voltage'
 gem 'jbuilder'
-gem 'jquery-rails'
 gem 'mandrill-api'
 gem 'mandrill-rails'
 gem 'newrelic_rpm'
@@ -21,14 +19,21 @@ gem 'paperclip'
 gem 'pg'
 gem 'puma'
 gem 'rails', '3.2.13'
-gem 'sass-rails'
 gem 'simple_form'
 gem 'uglifier'
-gem 'compass-rails'
 gem 'pusher'
 gem 'sidekiq'
 gem 'slim', '>= 1.3.0'
 gem 'sinatra', '>= 1.3.0', :require => nil
+
+group :assets do
+  gem 'jquery-rails'
+  gem 'coffee-rails'
+  gem 'sass-rails'
+  gem 'susy'
+  gem 'compass-rails'
+  gem 'compass-susy-plugin', require: 'susy'
+end
 
 group :doc do
   gem 'sdoc', require: false

@@ -10,12 +10,3 @@ define ['marionette', 'dusty!layout/alert', 'utils/vent'], (Marionette, template
 
     serializeData: ->
       return @options
-
-    onRender: ->
-      @height = height = @el.clientHeight
-      vent.trigger('alert:open', {height: height})
-
-    onClose: ->
-      height = @height
-      vent.trigger('alert:close', {height: height})
-

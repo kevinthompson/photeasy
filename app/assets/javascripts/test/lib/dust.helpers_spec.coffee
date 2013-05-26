@@ -1,11 +1,14 @@
-define ['dust.helpers', 'utils/url'], (dust, url) ->
-  helpers = dust.helpers
+define ['dust', 'dust.helpers', 'utils/url', 'jquery'], (dust, helpers, url, $) ->
   chunk = new dust.Chunk()
+  params = $helperLink = undefined
 
   describe 'Dust helpers', ->
 
-    beforeEach ->
-      chunk = new dust.Chunk()
+    it 'should be an object', ->
+      expect(helpers).to.be.a('object')
+
+    it 'should have methods', ->
+      expect(helpers).to.not.be.empty()
 
     describe 'url', ->
 
@@ -15,7 +18,27 @@ define ['dust.helpers', 'utils/url'], (dust, url) ->
 
     describe 'link', ->
 
-      it 'should return a link with an app url', ->
-        helperLink = helpers.link(chunk, {}, undefined, {key: 'photos'}).data
-        expect(helperLink).to.equal(url.linkTo('photos')[0].outerHTML)
+      beforeEach ->
+        params =
+          key: 'photos'
+          text: 'Photos'
+        chunk = new dust.Chunk()
+        $helperLink = $(helpers.link(chunk, {}, undefined, params).data)
 
+      it 'should return a link', ->
+        expect($helperLink.is('a')).to.be.ok()
+
+      it 'should return a link with the right link', ->
+        expect($helperLink.attr('href')).to.equal(url.urlTo('photos'))
+
+      it 'should return a link with the right text', ->
+        expect($helperLink.text()).to.equal(params.text)
+
+      it 'should return a link without a push state data attribute', ->
+        expect($helperLink.data('push-state')).to.not.be.ok()
+
+      it 'should return a link with a push state data attribute', ->
+        params.pushState = true
+        chunk = new dust.Chunk()
+        $helperLink = $(helpers.link(chunk, {}, undefined, params).data)
+        expect($helperLink.data('push-state')).to.be.ok()
