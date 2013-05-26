@@ -14,6 +14,7 @@ class User < ActiveRecord::Base
 
   has_many :photos
   has_many :collections
+  has_many :orders
 
   after_create :import_photos
 
