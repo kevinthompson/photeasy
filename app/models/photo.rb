@@ -12,7 +12,7 @@ class Photo < ActiveRecord::Base
   validates :provider, :provider_id, :user_id, presence: true
   validates :provider_id, uniqueness: { scope: [:provider, :user_id] }
 
-  def as_json
+  def as_json(*args)
     {
       id: id,
       filename: filename,

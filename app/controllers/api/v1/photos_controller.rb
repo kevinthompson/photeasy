@@ -3,7 +3,7 @@ class Api::V1::PhotosController < Api::V1::BaseController
 
   def index
     @response = {
-      data: current_user.photos.map(&:as_json),
+      data: current_user.photos,
       status: 200,
       errors: []
     }
