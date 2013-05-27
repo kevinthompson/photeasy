@@ -3,4 +3,6 @@ class Collection < ActiveRecord::Base
   has_and_belongs_to_many :photos
   has_many :orders
   belongs_to :user
+
+  validates :name, uniqueness: { scope: :user_id }
 end
