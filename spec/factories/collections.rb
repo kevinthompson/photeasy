@@ -3,6 +3,6 @@
 FactoryGirl.define do
   factory :collection do
     user_id 1
-    name "MyString"
+    name 'Example Collection'
   end
 end

@@ -16,8 +16,6 @@ class User < ActiveRecord::Base
   has_many :collections
   has_many :orders
 
-  after_create :import_photos
-
   def self.find_for_dropbox_oauth(auth, signed_in_resource=nil)
     user = where(provider: auth.provider, uid: auth.uid.to_s).first
     unless user
