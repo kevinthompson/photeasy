@@ -30,3 +30,6 @@
       // channel.bind('greet', function(data) {
       //   alert(data.greeting);
       // });
+    - if current_user.present?
+      :javascript
+        window.current_user = #{current_user.as_json}

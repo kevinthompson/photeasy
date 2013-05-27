@@ -32,6 +32,10 @@ class User < ActiveRecord::Base
     user
   end
 
+  def as_json(options = {})
+    super(only: [:id, :email, :name])
+  end
+
   def dropbox
     DropboxProvider.new(dropbox_token, dropbox_secret)
   end
