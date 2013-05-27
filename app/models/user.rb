@@ -19,9 +19,9 @@ class User < ActiveRecord::Base
   after_create :import_photos
 
   def self.find_for_dropbox_oauth(auth, signed_in_resource=nil)
-    user = User.where(provider: auth.provider, uid: auth.uid.to_s).first
+    user = where(provider: auth.provider, uid: auth.uid.to_s).first
     unless user
-      user = User.create(
+      user = create(
         name: auth.extra.raw_info.name,
         provider: auth.provider,
         uid: auth.uid,
@@ -42,8 +42,22 @@ class User < ActiveRecord::Base
     admin
   end
 
+  def providers
+    [dropbox]
+  end
+
   def import_photos
-    PhotoImportWorker.perform_async(self.id)
+    providers.each do |provider|
+      provider.photos.each do |file|
+        photo = photos.where(provider: :dropbox, provider_id: file.id).first_or_initialize
+        if photo.new_record?
+          photo.update_attributes(url: file.path, filename: file.filename)
+          photo.import_image_from_provider
+        end
+      end
+      photos.where('provider_id not in (?)', provider.photos.map(&:id)).destroy_all
+    end
+    update_attribute(:photos_imported_at, Time.now)
   end
 
   private

@@ -4,7 +4,7 @@ Dropbox::API::Config.mode       = 'sandbox'
 
 class Dropbox::API::File
   def id
-    ActiveSupport::Base64.encode64([path,rev].join)
+    Digest::MD5.hexdigest([path,rev].join)
   end
 
   def filename

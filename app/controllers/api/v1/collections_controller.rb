@@ -3,7 +3,7 @@ class Api::V1::CollectionsController < Api::V1::BaseController
 
   def index
     @response = {
-      data: current_user.collections.map(&:as_json),
+      data: current_user.collections,
       errors: []
     }
     respond_with @response

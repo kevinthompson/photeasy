@@ -30,7 +30,7 @@ class Photo < ActiveRecord::Base
     end
   end
 
-  def upload_from_dropbox
+  def import_image_from_provider
     image = Tempfile.new("thumbnail_#{provider_id}")
     image.binmode
     image_data = user.dropbox.client.raw.thumbnails({ path: url, size: :xl })
