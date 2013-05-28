@@ -14,4 +14,4 @@ $ ->
     $form.addClass('fold-down')
     $success.addClass('slide-down')
 
-    # $.post $form.attr('action'), $form.serialize()
+    $.post($form.attr('action'), $form.serialize()).success ->
