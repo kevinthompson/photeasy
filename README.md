@@ -28,5 +28,6 @@ Photeasy
 5. Copy `config/database.yml.example` to `config/database.yml` and update credentials
 6. Migrate the database: `rake db:migrate`
 7. Copy `config/application.yml.example` to `config/application.yml` and enter credentials
+8. Install Imagemagick: `brew install imagemagick`
 
 [Back to Top ↑](#readme)
