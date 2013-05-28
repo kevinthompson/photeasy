@@ -5,6 +5,7 @@ describe '/api/v1/collections', type: :api do
   let(:url) { "/api/v1/users/#{user.id}/collections.json" }
 
   before do
+    host! 'app.example.com'
     sign_in user
   end
 
@@ -69,6 +70,48 @@ describe '/api/v1/collections', type: :api do
       existing_collection = response_json['data']
       existing_collection['id'].should == collection.id
       existing_collection['name'].should == 'Existing Collection'
+    end
+  end
+
+  describe 'PUT /api/v1/users/:user_id/collections/:id' do
+    let!(:collection){ create(:collection, name: 'Existing Collection', user: user) }
+    let(:url){ "/api/v1/users/#{user.id}/collections/#{collection.id}.json" }
+
+    context 'when collection data is not valid' do
+      it 'returns validation errors' do
+        put url, collection: { name: '', user_id: nil }
+
+        response.status.should eql(422)
+        response_json = JSON.parse(response.body)
+        response_json['errors'].should_not be_empty
+        response_json['errors'].any?{ |error| error[1].should include(%Q[can't be blank]) }
+      end
+    end
+
+    context 'when collection data is valid' do
+      it 'updates the collection' do
+        put url, collection: { name: 'Updated Collection' }
+
+        response.status.should eql(200)
+        response_json = JSON.parse(response.body)
+
+        updated_collection = response_json['data']
+        updated_collection['name'].should == 'Updated Collection'
+      end
+    end
+  end
+
+  describe 'DELETE /api/v1/users/:user_id/collections/:id' do
+    let!(:collection){ create(:collection, name: 'Existing Collection', user: user) }
+    let(:url){ "/api/v1/users/#{user.id}/collections/#{collection.id}.json" }
+
+    it 'deletes the collection' do
+      delete url
+
+      response.status.should eql(200)
+      response_json = JSON.parse(response.body)
+      response_json['data'].should be_empty
+      response_json['errors'].should be_empty
     end
   end
 end
