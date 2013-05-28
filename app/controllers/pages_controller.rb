@@ -5,10 +5,10 @@ class PagesController < HighVoltage::PagesController
 
   def layout_for_page
     case request.subdomain
-    when ''
-      'marketing'
-    else
+    when 'app'
       'application'
+    else
+      'marketing'
     end
   end
 end
