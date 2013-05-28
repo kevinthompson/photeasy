@@ -2,6 +2,9 @@ require 'sidekiq/web'
 
 Photeasy::Application.routes.draw do
 
+  # Authentication
+  devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }, path: ''
+
   if !Rails.env.production?
     # App
     constraints subdomain: 'app' do
@@ -16,13 +19,6 @@ Photeasy::Application.routes.draw do
       admin_user = lambda { |request| request.env['warden'].authenticate? and request.env['warden'].user.is_admin? }
       constraints admin_user do
         mount Sidekiq::Web => '/sidekiq'
-      end
-
-      # Authentication
-      devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
-      devise_scope :user do
-        get '/sign_in' => 'devise/sessions#new'
-        get '/sign_out' => 'devise/sessions#destroy'
       end
 
       # API
