@@ -1,0 +1,18 @@
+!!! 5
+%html
+  %head
+    %title Photeasy
+    = csrf_meta_tags
+    = stylesheet_link_tag 'marketing'
+    = javascript_include_tag 'vendor/requirejs/require', 'data-main' => '/assets/marketing.js'
+    = javascript_include_tag '//use.typekit.net/ydd6wgd.js'
+    :javascript
+      try{Typekit.load();}catch(e){}
+  %body
+    #wrap
+      %header#header
+      %section#main
+        #pages
+          = yield
+      %footer#footer
+      #overlay
