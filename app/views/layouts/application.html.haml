@@ -7,7 +7,7 @@
     = javascript_include_tag 'vendor/requirejs/require', 'data-main' => '/assets/main.js'
     = javascript_include_tag '//use.typekit.net/ydd6wgd.js'
     :javascript
-      try{Typekit.load();}catch(e){} 
+      try{Typekit.load();}catch(e){}
   %body
     #wrap
       %header#header
@@ -30,6 +30,6 @@
       // channel.bind('greet', function(data) {
       //   alert(data.greeting);
       // });
-    - if current_user.present?
+    - if user_signed_in?
       :javascript
         window.current_user = #{current_user.as_json}
