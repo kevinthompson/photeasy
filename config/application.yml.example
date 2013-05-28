@@ -1,5 +1,6 @@
 DROPBOX_KEY: 'xxxxxxxxxx'
 DROPBOX_SECRET: 'xxxxxxxxxx'
+MAILCHIMP_API_KEY: 'xxxxxxxxxx'
 MANDRILL_USERNAME: 'xxxxxxxxxx'
 MANDRILL_APIKEY: 'xxxxxxxxxx'
 PUSHER_APP_ID: 'xxxxxxxxxx'
