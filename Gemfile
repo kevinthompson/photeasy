@@ -15,6 +15,7 @@ gem 'pg'
 gem 'puma'
 gem 'pusher'
 gem 'rails', '3.2.13'
+gem 'sentry-raven'
 
 # Background Jobs
 gem 'sidekiq'

@@ -115,6 +115,8 @@ GEM
       factory_girl (~> 4.0.0)
       railties (>= 3.0.0)
     fakeweb (1.3.0)
+    faraday (0.8.7)
+      multipart-post (~> 1.1)
     fastercsv (1.5.5)
     ffi (1.8.1)
     figaro (0.6.4)
@@ -200,6 +202,7 @@ GEM
     method_source (0.8.1)
     mime-types (1.23)
     multi_json (1.7.3)
+    multipart-post (1.2.0)
     newrelic_rpm (3.6.2.96)
     nokogiri (1.5.9)
     oauth (0.4.7)
@@ -299,6 +302,11 @@ GEM
     sdoc (0.3.20)
       json (>= 1.1.3)
       rdoc (~> 3.10)
+    sentry-raven (0.4.8)
+      faraday (>= 0.7.6)
+      hashie (>= 1.1.0)
+      multi_json (~> 1.0)
+      uuidtools
     shoulda-matchers (2.1.0)
       activesupport (>= 3.0.0)
     sidekiq (2.12.0)
@@ -402,6 +410,7 @@ DEPENDENCIES
   rspec-rails
   sass-rails
   sdoc
+  sentry-raven
   shoulda-matchers
   sidekiq
   simple_form
