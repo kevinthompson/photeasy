@@ -1,8 +1,19 @@
-%form
+%form{action: '/api/vi/users/subscribe', method: 'POST'}
   %header
     %hgroup
       %h2 Want an invite?
       %h3 Drop us your email and we will notify you when we are live.
 
-  %input{type: 'email', placeholder: 'Email'}
-  %button{type: 'submit'} GO
+  %fieldset
+    %input{type: 'email', placeholder: 'Email', name: 'email'}
+    %button{type: 'submit'} GO
+
+%section#success
+  .inner
+    %hgroup
+      %h2 You are in!
+      %h3 We are hard at work and will shoot you an email once everything is ready for your beautiful photos.
+
+    .media
+      %abbr.icon-twitter{title: 'Twitter'}
+
