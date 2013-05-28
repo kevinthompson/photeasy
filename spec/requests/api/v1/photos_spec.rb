@@ -4,6 +4,10 @@ describe '/api/v1/photos', type: :api do
   let(:user){ create(:user) }
   let(:url) { '/api/v1/photos.json' }
 
+  before do
+    host! 'app.example.com'
+  end
+
   context 'when the user is not signed in' do
     it 'returns an errors array with a 401 status code' do
       get url

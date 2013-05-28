@@ -2,42 +2,46 @@ require 'sidekiq/web'
 
 Photeasy::Application.routes.draw do
 
-  # App
-  constraints subdomain: 'app' do
+  # Authentication
+  devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }, path: ''
 
-    # Index
-    root to: 'pages#show', id: 'app'
+  if !Rails.env.production?
+    # App
+    constraints subdomain: 'app' do
 
-    # Administration
-    ActiveAdmin.routes(self)
+      # Index
+      root to: 'pages#show', id: 'app'
 
-    # Background Jobs
-    admin_user = lambda { |request| request.env['warden'].authenticate? and request.env['warden'].user.is_admin? }
-    constraints admin_user do
-      mount Sidekiq::Web => '/sidekiq'
-    end
+      # Administration
+      ActiveAdmin.routes(self)
 
-    # Authentication
-    devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
-    devise_scope :user do
-      get '/sign_in' => 'devise/sessions#new'
-      get '/sign_out' => 'devise/sessions#destroy'
-    end
-
-    # API
-    namespace :api, format: true, constraints: { format: :json } do
-      namespace :v1 do
-        resources :photos, only: [:index]
-        resources :users, only: [:show] do
-          resources :collections
-        end
-        resources :collections, only: [:show]
+      # Background Jobs
+      admin_user = lambda { |request| request.env['warden'].authenticate? and request.env['warden'].user.is_admin? }
+      constraints admin_user do
+        mount Sidekiq::Web => '/sidekiq'
       end
+
+      # API
+      namespace :api, format: true, constraints: { format: :json } do
+        namespace :v1 do
+          resources :photos, only: [:index]
+          resources :users, only: [:show] do
+            resources :collections
+          end
+          resources :collections, only: [:show]
+        end
+      end
+
+      # Catch All for Single Page App
+      match '*path' => 'pages#show', id: 'index', constraints: lambda { |request| request.format == :html }
     end
   end
 
   # Index
   root to: 'pages#show', id: 'index'
+
+  # Mailing List Subscriptions
+  resources :subscriptions, only: [:create], constraints: { format: :json }
 
   # Photo Thumbnails
   resources :photos, only: [] do
@@ -45,6 +49,6 @@ Photeasy::Application.routes.draw do
   end
 
   # Catch All
-  match '*path' => 'pages#show', id: 'index', constraints: lambda { |request| !(request.path =~ /^\/assets/) }
+  get '/:id' => 'pages#show', as: :static, via: :get
 
 end

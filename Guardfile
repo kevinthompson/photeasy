@@ -22,7 +22,7 @@ guard 'rspec', :version => 2, :cli => '--color --drb --format documentation', :a
   watch(%r{^app/(.+)\.rb$})                           { |m| "spec/#{m[1]}_spec.rb" }
   watch(%r{^app/(.*)(\.erb|\.haml)$})                 { |m| "spec/#{m[1]}#{m[2]}_spec.rb" }
   watch(%r{^spec/support/(.+)\.rb$})                  { "spec" }
-  watch('config/routes.rb')                           { "spec/routing" }
+  # watch('config/routes.rb')                           { "spec/routing" }
 
   # Capybara
   watch(%r{^app/views/(.+)/.*\.(erb|haml)$})          { |m| "spec/requests/#{m[1]}_spec.rb" }

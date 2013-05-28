@@ -50,16 +50,13 @@ class User < ActiveRecord::Base
 
   def import_photos
     providers.each do |provider|
-      provider.photos.each do |file|
-        photo = photos.where(provider: :dropbox, provider_id: file.id).first_or_initialize
-        if photo.new_record?
-          photo.update_attributes(url: file.path, filename: file.filename)
-          photo.import_image_from_provider
-        end
-      end
-      photos.where('provider_id not in (?)', provider.photos.map(&:id)).destroy_all
+      PhotoImporter.new(self, provider).import
+      Notification.new(channel: notification_channel, event: :import_photos, data: photos).send
     end
-    update_attribute(:photos_imported_at, Time.now)
+  end
+
+  def notification_channel
+    Digest::MD5.hexdigest([email,created_at.to_i].join)
   end
 
   private
