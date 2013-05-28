@@ -129,6 +129,9 @@ GEM
     formtastic (2.2.1)
       actionpack (>= 3.0)
     fssm (0.2.10)
+    gibbon (0.4.6)
+      httparty
+      multi_json (>= 1.3.4)
     guard (1.8.0)
       formatador (>= 0.2.4)
       listen (>= 1.0.0)
@@ -153,6 +156,9 @@ GEM
     hashie (2.0.5)
     high_voltage (1.2.2)
     hike (1.2.2)
+    httparty (0.11.0)
+      multi_json (~> 1.0)
+      multi_xml (>= 0.5.2)
     i18n (0.6.1)
     inherited_resources (1.4.0)
       has_scope (~> 0.5.0)
@@ -202,6 +208,7 @@ GEM
     method_source (0.8.1)
     mime-types (1.23)
     multi_json (1.7.4)
+    multi_xml (0.5.3)
     multipart-post (1.2.0)
     newrelic_rpm (3.6.2.96)
     nokogiri (1.5.9)
@@ -383,6 +390,7 @@ DEPENDENCIES
   fakeweb
   figaro
   foreman
+  gibbon
   guard
   guard-bundler
   guard-rails

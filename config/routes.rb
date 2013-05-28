@@ -31,11 +31,17 @@ Photeasy::Application.routes.draw do
           resources :collections, only: [:show]
         end
       end
+
+      # Catch All for Single Page App
+      match '*path' => 'pages#show', id: 'index', constraints: lambda { |request| request.format == :html }
     end
   end
 
   # Index
   root to: 'pages#show', id: 'index'
+
+  # Mailing List Subscriptions
+  resources :subscriptions, only: [:create], constraints: { format: :json }
 
   # Photo Thumbnails
   resources :photos, only: [] do
@@ -43,6 +49,6 @@ Photeasy::Application.routes.draw do
   end
 
   # Catch All
-  match '*path' => 'pages#show', id: 'index', constraints: lambda { |request| !(request.path =~ /^\/assets/) }
+  get '/:id' => 'pages#show', as: :static, via: :get
 
 end

@@ -23,6 +23,7 @@ gem 'sinatra', '>= 1.3.0', :require => nil
 gem 'slim', '>= 1.3.0'
 
 # Email
+gem 'gibbon'
 gem 'mandrill-api'
 gem 'mandrill-rails'
 

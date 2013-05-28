@@ -34,7 +34,7 @@ describe '/api/v1/collections', type: :api do
         response.status.should eql(422)
         response_json = JSON.parse(response.body)
         response_json['errors'].should_not be_empty
-        response_json['errors'].any?{ |error| error[1].should include(%Q[can't be blank])  }
+        response_json['errors'].any?{ |error| error[1].include?("can't be blank") }.should be_true
 
         collection = response_json['data']
         collection['id'].should be_nil
