@@ -2,9 +2,10 @@
 
 FactoryGirl.define do
   factory :photo do
-    user_id 1
-    provider "MyString"
-    provider_id "MyString"
-    url "MyString"
+    filename 'example.jpg'
+    provider 'dropbox'
+    provider_id 'dr0pb0x'
+    url '/path/to/example.jpg'
+    user
   end
 end

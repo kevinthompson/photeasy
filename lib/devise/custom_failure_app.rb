@@ -7,8 +7,7 @@ class Devise::CustomFailureApp < Devise::FailureApp
     elsif {}.respond_to?(method)
       {
         data: {},
-        errors: Array(i18n_message),
-        status: 401
+        errors: Array(i18n_message)
       }.send(method)
     else
       i18n_message

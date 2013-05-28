@@ -10,20 +10,10 @@ Spork.prefork do
 
   RSpec.configure do |config|
     config.mock_with :rspec
-    config.before(:suite) do
-      DatabaseCleaner.clean_with(:truncation)
-    end
-
-    config.before(:each) do
-      DatabaseCleaner.strategy = :truncation
-      DatabaseCleaner.start
-    end
-
-    config.after(:each) do
-      DatabaseCleaner.clean
-    end
-
+    config.fixture_path = "#{::Rails.root}/spec/fixtures"
+    config.use_transactional_fixtures = true
     config.include FactoryGirl::Syntax::Methods
+    config.include Devise::TestHelpers, type: :controller
   end
 end
 

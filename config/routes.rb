@@ -27,6 +27,7 @@ Photeasy::Application.routes.draw do
       resources :users, only: [:show] do
         resources :collections
       end
+      resources :collections, only: [:show]
     end
   end
 

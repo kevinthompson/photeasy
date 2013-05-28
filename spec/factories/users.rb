@@ -1,8 +1,8 @@
 FactoryGirl.define do
   factory :user do
-    name 'Joe User'
-    email 'test@test.com'
-    password 'password'
+    name 'Sterling Archer'
+    email 'sterling@isis.org'
+    password 'dutchess'
 
     factory :user_with_dropbox_uid do
       uid 95241
