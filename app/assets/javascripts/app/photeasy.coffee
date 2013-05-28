@@ -28,5 +28,26 @@ define ['marionette', 'layout', 'router'], (Marionette, layout) ->
           # set the url using push state which will trigger the router
           Backbone.history.navigate href, true
 
+  images = []
+  windowHeight = $(window).height()
+  lazyLoad = (image) ->
+    if image
+      if windowHeight and image[0].getBoundingClientRect().top < windowHeight
+        src = image.data 'src'
+        image.attr 'src', src
+      else
+        images.push(image)
+    else
+      _.each images, (image, index) ->
+        if windowHeight and image[0].getBoundingClientRect().top < windowHeight
+          delete images[index]
+          src = image.data 'src'
+          image.attr 'src', src
+      images = _.compact images
+
+  $(window).on 'scroll', -> lazyLoad()
+  $(window).on 'resize', -> windowHeight = $(window).height()
+
+
   # return the app
   return Photeasy

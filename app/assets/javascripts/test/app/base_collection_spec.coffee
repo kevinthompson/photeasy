@@ -21,8 +21,8 @@ define ['base', 'utils/url'], (Base, url) ->
     describe 'parse', ->
 
       it 'should return the response data if present', ->
-        response = data: photos: [{test: 'success'}]
-        expect(collection.parse(response)).to.equal(response.data.photos)
+        response = data: [{test: 'success'}]
+        expect(collection.parse(response)).to.equal(response.data)
 
       it 'should return the response if data not present', ->
         response = [{test: 'success'}]

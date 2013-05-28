@@ -1,25 +1,4 @@
 define ['marionette', 'dusty!photo', 'utils/vent'], (Marionette, template, vent) ->
-
-  images = []
-  windowHeight = $(window).height()
-  lazyLoad = (image) ->
-    if image
-      if windowHeight and image[0].getBoundingClientRect().top < windowHeight
-        src = image.data 'src'
-        image.attr 'src', src
-      else
-        images.push(image)
-    else
-      _.each images, (image, index) ->
-        if windowHeight and image[0].getBoundingClientRect().top < windowHeight
-          delete images[index]
-          src = image.data 'src'
-          image.attr 'src', src
-      images = _.compact images
-
-  $(window).on 'scroll', -> lazyLoad()
-  $(window).on 'resize', -> windowHeight = $(window).height()
-
   class PhotoView extends Marionette.ItemView
     tagName: 'li'
     template: template
@@ -27,20 +6,26 @@ define ['marionette', 'dusty!photo', 'utils/vent'], (Marionette, template, vent)
     onRender: ->
       @$image = @$('img')
       @$photo = @$('.photo')
-      lazyLoad(@$image)
 
       @$image.on 'load', => @onImageLoad()
+
       src = @$image.data 'pt-src'
       @$image.attr 'src', src
 
       @$el.on 'click', =>
-        @showItemDetail()
+        # @showItemDetail()
+        @selectPhoto()
 
     onImageLoad: (event) ->
-      rects = @$image[0].getBoundingClientRect()
-      if rects.height > rects.width
-        @$photo.addClass 'portrait'
       @$photo.addClass 'loaded'
 
     showItemDetail: ->
-      vent.trigger('photo-detail', @model)
+      vent.trigger 'photo-detail', @model
+
+    selectPhoto: ->
+      if @$photo.hasClass 'selected'
+        @$photo.removeClass 'selected'
+        vent.trigger 'photo-removed', @model
+      else
+        @$photo.addClass 'selected'
+        vent.trigger 'photo-selected', @model

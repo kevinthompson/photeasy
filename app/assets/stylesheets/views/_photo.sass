@@ -1,7 +1,8 @@
 .photo
+  position: relative
   +animate(fade-in, 0.25s)
   img
-    height: 100%
+    width: 100%
     +opacity(0)
 
   &.loaded
@@ -9,7 +10,32 @@
       +animate(fade-in, 0.25s)
       +opacity(1)
 
-  &.portrait
-    img
-      height: auto
-      width: 100%
+  &:before, &:after
+    +single-transition(opacity, 100ms)
+    +opacity(0)
+
+  &:before
+    position: absolute
+    top: 0
+    right: 0
+    bottom: 0
+    left: 0
+    border: 10px solid $secondary-color
+    content: ''
+  &:after
+    position: absolute
+    top: 0
+    right: 0
+    width: 40px
+    height: 40px
+    line-height: 40px
+    background: $secondary-color
+    font-family: 'Photeasy Icons'
+    vertical-align: middle
+    color: $light-neutral-color
+    text-align: center
+    content: 'c'
+
+  &.selected
+    &:before, &:after
+      +opacity(1)

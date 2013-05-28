@@ -1,0 +1,155 @@
+// Get me that compass shit
+@import compass
+
+// No styles imported
+@import _vars
+@import _placeholders
+@import _mixins
+
+// Styles imported
+@import _fonts
+@import compass/reset
+@import _typography
+@import _grids
+@import _icons
+@import _animations
+
+html, body, #wrap
+  position: relative
+  height: 100%
+  font-family: 'proxima-nova', 'helvetica', sans-serif
+  color: #8f8f8e
+  +min-width(250px)
+
+  @media screen and (max-height: 360px)
+    +min-height(360px)
+
+
+#header
+  position: absolute
+  top: 0
+  left: 0
+  right: 0
+  bottom: 240px
+  +box-sizing(border-box)
+  +background($bg-collage center)
+  +background-size(cover)
+  text-align: center
+
+  &:before
+    +inline-block
+    height: 100%
+    content: ''
+
+#logo
+  +inline-block
+  vertical-align: middle
+  abbr
+    +adjust-font-size-to(72px)
+    color: $light-neutral-color
+
+#main
+  position: absolute
+  bottom: 0
+  width: 100%
+  height: 240px
+  +background($light-neutral-color)
+
+  form
+    header
+      height: 140px
+      line-height: 140px
+      text-align: center
+      padding: 0 20px
+    hgroup
+      +inline-block
+      line-height: $base-line-height
+      vertical-align: middle
+    h2
+      font-size: 26px
+      line-height: 1.5em
+    h3
+      font-size: 18px
+      line-height: 1.2em
+    input, button
+      display: block
+      width: 100%
+      background: transparent
+      outline: none
+      padding: 0
+      border: none
+      color: inherit
+      height: 50px
+      line-height: 50px
+      +border-radius(0)
+      font-size: 18px
+
+    input
+      border-top: 1px solid $light-font-color
+      padding: 15px 20px
+      line-height: 20px
+      height: 20px
+      font-weight: 100
+      color: #8f8f8e
+      +single-transition(color, 100ms)
+
+      &::-webkit-input-placeholder 
+        color: rgba(#8f8f8e, 0.5)
+      &:-moz-placeholder
+        color: rgba(#8f8f8e, 0.5)
+      &::-moz-placeholder
+        color: rgba(#8f8f8e, 0.5)
+      &:-ms-input-placeholder
+        color: rgba(#8f8f8e, 0.5)
+
+    button
+      font-weight: 300
+      color: $light-neutral-color
+      +background($secondary-color)
+      +single-transition(background, 100ms)
+      +text-shadow(0 2px 0 rgba(black, 0.1))
+
+    input:invalid + button
+      +background(#e4e4e3)
+
+
+#footer
+
++breakpoint($bp-small)
+  #header
+    position: relative
+    bottom: auto
+    height: 50%
+    +box-sizing(border-box)
+    padding-bottom: 95px
+
+  #main
+    +border-radius(4px)
+    +box-shadow(0 2px 0 rgba(black, 0.1))
+    overflow: hidden
+    position: absolute
+    height: 190px
+    top: 50%
+    left: 50%
+    margin-top: -95px
+    margin-left: -180px
+    width: 360px
+
+    form
+      input, button
+        float: left
+
+      input
+        width: 230px
+      button
+        width: 90px
+
+  #footer
+    height: 50%
+    +background(#dfdcd5)
+
++breakpoint($bp-desktop)
+  #header 
+    +background-size(contain)
+    background-position: center
+
