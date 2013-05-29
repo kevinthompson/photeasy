@@ -2,6 +2,12 @@ require 'sidekiq/web'
 
 Photeasy::Application.routes.draw do
 
+  # Domain Constraints
+  constraints lambda { |request| !(request.host =~ /^(app\.)?photeasy\.(com|dev)/) } do
+    root to: redirect { |params,request| "#{request.protocol}photeasy.#{request.domain.split('.').last}" }
+    match '/*path', to: redirect { |params,request| "#{request.protocol}photeasy.#{request.domain.split('.').last}/#{params[:path]}" }
+  end
+
   # Authentication
   if Rails.env.production?
     devise_for :users, skip: [:sessions, :registrations, :passwords, :omniauth_callbacks]
