@@ -10,12 +10,15 @@ gem 'figaro'
 gem 'foreman'
 gem 'high_voltage'
 gem 'jbuilder'
-gem 'newrelic_rpm'
 gem 'pg'
 gem 'puma'
 gem 'pusher'
 gem 'rails', '3.2.13'
 gem 'sentry-raven'
+
+# Monitoring/Analytics
+gem 'newrelic_rpm'
+gem 'rack-google-analytics'
 
 # Background Jobs
 gem 'sidekiq'

@@ -86,4 +86,7 @@ Photeasy::Application.configure do
     url: ':s3_domain_url',
     path: '/:class/:attachment/:id_partition/:style/:filename'
   }
+
+  # Google Analytics
+  config.middleware.use Rack::GoogleAnalytics, tracker: ENV['GOOGLE_ANALYTICS_ID']
 end
