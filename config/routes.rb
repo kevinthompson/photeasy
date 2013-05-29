@@ -3,7 +3,11 @@ require 'sidekiq/web'
 Photeasy::Application.routes.draw do
 
   # Authentication
-  devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }, path: ''
+  if Rails.env.production?
+    devise_for :users, skip: [:sessions, :registrations, :passwords, :omniauth_callbacks]
+  else
+    devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }, path: ''
+  end
 
   if !Rails.env.production?
     # App
@@ -35,6 +39,11 @@ Photeasy::Application.routes.draw do
       # Catch All for Single Page App
       match '*path' => 'pages#show', id: 'index', constraints: lambda { |request| request.format == :html }
     end
+
+    # Photo Thumbnails
+    resources :photos, only: [] do
+      get :thumbnail
+    end
   end
 
   # Index
@@ -42,11 +51,6 @@ Photeasy::Application.routes.draw do
 
   # Mailing List Subscriptions
   resources :subscriptions, only: [:create], constraints: { format: :json }
-
-  # Photo Thumbnails
-  resources :photos, only: [] do
-    get :thumbnail
-  end
 
   # Catch All
   get '/:id' => 'pages#show', as: :static, via: :get

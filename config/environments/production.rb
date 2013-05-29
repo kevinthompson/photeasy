@@ -88,5 +88,5 @@ Photeasy::Application.configure do
   }
 
   # Google Analytics
-  config.middleware.use Rack::GoogleAnalytics, tracker: ENV['GOOGLE_ANALYTICS_ID']
+  config.middleware.use Rack::GoogleAnalytics, tracker: ENV['GOOGLE_ANALYTICS_ID'] if ENV['GOOGLE_ANALYTICS_ID']
 end
