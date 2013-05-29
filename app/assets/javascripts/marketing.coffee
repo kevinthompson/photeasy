@@ -11,7 +11,17 @@ $ ->
   $form.on 'submit', (event) ->
     event.preventDefault()
 
-    $form.addClass('fold-down')
-    $success.addClass('slide-down')
+    unless $input.val() == ''
+      $button.addClass 'loading'
+      post = $.post($form.attr('action'), $form.serialize())
+      post.success (response) ->
+        unless response.errors.length
+          $main.addClass 'success'
 
-    $.post($form.attr('action'), $form.serialize()).success ->
+      post.error (response) ->
+        response = JSON.parse(response.responseText)
+        if response.errors[0].indexOf('already subscribed')
+          $main.addClass 'already-subscribed'
+        else
+          $main.addClass 'error'
+
