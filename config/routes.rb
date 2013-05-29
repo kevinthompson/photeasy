@@ -3,7 +3,8 @@ require 'sidekiq/web'
 Photeasy::Application.routes.draw do
 
   # Domain Constraints
-  constraints lambda { |request| !(request.host =~ /^(app\.)?photeasy\.(com|dev)/) } do
+  host_regex_pattern = Rails.env.production? ? /^photeasy\.com/ : /^(app\.)?photeasy\.(com|dev)/
+  constraints lambda { |request| !(request.host =~ host_regex_pattern) } do
     root to: redirect { |params,request| "#{request.protocol}photeasy.#{request.domain.split('.').last}" }
     match '/*path', to: redirect { |params,request| "#{request.protocol}photeasy.#{request.domain.split('.').last}/#{params[:path]}" }
   end
