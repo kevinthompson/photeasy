@@ -37,7 +37,7 @@ Photeasy::Application.routes.draw do
       end
 
       # Catch All for Single Page App
-      match '*path' => 'pages#show', id: 'index', constraints: lambda { |request| request.format == :html }
+      match '*path' => 'pages#show', id: 'app', constraints: lambda { |request| request.format == :html }
     end
 
     # Photo Thumbnails

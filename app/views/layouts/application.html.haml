@@ -32,4 +32,4 @@
       // });
     - if current_user.present?
       :javascript
-        window.current_user = #{current_user.as_json}
+        window.current_user = #{current_user.to_json}
