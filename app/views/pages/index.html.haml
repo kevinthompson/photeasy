@@ -15,20 +15,31 @@
       %h3 We are hard at work and will shoot you an email once everything is ready for your beautiful photos.
 
     .media
-      -# .fb-like{"data-href" => "http://localhost:3000", "data-send" => "true", "data-show-faces" => "false", "data-width" => "450"}
-      -# #fb-root
-      -# :javascript
-      -#   (function(d, s, id) { var js, fjs = d.getElementsByTagName(s)[0]; if (d.getElementById(id)) return; js = d.createElement(s); js.id = id; js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=324422707617818"; fjs.parentNode.insertBefore(js, fjs); }(document, 'script', 'facebook-jssdk'));
+      %a.twitter-share-button{href: 'https://twitter.com/share'} Tweet
+      :javascript
+        !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
 
-      -# %a.twitter-share-button{href: 'https://twitter.com/share'} Tweet
-      -# :javascript
-      -#   !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
+      .fb-like{"data-href" => "http://photeasy.com", "data-layout" => "button_count", "data-send" => "false", "data-show-faces" => "false", "data-width" => "90"}
+      #fb-root
+      :javascript
+        (function(d, s, id) { var js, fjs = d.getElementsByTagName(s)[0]; if (d.getElementById(id)) return; js = d.createElement(s); js.id = id; js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=324422707617818"; fjs.parentNode.insertBefore(js, fjs); }(document, 'script', 'facebook-jssdk'));
 
 %section.result#subscribed
   .inner
     %hgroup
       %h2 Again?!?!
       %h3 You must be really excited because that email is already signed up. We like you too!
+
+    .media
+      %a.twitter-share-button{href: 'https://twitter.com/share'} Tweet
+      :javascript
+        !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
+
+      .fb-like{"data-href" => "http://photeasy.com", "data-layout" => "button_count", "data-send" => "false", "data-show-faces" => "false", "data-width" => "90"}
+      #fb-root
+      :javascript
+        (function(d, s, id) { var js, fjs = d.getElementsByTagName(s)[0]; if (d.getElementById(id)) return; js = d.createElement(s); js.id = id; js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=324422707617818"; fjs.parentNode.insertBefore(js, fjs); }(document, 'script', 'facebook-jssdk'));
+
 
 %section.result#error-bro
   .inner
