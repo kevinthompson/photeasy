@@ -4,11 +4,9 @@ describe MailingListSubscription do
 
   describe '#initialize' do
     context 'when no list_id is provided' do
-      MailingListSubscription::DEFAULT_LIST_ID = '123'
-
       it 'assigns the DEFAULT_LIST_ID' do
         subscription = MailingListSubscription.new('example@photeasy.com')
-        subscription.list_id.should == '123'
+        subscription.list_id.should == MailingListSubscription::DEFAULT_LIST_ID
       end
     end
   end

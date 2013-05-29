@@ -4,6 +4,6 @@ FactoryGirl.define do
   factory :order do
     user_id 1
     status "MyString"
-    collection_id 1
+    album_id 1
   end
 end

@@ -5,7 +5,7 @@ describe '/api/v1/photos', type: :api do
   let(:url) { '/api/v1/photos.json' }
 
   before do
-    host! 'app.example.com'
+    host! 'app.photeasy.com'
   end
 
   context 'when the user is not signed in' do

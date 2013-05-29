@@ -37,9 +37,9 @@ Photeasy::Application.routes.draw do
         namespace :v1 do
           resources :photos, only: [:index]
           resources :users, only: [:show] do
-            resources :collections
+            resources :albums
           end
-          resources :collections, only: [:show]
+          resources :albums, only: [:show]
         end
       end
 

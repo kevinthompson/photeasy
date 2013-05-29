@@ -1,4 +1,4 @@
-class Collection < ActiveRecord::Base
+class Album < ActiveRecord::Base
   attr_accessible :name, :user_id, :photos, :photo_ids
   has_and_belongs_to_many :photos
   has_many :orders
