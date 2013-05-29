@@ -1,9 +1,18 @@
 !!! 5
-%html
+<!--[if lt IE 7]> <html lang="en" class="no-js ie6"> <![endif]-->
+<!--[if IE 7]>    <html lang="en" class="no-js ie7"> <![endif]-->
+<!--[if IE 8]>    <html lang="en" class="no-js ie8"> <![endif]-->
+<!--[if IE 9]>    <html lang="en" class="no-js ie9"> <![endif]-->
+<!--[if gt IE 9]><!-->
+%html{ :lang => "en" }
+  <!--<![endif]-->
   %head
     %title Photeasy
     = csrf_meta_tags
     = stylesheet_link_tag 'marketing'
+    /[if lt IE 9]
+      %script{src: 'http://ie7-js.googlecode.com/svn/version/2.1(beta4)/IE9.js'}
+      %script{src: '//cdnjs.cloudflare.com/ajax/libs/respond.js/1.1.0/respond.min.js'}
     = javascript_include_tag '//use.typekit.net/ydd6wgd.js'
     :javascript
       try{Typekit.load();}catch(e){}

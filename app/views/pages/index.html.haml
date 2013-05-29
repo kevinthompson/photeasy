@@ -1,4 +1,4 @@
-%form{action: '/subscriptions.json', method: 'POST'}
+%form{action: '/subscriptions', method: 'POST'}
   %header
     %hgroup
       %h2 Want an invite?
@@ -8,7 +8,7 @@
     %input{type: 'email', placeholder: 'Email', name: 'email'}
     %button{type: 'submit'} GO
 
-%section#success
+%section.result#success
   .inner
     %hgroup
       %h2 You are in!
@@ -17,3 +17,14 @@
     .media
       %abbr.icon-twitter{title: 'Twitter'}
 
+%section.result#subscribed
+  .inner
+    %hgroup
+      %h2 Again?!?!
+      %h3 You must be really excited because that email is already signed up. We like you too!
+
+%section.result#error-bro
+  .inner
+    %hgroup
+      %h2 OMFG! :(
+      %h3 Something didn't work right, and I'm too lazy to figure it out for you. Hit refresh... or not. I DGAF.
