@@ -1,12 +1,9 @@
 class Api::V1::PhotosController < Api::V1::BaseController
-  respond_to :json
 
   def index
-    @response = {
-      data: current_user.photos,
-      errors: []
-    }
-    respond_with @response
+    respond_to do |format|
+      format.json { render json: current_user.photos, meta: [], meta_key: :errors }
+    end
   end
 
 end
