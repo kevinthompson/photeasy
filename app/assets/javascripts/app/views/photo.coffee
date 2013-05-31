@@ -11,6 +11,8 @@ define ['base', 'dusty!photo'], (Base, template) ->
     busEvents:
       'photo:all:state:unset:selected': 'onUnselect'
 
+    initialize: -> @bindBusEvents()
+
     eventPrefix: 'photo'
 
     # event handlers
