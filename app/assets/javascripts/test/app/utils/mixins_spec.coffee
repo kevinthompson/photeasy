@@ -33,6 +33,15 @@ define ['cocktail', 'utils/mixins'], (Cocktail, mixins) ->
           testObject = new TestClass()
           testObject.eventBus.trigger('test', true)
 
+        it 'should bind handler to a bus event on a child class', ->
+          class TestClass
+            busEvents: {'test': 'onTest'}
+            onTest: (data) -> expect(data).to.be(true)
+          Cocktail.mixin TestClass, 'eventBus'
+          class TestClass2 extends TestClass
+          testObject = new TestClass2()
+          testObject.eventBus.trigger('test', true)
+
     describe 'states', ->
 
       beforeEach ->
