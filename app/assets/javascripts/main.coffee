@@ -14,14 +14,18 @@ require.config
     'dusty': '../lib/dusty'
     'dust.helpers': '../lib/dust.helpers'
     'json2': '../vendor/json2/json2'
+    'cocktail': '../vendor/cocktail/Cocktail'
 
   # shim for non AMD libraries
   shim:
     dust:
       exports: 'dust'
 
+    cocktail:
+      exports: 'Cocktail'
+
   # dust is retarded
-  deps: ['dust', 'dust.helpers']
+  deps: ['dust', 'dust.helpers', 'utils/mixins']
 
   # development
   urlArgs: 'cachebust=' + (new Date()).getTime()

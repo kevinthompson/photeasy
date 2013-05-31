@@ -1,9 +1,10 @@
 define ['marionette', 'views/photo', 'collections/photos'], (Marionette, PhotoView, PhotosCollection) ->
-  class PhotosView extends Marionette.CollectionView
+  class PhotosPage extends Marionette.CollectionView
     id: 'photos'
     className: 'page'
     tagName: 'ul'
     itemView: PhotoView
+    itemViewOptions: tagName: 'li'
     collection: new PhotosCollection()
 
     delay: 0

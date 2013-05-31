@@ -1,9 +1,9 @@
-define ['marionette', 'layout', 'router'], (Marionette, layout) ->
+define ['marionette', 'layout', 'router', 'utils/mixins'], (Marionette, layout) ->
   Photeasy = new Marionette.Application()
 
   # CONFIGURATION
 
-  # define they way Marionette renders templates
+  # define the way Marionette renders templates
   Marionette.Renderer.render = (template, data={}) ->
     return template && template.render(data)
 
@@ -23,30 +23,31 @@ define ['marionette', 'layout', 'router'], (Marionette, layout) ->
         href = $(@).attr 'href'
         # check if link is external and don't have a push state false data attribute
         protocol = @protocol + "//"
-        if href.slice(protocol.length) != protocol and !$(@).data('push-state') and !href.match(/(sign_in|sign_out|sign_up|users)/)
+        # unintellegently filtering certain paths
+        if href.slice(protocol.length) != protocol and !$(@).data('push-state') and !href.match(/(sign_|auth|users)/)
           event.preventDefault()
           # set the url using push state which will trigger the router
           Backbone.history.navigate href, true
 
-  images = []
-  windowHeight = $(window).height()
-  lazyLoad = (image) ->
-    if image
-      if windowHeight and image[0].getBoundingClientRect().top < windowHeight
-        src = image.data 'src'
-        image.attr 'src', src
-      else
-        images.push(image)
-    else
-      _.each images, (image, index) ->
-        if windowHeight and image[0].getBoundingClientRect().top < windowHeight
-          delete images[index]
-          src = image.data 'src'
-          image.attr 'src', src
-      images = _.compact images
+  # images = []
+  # windowHeight = $(window).height()
+  # lazyLoad = (image) ->
+  #   if image
+  #     if windowHeight and image[0].getBoundingClientRect().top < windowHeight
+  #       src = image.data 'src'
+  #       image.attr 'src', src
+  #     else
+  #       images.push(image)
+  #   else
+  #     _.each images, (image, index) ->
+  #       if windowHeight and image[0].getBoundingClientRect().top < windowHeight
+  #         delete images[index]
+  #         src = image.data 'src'
+  #         image.attr 'src', src
+  #     images = _.compact images
 
-  $(window).on 'scroll', -> lazyLoad()
-  $(window).on 'resize', -> windowHeight = $(window).height()
+  # $(window).on 'scroll', -> lazyLoad()
+  # $(window).on 'resize', -> windowHeight = $(window).height()
 
 
   # return the app

@@ -1,7 +1,7 @@
-tests = Object.keys(window.__karma__.files).filter (file) ->
+deps = Object.keys(window.__karma__.files).filter (file) ->
   return /base\/test\/(.*?)_spec/.test(file)
 
-tests.push('expect')
+deps.push('expect')
 
 require.config
   # path configuration
@@ -19,13 +19,15 @@ require.config
     'dusty': '../lib/dusty'
     'dust.helpers': '../lib/dust.helpers'
     'json2': '../vendor/json2/json2'
+    'cocktail': '../vendor/cocktail/Cocktail'
 
   # shim for non AMD libraries
   shim:
     dust:
       exports: 'dust'
+    cocktail:
+      exports: 'Cocktail'
 
-  # dust is retarded
-  deps: tests
+  deps: deps
 
   callback: window.__karma__.start

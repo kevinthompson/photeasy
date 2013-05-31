@@ -1,31 +1,33 @@
-define ['marionette', 'dusty!photo', 'utils/vent'], (Marionette, template, vent) ->
-  class PhotoView extends Marionette.ItemView
-    tagName: 'li'
+define ['base', 'dusty!photo'], (Base, template) ->
+  class PhotoView extends Base.ItemView
+    # configuration
     template: template
+    className: 'photo'
 
+    # events
+    events:
+      'click': 'onClick'
+
+    busEvents:
+      'photo:all:state:unset:selected': 'onUnselect'
+
+    eventPrefix: 'photo'
+
+    # event handlers
+    onClick: ->
+      @toggleState 'selected'
+
+    onImageLoad: ->
+      _.delay => @setState 'loaded', 1
+
+    # bus event handlers
+    onUnselect: (id) ->
+      if id == @model?.get('id') or id == 'all'
+        @unsetState 'selected'
+
+    # marionette event handlers
     onRender: ->
       @$image = @$('img')
-      @$photo = @$('.photo')
-
+      # backbone can't handle the load event
       @$image.on 'load', => @onImageLoad()
-
-      src = @$image.data 'pt-src'
-      @$image.attr 'src', src
-
-      @$el.on 'click', =>
-        # @showItemDetail()
-        @selectPhoto()
-
-    onImageLoad: (event) ->
-      @$photo.addClass 'loaded'
-
-    showItemDetail: ->
-      vent.trigger 'photo-detail', @model
-
-    selectPhoto: ->
-      if @$photo.hasClass 'selected'
-        @$photo.removeClass 'selected'
-        vent.trigger 'photo-removed', @model
-      else
-        @$photo.addClass 'selected'
-        vent.trigger 'photo-selected', @model
+      @$image.attr 'src', @$image.data 'src'

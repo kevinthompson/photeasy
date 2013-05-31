@@ -1,4 +1,16 @@
-// Get me that compass shit
+//          __              __
+//         /\ \            /\ \__
+//    _____\ \ \___     ___\ \ ,_\    __     __      ____  __  __
+//   /\ '__`\ \  _ `\  / __`\ \ \/  /'__`\ /'__`\   /',__\/\ \/\ \
+//   \ \ \L\ \ \ \ \ \/\ \L\ \ \ \_/\  __//\ \L\.\_/\__, `\ \ \_\ \
+//    \ \ ,__/\ \_\ \_\ \____/\ \__\ \____\ \__/.\_\/\____/\/`____ \
+//     \ \ \/  \/_/\/_/\/___/  \/__/\/____/\/__/\/_/\/___/  `/___/> \
+//      \ \_\                                                  /\___/
+//       \/_/                                                  \/__/
+
+///////////////////////////////////////
+// Imports
+///////////////////////////////////////
 @import compass
 
 // No styles imported
@@ -25,26 +37,24 @@
 ///////////////////////////////////////
 // Global Styles
 ///////////////////////////////////////
-
-// stuff here
 html
-  +background($primary-color)
+  +background($background-color)
 
 #main
-  +background($primary-color)
-  #pages
-    +clearfix
-    +box-sizing(border-box)
-    +background($light-neutral-color)
-    margin: 0 auto
-    width: 100%
-    max-width: $max-width
-    +breakpoint($bp-desktop)
-      width: $desktop-width
+  +clearfix
+  +box-sizing(border-box)
+  +background($foreground-color)
+  margin: 0 auto
+  width: 100%
+  max-width: $max-width
 
-    +breakpoint($bp-max)
-      width: $max-width
+  +breakpoint($bp-desktop)
+    width: $desktop-width
 
+  +breakpoint($bp-max)
+    width: $max-width
+
+// Should move out
 #overlay
   position: fixed
   top: 0
@@ -76,6 +86,8 @@ html
     +transition(visibility 0s linear 0s,opacity 0.25s linear 0s)
 
 
+// TODO: really need to fix/move but I dgaf right now
+// this is to remove styles from buttons
 button
   margin: 0
   padding: 0
@@ -84,24 +96,3 @@ button
   background: transparent
   display: inline
   color: inherit
-
-// // Print
-// @media print
-//
-// // 480px
-// @media only screen and (min-width: 480px)
-//
-// // 600px
-// @media only screen and (min-width: 600px)
-//
-// // 768px
-// @media only screen and (min-width: 768px)
-//
-// // 992px
-// @media only screen and (min-width: 992px)
-//
-// // 1382px
-// @media only screen and (min-width: 1382px)
-//
-// // 2x
-// @media only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min--moz-device-pixel-ratio: 1.5), only screen and (min-device-pixel-ratio: 1.5)

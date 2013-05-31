@@ -1,13 +1,12 @@
 .photo
-  position: relative
-  +animate(fade-in, 0.25s)
   img
+    display: block
     width: 100%
     +opacity(0)
+    +single-transition(opacity, 500ms)
 
   &.loaded
     img
-      +animate(fade-in, 0.25s)
       +opacity(1)
 
   &:before, &:after
@@ -20,7 +19,7 @@
     right: 0
     bottom: 0
     left: 0
-    border: 10px solid $secondary-color
+    border: 10px solid $primary-color
     content: ''
   &:after
     position: absolute
@@ -29,10 +28,10 @@
     width: 40px
     height: 40px
     line-height: 40px
-    background: $secondary-color
+    background: $primary-color
     font-family: 'Photeasy Icons'
     vertical-align: middle
-    color: $light-neutral-color
+    color: $foreground-color
     text-align: center
     content: 'c'
 

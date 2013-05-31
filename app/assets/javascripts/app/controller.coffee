@@ -1,11 +1,17 @@
 define ['marionette', 'layout'], (Marionette, Layout) ->
   class Controller extends Marionette.Controller
     showRoot: ->
-      Layout.main.reset()
+      require ['views/photos'], (PhotosPage) ->
+        photoView = new PhotosPage()
+        Layout.main.show photoView
+        photoView.collection.fetch()
 
-    showPhotos: ->
-      require ['views/photos'], (PhotosView) ->
-        Layout.main.show new PhotosView()
+    showShare: (id) ->
+      require ['views/photos', 'collection/share'], (PhotosPage, ShareCollection) ->
+        photoView = new PhotosPage()
+        Layout.main.show new PhotosPage
+          collection: new ShareCollection(id: id)
+        photoView.collection.fetch()
 
     show404: ->
       require ['views/404'], (NotFoundView)->

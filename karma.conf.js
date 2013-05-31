@@ -30,7 +30,7 @@ exclude = [
 
 // test results reporter to use
 // possible values: 'dots', 'progress', 'junit'
-reporters = ['dots', 'growl'];
+reporters = ['dots', 'growl', 'coverage'];
 
 
 // web server port
@@ -75,7 +75,5 @@ singleRun = false;
 
 // Preprocessors
 preprocessors = {
-  '**/*.coffee': 'coffee',
-  'app/**/*.coffee': 'coverage',
-  'app/**/*.js': 'coverage'
+  '**/*.coffee': 'coffee'
 };

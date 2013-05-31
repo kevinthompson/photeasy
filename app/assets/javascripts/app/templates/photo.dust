@@ -1,3 +1,1 @@
-<div class="photo">
-  <img data-src="{images.small}"/>
-</div>
+<img data-src="{images.small}"/>

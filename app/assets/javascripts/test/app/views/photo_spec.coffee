@@ -1,29 +1,54 @@
-define ['views/photo', 'marionette', 'utils/vent'], (PhotoView, Marionette, vent) ->
-  photoView = $photo = $el = click = dblClick = undefined
+define ['views/photo', 'marionette', 'models/photo', 'utils/event_bus', 'utils/mixins'], (PhotoView, Marionette, PhotoModel, EventBus, mixins) ->
+  photoView =
+  PREFIX = 'photo:'
+  SELECTED = 'selected'
+  SELECTED_EVENT = "#{PREFIX}state:set:selected"
+  UNSELECT_EVENT = "#{PREFIX}state:unset:selected"
 
-  describe 'Photo View', ->
+  describe 'PhotoView', ->
 
     beforeEach ->
       photoView = new PhotoView()
-      $el = photoView.render().$el
-      click = -> $el.trigger('click')
-      dblClick = ->
-        click()
-        setTimeout click, 100
+      photoView.model = new PhotoModel(id: 1)
 
     it 'should be an extension of a Marionette ItemView', ->
       expect(photoView).to.be.a(Marionette.ItemView)
 
-    it 'should class the select photo method when clicked', (done) ->
-      vent.on 'photo-selected', -> done()
-      click()
+    it 'should have mixins', ->
+      methods = _.methods photoView
+      mixinMethods = ['bindBusEvents']
+      expect(_.intersection(methods, mixinMethods).length).to.be.equal(mixinMethods.length)
 
-    describe 'select photo', ->
+    describe 'selectPhoto method', ->
 
-      it 'it should fire the photo selected event on the event bus when not selected', (done) ->
-        vent.on 'photo-selected', -> done()
-        photoView.selectPhoto()
+      it 'should fire the photo selected event on the event bus', (done) ->
+        EventBus.on SELECTED_EVENT, -> done()
+        photoView.setState 'selected'
 
-      it 'it should add the selected class when not selected', ->
-      it 'it should fire the photo removed event on the event bus when selected', () ->
-      it 'it should remove the selected class when selected', ->
+      it 'should add the selected class', ->
+        photoView.setState 'selected'
+        expect(photoView.$el.hasClass SELECTED).to.be(true)
+
+    describe 'unselectPhoto method', ->
+
+      it 'should fire the photo unselected event on the event bus', (done) ->
+        EventBus.on UNSELECT_EVENT, -> done()
+        photoView.toggleState 'selected'
+        photoView.toggleState 'selected'
+
+      it 'should remove the selected class', ->
+        photoView.toggleState 'selected'
+        photoView.toggleState 'selected'
+        expect(photoView.$el.hasClass SELECTED).to.be(false)
+
+    describe 'onUnselect method', ->
+
+      it 'should unselect the photo if the id matches', ->
+        photoView.setState 'selected'
+        photoView.onUnselect(1)
+        expect(photoView.$el.hasClass SELECTED).to.be(false)
+
+      it 'should unselect the photo if the id is "all"', ->
+        photoView.setState 'selected'
+        photoView.onUnselect('all')
+        expect(photoView.$el.hasClass SELECTED).to.be(false)
