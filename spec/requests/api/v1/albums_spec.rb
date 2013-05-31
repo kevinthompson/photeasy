@@ -99,6 +99,18 @@ describe '/api/v1/albums', type: :api do
         updated_album['name'].should == 'Updated Album'
       end
     end
+
+    context 'when share objects are included' do
+      it 'creates new shares' do
+        put url, album: { shares_attributes: [ { email: 'sterling@isis.org' } ] }
+
+        response.status.should eql(200)
+        response_json = JSON.parse(response.body)
+        response_json['errors'].should be_empty
+
+        Share.where(album_id: album['id'], email: 'sterling@isis.org').count.should == 1
+      end
+    end
   end
 
   describe 'DELETE /api/v1/users/:user_id/albums/:id' do
