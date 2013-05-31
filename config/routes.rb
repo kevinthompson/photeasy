@@ -39,7 +39,7 @@ Photeasy::Application.routes.draw do
           resources :users, only: [:show] do
             resources :albums
           end
-          resources :albums, only: [:show]
+          resources :shares, only: [:show]
         end
       end
 
@@ -51,6 +51,9 @@ Photeasy::Application.routes.draw do
     resources :photos, only: [] do
       get :thumbnail
     end
+
+    # Albums
+    resources :albums, only: [:show]
   end
 
   # Index

@@ -12,9 +12,10 @@ class User < ActiveRecord::Base
                   :provider, :uid, :dropbox_token, :dropbox_secret,
                   :photos_imported_at
 
-  has_many :photos
-  has_many :albums
+  has_many :photos, dependent: :destroy
+  has_many :albums, dependent: :destroy
   has_many :orders
+  has_many :shares, through: :albums
 
   def self.find_for_dropbox_oauth(auth, signed_in_resource=nil)
     user = where(provider: auth.provider, uid: auth.uid.to_s).first

@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 ruby '2.0.0'
 
 # Platform
+gem 'active_model_serializers', '~> 0.8.0'
 gem 'activeadmin'
 gem 'aws-sdk'
 gem 'devise'
@@ -80,4 +81,8 @@ group :development, :test do
   gem 'rb-fsevent'
   gem 'rspec-rails'
   gem 'shoulda-matchers'
+end
+
+group :test do
+  gem 'simplecov', require: false
 end
