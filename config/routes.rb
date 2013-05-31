@@ -2,6 +2,13 @@ require 'sidekiq/web'
 
 Photeasy::Application.routes.draw do
 
+  # Domain Constraints
+  host_regex_pattern = Rails.env.production? ? /^photeasy\.com/ : /^(app\.)?photeasy\.(com|dev)/
+  constraints lambda { |request| !(request.host =~ host_regex_pattern) } do
+    root to: redirect { |params,request| "#{request.protocol}photeasy.#{request.domain.split('.').last}" }
+    match '/*path', to: redirect { |params,request| "#{request.protocol}photeasy.#{request.domain.split('.').last}/#{params[:path]}" }
+  end
+
   # Authentication
   if Rails.env.production?
     devise_for :users, skip: [:sessions, :registrations, :passwords, :omniauth_callbacks]
@@ -30,9 +37,9 @@ Photeasy::Application.routes.draw do
         namespace :v1 do
           resources :photos, only: [:index]
           resources :users, only: [:show] do
-            resources :collections
+            resources :albums
           end
-          resources :collections, only: [:show]
+          resources :albums, only: [:show]
         end
       end
 

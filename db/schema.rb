@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130526062345) do
+ActiveRecord::Schema.define(:version => 20130529205844) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -28,24 +28,38 @@ ActiveRecord::Schema.define(:version => 20130526062345) do
   add_index "active_admin_comments", ["namespace"], :name => "index_active_admin_comments_on_namespace"
   add_index "active_admin_comments", ["resource_type", "resource_id"], :name => "index_admin_notes_on_resource_type_and_resource_id"
 
-  create_table "collections", :force => true do |t|
+  create_table "albums", :force => true do |t|
     t.integer  "user_id"
     t.string   "name"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
 
-  create_table "collections_photos", :id => false, :force => true do |t|
-    t.integer "collection_id"
+  create_table "albums_photos", :id => false, :force => true do |t|
+    t.integer "album_id"
     t.integer "photo_id"
   end
+
+  create_table "credentials", :force => true do |t|
+    t.string   "provider"
+    t.integer  "user_id"
+    t.string   "uid"
+    t.string   "token"
+    t.string   "secret"
+    t.text     "data"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "credentials", ["provider", "uid"], :name => "index_credentials_on_provider_and_uid"
+  add_index "credentials", ["user_id"], :name => "index_credentials_on_user_id"
 
   create_table "orders", :force => true do |t|
     t.integer  "user_id"
     t.string   "status"
-    t.integer  "collection_id"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.integer  "album_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "payments", :force => true do |t|

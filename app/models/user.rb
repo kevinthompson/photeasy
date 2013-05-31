@@ -13,7 +13,7 @@ class User < ActiveRecord::Base
                   :photos_imported_at
 
   has_many :photos
-  has_many :collections
+  has_many :albums
   has_many :orders
 
   def self.find_for_dropbox_oauth(auth, signed_in_resource=nil)
