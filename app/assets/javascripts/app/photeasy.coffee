@@ -5,7 +5,7 @@ define ['marionette', 'layout', 'router', 'utils/mixins'], (Marionette, layout) 
 
   # define the way Marionette renders templates
   Marionette.Renderer.render = (template, data={}) ->
-    return template && template.render(data)
+    return template?.render(data)
 
   # on app start
   Photeasy.addInitializer (options) ->
