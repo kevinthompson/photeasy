@@ -12,10 +12,6 @@ class Photo < ActiveRecord::Base
   validates :provider, :provider_id, :user_id, presence: true
   validates :provider_id, uniqueness: { scope: [:provider, :user_id] }
 
-  def as_json(options = {})
-    super(only: [:id, :filename]).merge(images: images)
-  end
-
   def images
     @images ||= begin
       image_urls = {}

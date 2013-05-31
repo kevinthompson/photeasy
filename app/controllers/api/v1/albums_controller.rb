@@ -2,7 +2,7 @@ class Api::V1::AlbumsController < Api::V1::BaseController
 
   def index
     respond_to do |format|
-      format.json { render json: { data: current_user.albums, errors: [] } }
+      format.json { render json: current_user.albums, meta: [], meta_key: :errors }
     end
   end
 
@@ -11,14 +11,14 @@ class Api::V1::AlbumsController < Api::V1::BaseController
     album.save if album.valid?
     status_code = album.errors.empty? ? 201 : 422
     respond_to do |format|
-      format.json { render json: { data: album, errors: album.errors }, status: status_code, location: nil }
+      format.json { render json: album, meta: album.errors, meta_key: :errors, status: status_code, location: nil }
     end
   end
 
   def show
     album = current_user.albums.find(params[:id])
     respond_to do |format|
-      format.json { render json: { data: album, errors: album.errors } }
+      format.json { render json: album, meta: album.errors, meta_key: :errors }
     end
   end
 
@@ -27,7 +27,7 @@ class Api::V1::AlbumsController < Api::V1::BaseController
     album.update_attributes(params[:album]) if album.valid?
     status_code = album.errors.empty? ? 200 : 422
     respond_to do |format|
-      format.json { render json: { data: album, errors: album.errors }, status: status_code }
+      format.json { render json: album, meta: album.errors, meta_key: :errors, status: status_code }
     end
   end
 
