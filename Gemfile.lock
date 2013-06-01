@@ -437,3 +437,4 @@ DEPENDENCIES
   stripe
   susy
   uglifier
+  uuidtools

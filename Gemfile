@@ -16,6 +16,7 @@ gem 'puma'
 gem 'pusher'
 gem 'rails', '3.2.13'
 gem 'sentry-raven'
+gem 'uuidtools'
 
 # Monitoring/Analytics
 gem 'newrelic_rpm'
