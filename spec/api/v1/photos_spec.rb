@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe '/api/v1/photos', type: :api do
+describe 'Photos', type: :api do
   let(:user){ create(:user) }
   let(:url) { '/api/v1/photos.json' }
 
