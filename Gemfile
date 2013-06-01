@@ -79,7 +79,9 @@ group :development, :test do
   gem 'meta_request'
   gem 'pry-rails'
   gem 'quiet_assets'
+  gem 'raddocs', git: 'git://github.com/kevinthompson/raddocs.git'
   gem 'rb-fsevent'
+  gem 'rspec_api_documentation', git: 'git://github.com/kevinthompson/rspec_api_documentation.git'
   gem 'rspec-rails'
   gem 'shoulda-matchers'
 end

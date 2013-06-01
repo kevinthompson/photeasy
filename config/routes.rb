@@ -9,6 +9,9 @@ Photeasy::Application.routes.draw do
     match '/*path', to: redirect { |params,request| "#{request.protocol}photeasy.#{request.domain.split('.').last}/#{params[:path]}" }
   end
 
+  # Docs
+  mount Raddocs::App => '/docs', anchor: false if Rails.env.development?
+
   # Authentication
   if Rails.env.production?
     devise_for :users, skip: [:sessions, :registrations, :passwords, :omniauth_callbacks]
@@ -36,9 +39,7 @@ Photeasy::Application.routes.draw do
       namespace :api, format: true, constraints: { format: :json } do
         namespace :v1 do
           resources :photos, only: [:index]
-          resources :users, only: [:show] do
-            resources :albums
-          end
+          resources :albums, except: [:edit, :new]
           resources :shares, only: [:show]
         end
       end
