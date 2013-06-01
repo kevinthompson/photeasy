@@ -7,6 +7,7 @@ class Photo < ActiveRecord::Base
 
   belongs_to :user
   has_many :prints
+  has_many :shares, through: :albums
   has_and_belongs_to_many :albums
 
   validates :provider, :provider_id, :user_id, presence: true
