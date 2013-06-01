@@ -1,8 +1,17 @@
-define ['base', 'collections/photos', 'dusty!album_pop_over'], (Base, PhotosCollection, template) ->
+define [
+  'base'
+  'collections/photos'
+  'dusty!album_pop_over'
+], (
+  Base
+  PhotosCollection
+  template
+) ->
+
   class AlbumPopOver extends Base.ItemView
     template: template
-    collection: new PhotosCollection()
     className: 'album-pop-over'
+    collection: new PhotosCollection()
 
     busEvents:
       'photo:state:set:selected': 'addPhoto'
@@ -10,21 +19,20 @@ define ['base', 'collections/photos', 'dusty!album_pop_over'], (Base, PhotosColl
 
     initialize: ->
       @collection.on 'add remove', =>
+        @eventBus.trigger 'album:update', @
+        console.log 'update album?'
         @render()
-      @bindBusEvents()
+      super()
+      return @
 
-    updateCounter: ->
-      @eventBus.trigger 'share:update-count', @collection.length
+    photoAction: (photo, action) ->
+      @collection[action] photo.model
+      @eventBus.trigger "album:#{action}", photo
+      return @
 
-    addPhoto: (photo) ->
-      @collection.add photo.model
-      @eventBus.trigger 'share:add-photo', photo
-      @updateCounter()
+    addPhoto: (photo) -> @photoAction photo, 'add'
 
-    removePhoto: (photo) ->
-      @collection.remove photo.model
-      @eventBus.trigger 'share:remove-photo', photo
-      @updateCounter()
+    removePhoto: (photo) -> @photoAction photo, 'remove'
 
     templateHelpers: =>
       count: => @collection.length
