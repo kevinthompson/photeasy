@@ -1,0 +1,32 @@
+.album-pop-over
+  position: relative
+  background: rgba(black, 0.9)
+  color: $base-light-font-color
+  +clearfix
+  text-align: center
+  padding: 20px 0
+  line-height: 50px
+  font-size: 18px
+  +fade-out-and-hide($otherTransitions: bottom)
+  bottom: -20px
+
+  .inner
+    +container-width
+
+  &.show
+    bottom: 0
+    +fade-in-and-unhide($otherTransitions: bottom)
+
+  .share-count
+    display: none
+    float: left
+
+  [class^='icon-photos']
+    margin-right: 20px
+
+  +breakpoint($bp-desktop)
+    .share-count
+      display: block
+
+    .button
+      float: right

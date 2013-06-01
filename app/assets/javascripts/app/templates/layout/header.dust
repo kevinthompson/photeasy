@@ -10,7 +10,7 @@
       </a>
     </h1>
     <nav id="user">
-      <button>
+      <button class="reset">
         <abbr class="icon-dropbox" title="Drop Box"></abbr>
         <span id="user-name">User Name</span>
         <abbr class="icon-menu-xsmall" title="Show User Menu"></abbr>

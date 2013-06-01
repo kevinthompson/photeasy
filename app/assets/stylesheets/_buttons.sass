@@ -1,0 +1,52 @@
+@import compass/typography/links
+%button-reset
+  // reset
+  +inline-block
+  margin: 0
+  padding: 0
+  outline: none
+  border: none
+  background: transparent
+  text-decoration: inherit
+  cursor: pointer
+  &:active, &:focus
+    outline: none
+
+button.reset, a.reset
+  @extend %button-reset
+
+[class^='button']
+  @extend %button-reset
+  @extend %primary-font
+
+  // main styles
+  background: $primary-color
+  color: $foreground-color
+  line-height: 50px
+  height: 50px
+  padding: 0 20px
+  font-size: 18px
+  font-weight: 700
+  letter-spacing: 0.1em
+  text-transform: uppercase
+  +text-shadow(0 2px 1px rgba(black, 0.1))
+  +border-radius(4px)
+
+  abbr[class^='icon-']
+    position: relative
+    top: -0.1em
+    margin-right: 10px
+    text-transform: none
+    font-size: inherit
+
+  // types
+  &[class*='-block']
+    display: block
+
+  &[class*='-square']
+    +border-radius(0)
+
+  // sizes
+  &[class*='-small']
+  &[class*='-large']
+

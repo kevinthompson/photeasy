@@ -20,7 +20,9 @@ define ['base', 'dusty!photo'], (Base, template) ->
       @toggleState 'selected'
 
     onImageLoad: ->
-      _.delay => @setState 'loaded', 1
+      _.delay =>
+        @setState 'loaded'
+       , 1
 
     # bus event handlers
     onUnselect: (id) ->

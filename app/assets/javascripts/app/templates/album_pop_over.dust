@@ -1,5 +1,10 @@
-{count}
-<button>
+<div class="inner">
+<span class="share-count">
+  <abbr class="icon-photos-large" title="photos icon"></abbr>
+  Share {photoCount} in Album
+</span>
+<button class="button">
   <abbr class="icon-share" title="share icon"></abbr>
   Share
 </button>
+</div>

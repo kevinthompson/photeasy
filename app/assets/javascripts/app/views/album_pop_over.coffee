@@ -13,17 +13,21 @@ define [
     className: 'album-pop-over'
     collection: new PhotosCollection()
 
+    eventPrefix: 'album'
+
     busEvents:
       'photo:state:set:selected': 'addPhoto'
       'photo:state:unset:selected': 'removePhoto'
 
     initialize: ->
       @collection.on 'add remove', =>
+        if @collection.length > 0 then @render()
         @eventBus.trigger 'album:update', @
-        console.log 'update album?'
-        @render()
+        if @collection.length > 0 and !@hasState 'show'
+          @setState 'show'
+        else if @collection.length == 0
+          @unsetState 'show'
       super()
-      return @
 
     photoAction: (photo, action) ->
       @collection[action] photo.model
@@ -35,4 +39,6 @@ define [
     removePhoto: (photo) -> @photoAction photo, 'remove'
 
     templateHelpers: =>
-      count: => @collection.length
+      photoCount: =>
+        plural = if @collection.length == 1 then '' else 's'
+        return "#{@collection.length} Photo#{plural}"

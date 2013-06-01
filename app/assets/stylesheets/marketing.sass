@@ -99,12 +99,12 @@ html, body, #wrap
     content: ''
 
 #logo
+  @extend %logo-font
   position: relative
   +inline-block
   +animate(logo, 1s, 250ms)
   vertical-align: middle
   color: $foreground-color
-  font-family: 'Varela Round', sans-serif
 
   abbr
     +adjust-font-size-to(72px)

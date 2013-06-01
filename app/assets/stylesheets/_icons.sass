@@ -8,37 +8,47 @@
 ///////////////////////////////////////
 
 abbr[class^='icon-']
+  @extend %icon-font
   +inline-block
-  font-family: 'Photeasy Icons'
   font-size: $base-font-size
   font-weight: 100
   vertical-align: middle
 
-  &[class$='-xsmall']
+  // sizes
+  &[class*='-xsmall']
     &:before
       +adjust-font-size-to(10px)
-  &[class$='-small']
+  &[class*='-small']
     &:before
       +adjust-font-size-to(12px)
-  &[class$='-large']
+  &[class*='-large']
+    &:before
+      +adjust-font-size-to(18px)
+  &[class*='-xlarge']
     &:before
       +adjust-font-size-to(24px)
-  &[class$='-xlarge']
+
+  // types
+  &[class*='-logo']
     &:before
-      +adjust-font-size-to(36px)
+      content: 'p'
 
-[class^='icon-logo-mark']
-  &:before
-    content: 'p'
+  &[class*='-dropbox']
+    &:before
+      content: 'd'
 
-[class^='icon-dropbox']
-  &:before
-    content: 'd'
+  &[class*='-menu']
+    &:before
+      content: 'm'
 
-[class^='icon-menu']
-  &:before
-    content: 'm'
+  &[class*='-close']
+    &:before
+      content: 'x'
 
-[class^='icon-x']
-  &:before
-    content: 'x'
+  &[class*='-share']
+    &:before
+      content: 's'
+
+  &[class*='-photos']
+    &:before
+      content: 'q'

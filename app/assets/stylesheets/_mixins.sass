@@ -1,0 +1,33 @@
+=container-width
+  margin: 0 auto
+  width: 100%
+  max-width: $max-width
+
+  +breakpoint($bp-desktop)
+    width: $desktop-width
+
+  +breakpoint($bp-max)
+    width: $max-width
+
+=fade-in-and-unhide($duration: 250ms, $otherTransitions:(), $easing: ease)
+  $transitions: opacity, visibility
+  $all-transitions: join($transitions, $otherTransitions, comma)
+
+  +transition-property($all-transitions)
+  +transition-duration($duration)
+  +transition-delay(0s)
+
+  +opacity(1)
+  visibility: visible
+
+=fade-out-and-hide($duration: 250ms, $otherTransitions:(), $easing: ease)
+  $transitions: opacity, visibility
+  $all-transitions: join($transitions, $otherTransitions, comma)
+
+  +transition-property($all-transitions)
+  +transition-duration($duration)
+  +transition-delay(0s, $duration)
+
+  +opacity(0)
+  visibility: hidden
+

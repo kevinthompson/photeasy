@@ -5,7 +5,9 @@ define ['cocktail', 'backbone', 'utils/event_bus'], (Cocktail, Backbone, EventBu
   Cocktail.mixins.eventBus =
     eventBus: EventBus
 
-    initialize: @bindBusEvents
+    initialize: ->
+      @bindBusEvents()
+      return undefined
 
     bindBusEvents: ->
       if @busEvents?
