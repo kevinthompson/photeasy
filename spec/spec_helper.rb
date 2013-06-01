@@ -19,6 +19,7 @@ Spork.prefork do
     config.use_transactional_fixtures = true
     config.include FactoryGirl::Syntax::Methods
     config.include Devise::TestHelpers, type: :controller
+    # config.filter_run focus: true
   end
 end
 
