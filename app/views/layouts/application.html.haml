@@ -22,9 +22,9 @@
     - if Rails.env.development?
       :javascript
         // Enable pusher logging - don't include this in production
-        Pusher.log = function(message) {
-          if (window.console && window.console.log) window.console.log(message);
-        };
+        // Pusher.log = function(message) {
+        //   if (window.console && window.console.log) window.console.log(message);
+        // };
     :javascript
       var pusher = new Pusher("#{Pusher.key}");
       // var channel = pusher.subscribe('test_channel');
