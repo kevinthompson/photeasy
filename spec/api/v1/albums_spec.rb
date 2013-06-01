@@ -9,7 +9,7 @@ describe 'Albums', type: :api do
     sign_in user
   end
 
-  describe 'GET /api/v1/users/:id/albums' do
+  describe 'GET /api/v1/users/:id/albums.json' do
     before do
       create(:album, user: user)
     end
@@ -26,7 +26,19 @@ describe 'Albums', type: :api do
     end
   end
 
-  describe 'POST /api/v1/users/:id/albums' do
+  describe 'POST /api/v1/users/:id/albums.json' do
+    it 'creates a new album' do
+      post url, album: { name: 'New Album' }
+
+      response.status.should eql(201)
+      response_json = JSON.parse(response.body)
+      response_json['errors'].should be_empty
+
+      album = response_json['data']
+      album['name'].should == 'New Album'
+      album['id'].should_not be_nil
+    end
+
     context 'when album data is not valid' do
       it 'returns validation errors' do
         post url, album: {}
@@ -40,23 +52,9 @@ describe 'Albums', type: :api do
         album['id'].should be_nil
       end
     end
-
-    context 'when album data is valid' do
-      it 'creates a new album' do
-        post url, album: { name: 'New Album' }
-
-        response.status.should eql(201)
-        response_json = JSON.parse(response.body)
-        response_json['errors'].should be_empty
-
-        album = response_json['data']
-        album['name'].should == 'New Album'
-        album['id'].should_not be_nil
-      end
-    end
   end
 
-  describe 'GET /api/v1/users/:user_id/albums/:id' do
+  describe 'GET /api/v1/users/:user_id/albums/:id.json' do
     let!(:album){ create(:album, name: 'Existing Album', user: user) }
     let(:url){ "/api/v1/users/#{user.id}/albums/#{album.id}.json" }
 
@@ -73,31 +71,18 @@ describe 'Albums', type: :api do
     end
   end
 
-  describe 'PUT /api/v1/users/:user_id/albums/:id' do
+  describe 'PUT /api/v1/users/:user_id/albums/:id.json' do
     let!(:album){ create(:album, name: 'Existing Album', user: user) }
     let(:url){ "/api/v1/users/#{user.id}/albums/#{album.id}.json" }
 
-    context 'when album data is not valid' do
-      it 'returns validation errors' do
-        put url, album: { name: '', user_id: nil }
+    it 'updates the album' do
+      put url, album: { name: 'Updated Album' }
 
-        response.status.should eql(422)
-        response_json = JSON.parse(response.body)
-        response_json['errors'].should_not be_empty
-        response_json['errors'].any?{ |error| error[1].should include(%Q[can't be blank]) }
-      end
-    end
+      response.status.should eql(200)
+      response_json = JSON.parse(response.body)
 
-    context 'when album data is valid' do
-      it 'updates the album' do
-        put url, album: { name: 'Updated Album' }
-
-        response.status.should eql(200)
-        response_json = JSON.parse(response.body)
-
-        updated_album = response_json['data']
-        updated_album['name'].should == 'Updated Album'
-      end
+      updated_album = response_json['data']
+      updated_album['name'].should == 'Updated Album'
     end
 
     context 'when share objects are included' do
@@ -111,9 +96,20 @@ describe 'Albums', type: :api do
         Share.where(album_id: album['id'], email: 'sterling@isis.org').count.should == 1
       end
     end
+
+    context 'when album data is not valid' do
+      it 'returns validation errors' do
+        put url, album: { name: '', user_id: nil }
+
+        response.status.should eql(422)
+        response_json = JSON.parse(response.body)
+        response_json['errors'].should_not be_empty
+        response_json['errors'].any?{ |error| error[1].should include(%Q[can't be blank]) }
+      end
+    end
   end
 
-  describe 'DELETE /api/v1/users/:user_id/albums/:id' do
+  describe 'DELETE /api/v1/users/:user_id/albums/:id.json' do
     let!(:album){ create(:album, name: 'Existing Album', user: user) }
     let(:url){ "/api/v1/users/#{user.id}/albums/#{album.id}.json" }
 
