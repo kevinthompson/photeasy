@@ -25,7 +25,7 @@ define [
         @eventBus.trigger 'album:update', @
         if @collection.length > 0 and !@hasState 'show'
           @setState 'show'
-        else if @collection.length == 0
+        else if !@collection.length
           @unsetState 'show'
       super()
 
