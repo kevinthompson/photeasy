@@ -9,13 +9,13 @@
     :javascript
       try{Typekit.load();}catch(e){}
   %body
+    %header#header
     #wrap
-      %header#header
       %section#main
         = yield
-      %footer#footer
-      #overlay
-      #pop-over
+    %footer#footer
+    #overlay
+    #pop-over
 
     - if current_user.present?
       :javascript
