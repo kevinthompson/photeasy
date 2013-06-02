@@ -66,6 +66,9 @@ resource 'Albums' do
   end
 
   put 'https://app.photeasy.com/api/v1/albums/:id.json' do
+    parameter :name, 'The name of the album'
+    scope_parameters :album, [:name]
+
     let!(:album){ create(:album, name: 'Existing Album', user: user) }
     let(:id){ album.id }
 
