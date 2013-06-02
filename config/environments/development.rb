@@ -16,6 +16,7 @@ Photeasy::Application.configure do
   # Don't care if the mailer can't send
   config.action_mailer.default_url_options = { host: 'app.photeasy.dev' }
   config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.smtp_settings = { address: 'localhost', port: 1025 }
 
   # Print deprecation notices to the Rails logger
   config.active_support.deprecation = :log
@@ -35,16 +36,4 @@ Photeasy::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
-
-  # Paperclip Defaults
-  config.paperclip_defaults = {
-    storage: :s3,
-    s3_credentials: {
-      bucket: ENV['AWS_BUCKET'],
-      access_key_id: ENV['AWS_ACCESS_KEY_ID'],
-      secret_access_key: ENV['AWS_SECRET_ACCESS_KEY']
-    },
-    url: ':s3_domain_url',
-    path: '/:class/:attachment/:id_partition/:style/:filename'
-  }
 end
