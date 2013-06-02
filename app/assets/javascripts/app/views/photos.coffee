@@ -7,21 +7,24 @@ define ['marionette', 'views/photo', 'collections/photos'], (Marionette, PhotoVi
     itemViewOptions: tagName: 'li'
     collection: new PhotosCollection()
 
-    delay: 0
-    delayDuration: 100
-    viewsRendered: 0
+    # this stuff made the page feel unresponsive imo
+    # will revisit later
 
-    incrementDelay: ->
-      delay = @delay
-      @viewsRendered += 1
-      @delay += @delayDuration
-      @delay = 0 if (@collection.length - 1) * @delayDuration <= @delay
-      return delay
+    # delay: 0
+    # delayDuration: 100
+    # viewsRendered: 0
 
-    renderItemView:(view, index) ->
-      delay = @incrementDelay()
-      _.delay =>
-        super view, index
-      , delay
+    # incrementDelay: ->
+    #   delay = @delay
+    #   @viewsRendered += 1
+    #   @delay += @delayDuration
+    #   @delay = 0 if (@collection.length - 1) * @delayDuration <= @delay
+    #   return delay
+
+    # renderItemView:(view, index) ->
+    #   delay = @incrementDelay()
+    #   _.delay =>
+    #     super view, index
+    #   , delay
 
 

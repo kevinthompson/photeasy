@@ -46,6 +46,13 @@ html
 #wrap
   +background($background-color)
 
+#main, #header
+  +opacity(0)
+
+  &.rendered
+    +single-transition(opacity, 250ms)
+    +opacity(1)
+
 #main
   +clearfix
   +box-sizing(border-box)
