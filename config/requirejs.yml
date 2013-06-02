@@ -1,0 +1,8 @@
+module:
+  - name: 'main'
+  -
+    name: 'views/photo'
+    exclude: 'main'
+  -
+    name: 'views/album_pop_over'
+    exclude: 'main'
