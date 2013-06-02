@@ -37,6 +37,7 @@ $nav-height: 50px
 
 #logo-mark
   +adjust-font-size-to(80px)
+  +animate(logo, 1s, 250ms)
 
 #nav
   position: relative
@@ -76,6 +77,7 @@ $nav-height: 50px
   height: $nav-height
   font-weight: 300
   letter-spacing: 0.15em
+
   +breakpoint($bp-small)
     border-right: 1px solid $light-font-color
 
