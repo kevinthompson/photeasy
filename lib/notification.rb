@@ -7,7 +7,7 @@ class Notification
     end
   end
 
-  def send
+  def push
     Pusher[channel].trigger(event, data)
   end
 
