@@ -6,6 +6,7 @@
 .rspec
 .rvmrc
 .sass-cache
+karma.conf.js
 /.bundle
 /config/application.yml
 /config/database.yml
