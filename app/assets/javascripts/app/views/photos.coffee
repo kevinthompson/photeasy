@@ -1,11 +1,11 @@
-define ['marionette', 'views/photo', 'collections/photos'], (Marionette, PhotoView, PhotosCollection) ->
+define ['marionette', 'views/photo', 'base'], (Marionette, PhotoView, Base) ->
   class PhotosPage extends Marionette.CollectionView
     id: 'photos'
     className: 'page'
     tagName: 'ul'
     itemView: PhotoView
     itemViewOptions: tagName: 'li'
-    collection: new PhotosCollection()
+    collection: new Base.Collection([], api: 'photos')
 
     # this stuff made the page feel unresponsive imo
     # will revisit later

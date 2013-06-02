@@ -4,7 +4,7 @@ define ['base', 'utils/url'], (Base, url) ->
   describe 'Base Collection', ->
 
     beforeEach ->
-      collection = new Base.Collection()
+      collection = new Base.Collection [], api: 'photos'
 
     it 'should have mixins', ->
 
@@ -17,5 +17,4 @@ define ['base', 'utils/url'], (Base, url) ->
         expect(collection.url).to.be.a('function')
 
       it 'should return an api url', ->
-        collection.api = 'photos'
         expect(collection.url()).to.equal(url.apiTo('photos'))

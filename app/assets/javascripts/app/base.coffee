@@ -1,4 +1,14 @@
-define ['marionette', 'utils/url', 'cocktail', 'utils/mixins'], (Marionette, url, Cocktail) ->
+define [
+  'marionette'
+  'cocktail'
+  'utils/url'
+  'utils/mixins'
+], (
+  Marionette
+  Cocktail
+  url
+) ->
+
   Base = {}
 
   class Base.ItemView extends Marionette.ItemView
@@ -9,10 +19,25 @@ define ['marionette', 'utils/url', 'cocktail', 'utils/mixins'], (Marionette, url
   Cocktail.mixin Base.Region, 'eventBus', 'states'
 
   class Base.Collection extends Backbone.Collection
+    initialize: (models, options) ->
+      @api = options?.api or ''
+      super
     url: -> url.apiTo(@api) or undefined
+    save: ->
+      console.log @collection.attributes
+      response = []
+      _.each @models, (model) ->
+        response.push model.attributes
+      collection = new Backbone.Model(data: response)
+      @sync 'create', collection, url: @url()
+
   Cocktail.mixin Base.Collection, 'parseApi', 'eventBus'
 
   class Base.Model extends Backbone.Model
+    initialize: (attributes, options) ->
+      @api = options?.api or ''
+      super
+    constructor: (@api) -> super
     url: -> if url.apiTo(@api) then "#{url.apiTo(@api)}/#{@id}" else undefined
   Cocktail.mixin Base.Model, 'parseApi', 'eventBus'
 

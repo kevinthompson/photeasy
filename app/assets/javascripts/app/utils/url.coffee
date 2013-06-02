@@ -8,9 +8,11 @@ define [], ->
     'api': '/api/v1'
     'users': '/users'
     'photos': '/photos'
+    'albums': '/albums'
 
   urlTo: (key, id) ->
-    return @urls[key] + (if id then "/#{id}" else '')
+    if @urls[key]
+      return @urls[key] + (if id then "/#{id}" else '')
 
   linkTo: (key, text, options) ->
     if typeof key == 'object'
@@ -32,4 +34,5 @@ define [], ->
     return $link
 
   apiTo: (key, id) ->
-    return @urls.api + @urlTo(key, id) + '.json'
+    if @urlTo(key, id)
+      return @urls.api + @urlTo(key, id) + '.json'
