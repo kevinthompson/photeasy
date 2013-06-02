@@ -1,37 +1,37 @@
-require.config
+#= require vendor/require.config
 
-  # path configuration
-  baseUrl: '/assets/app'
+# this is to alias the paths provided by
+# jam to something else
+# NOTE: maybe this should be moved
+modulePath = (name, alt) ->
+  pkgs = jam.packages
+  # searching jam's packages for a matching name
+  for pkg in pkgs
+    if pkg.name == name
+      location = pkg.location + '/'
+      # normalizing the string coming from jam
+      # by removing any '^./' and '.js$'
+      file = (alt or pkg.main).replace(/\.\/|\.js$/g, '')
+      return location + file
+
+  # returning the name if no package is found
+  return name
+
+# Overrides for jam and requirejs-rail
+require.config
+  baseUrl: 'assets/app'
   paths:
-    'jquery': '../vendor/jquery/jquery'
-    'underscore': '../vendor/underscore-amd/underscore'
-    'marionette': '../vendor/marionette/lib/core/amd/backbone.marionette'
-    'backbone': '../vendor/backbone-amd/backbone'
-    'backbone.wreqr': '../vendor/backbone.wreqr/lib/amd/backbone.wreqr'
-    'backbone.babysitter': '../vendor/backbone.babysitter/lib/amd/backbone.babysitter'
-    'text': '../vendor/text/text'
-    'dust': '../vendor/dustjs-linkedin/dist/dust-full-1.2.2'
+    'cocktail': '../lib/cocktail'
     'dusty': '../lib/dusty'
     'dust.helpers': '../lib/dust.helpers'
-    'json2': '../vendor/json2/json2'
-    'cocktail': '../vendor/cocktail/Cocktail'
+    'dust': modulePath('dustjs-linkedin', 'dist/dust-full-1.1.1')
+    'marionette': modulePath('backbone.marionette')
 
-  # shim for non AMD libraries
   shim:
-    dust:
-      exports: 'dust'
+    dust: exports: 'dust'
+    cocktail: exports: 'Cocktail'
 
-    cocktail:
-      exports: 'Cocktail'
-
-  # dust is retarded
-  deps: ['dust', 'dust.helpers', 'utils/mixins']
-
-  # development
-  urlArgs: 'cachebust=' + (new Date()).getTime()
-  waitSeconds: '2'
+  deps: ['dust', 'dust.helpers']
 
 # Initialize app
-define ['photeasy', 'jquery'], (Photeasy, $) ->
-  $ ->
-    Photeasy.start()
+define ['photeasy'], (Photeasy) -> Photeasy.start()

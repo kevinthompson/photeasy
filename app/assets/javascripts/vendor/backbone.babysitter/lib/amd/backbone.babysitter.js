@@ -1,6 +1,6 @@
 // Backbone.BabySitter
 // -------------------
-// v0.0.6
+// v0.0.5
 //
 // Copyright (c)2013 Derick Bailey, Muted Solutions, LLC.
 // Distributed under MIT license
@@ -34,13 +34,14 @@ Backbone.ChildViewContainer = (function(Backbone, _){
   // Container Constructor
   // ---------------------
 
-  var Container = function(views){
+  var Container = function(initialViews){
     this._views = {};
     this._indexByModel = {};
+    this._indexByCollection = {};
     this._indexByCustom = {};
     this._updateLength();
 
-    _.each(views, this.add, this);
+    this._addInitialViews(initialViews);
   };
 
   // Container Methods
@@ -50,7 +51,7 @@ Backbone.ChildViewContainer = (function(Backbone, _){
 
     // Add a view to this container. Stores the view
     // by `cid` and makes it searchable by the model
-    // cid (and model itself). Optionally specify
+    // and/or collection of the view. Optionally specify
     // a custom key to store an retrieve the view.
     add: function(view, customIndex){
       var viewCid = view.cid;
@@ -63,6 +64,11 @@ Backbone.ChildViewContainer = (function(Backbone, _){
         this._indexByModel[view.model.cid] = viewCid;
       }
 
+      // index it by collection
+      if (view.collection){
+        this._indexByCollection[view.collection.cid] = viewCid;
+      }
+
       // index by custom
       if (customIndex){
         this._indexByCustom[customIndex] = viewCid;
@@ -72,16 +78,18 @@ Backbone.ChildViewContainer = (function(Backbone, _){
     },
 
     // Find a view by the model that was attached to
-    // it. Uses the model's `cid` to find it.
+    // it. Uses the model's `cid` to find it, and
+    // retrieves the view by it's `cid` from the result
     findByModel: function(model){
-      return this.findByModelCid(model.cid);
+      var viewCid = this._indexByModel[model.cid];
+      return this.findByCid(viewCid);
     },
 
-    // Find a view by the `cid` of the model that was attached to
-    // it. Uses the model's `cid` to find the view `cid` and
-    // retrieve the view using it.
-    findByModelCid: function(modelCid){
-      var viewCid = this._indexByModel[modelCid];
+    // Find a view by the collection that was attached to
+    // it. Uses the collection's `cid` to find it, and
+    // retrieves the view by it's `cid` from the result
+    findByCollection: function(col){
+      var viewCid = this._indexByCollection[col.cid];
       return this.findByCid(viewCid);
     },
 
@@ -111,13 +119,26 @@ Backbone.ChildViewContainer = (function(Backbone, _){
         delete this._indexByModel[view.model.cid];
       }
 
+      // delete collection index
+      if (view.collection){
+        delete this._indexByCollection[view.collection.cid];
+      }
+
       // delete custom index
-      _.any(this._indexByCustom, function(cid, key) {
-        if (cid === viewCid) {
-          delete this._indexByCustom[key];
-          return true;
+      var cust;
+
+      for (var key in this._indexByCustom){
+        if (this._indexByCustom.hasOwnProperty(key)){
+          if (this._indexByCustom[key] === viewCid){
+            cust = key;
+            break;
+          }
         }
-      }, this);
+      }
+
+      if (cust){
+        delete this._indexByCustom[cust];
+      }
 
       // remove the view from the container
       delete this._views[viewCid];
@@ -129,24 +150,44 @@ Backbone.ChildViewContainer = (function(Backbone, _){
     // Call a method on every view in the container,
     // passing parameters to the call method one at a
     // time, like `function.call`.
-    call: function(method){
-      this.apply(method, _.tail(arguments));
+    call: function(method, args){
+      args = Array.prototype.slice.call(arguments, 1);
+      this.apply(method, args);
     },
 
     // Apply a method on every view in the container,
     // passing parameters to the call method one at a
     // time, like `function.apply`.
     apply: function(method, args){
-      _.each(this._views, function(view){
+      var view;
+
+      // fix for IE < 9
+      args = args || [];
+
+      _.each(this._views, function(view, key){
         if (_.isFunction(view[method])){
-          view[method].apply(view, args || []);
+          view[method].apply(view, args);
         }
       });
+
     },
 
     // Update the `.length` attribute on this container
     _updateLength: function(){
       this.length = _.size(this._views);
+    },
+
+    // set up an initial list of views
+    _addInitialViews: function(views){
+      if (!views){ return; }
+
+      var view, i,
+          length = views.length;
+
+      for (i=0; i<length; i++){
+        view = views[i];
+        this.add(view);
+      }
     }
   });
 

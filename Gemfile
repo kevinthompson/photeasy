@@ -14,6 +14,7 @@ gem 'jbuilder'
 gem 'pg'
 gem 'puma'
 gem 'pusher'
+gem 'raddocs', git: 'git://github.com/kevinthompson/raddocs.git'
 gem 'rails', '3.2.13'
 gem 'sentry-raven'
 gem 'uuidtools'
@@ -48,6 +49,7 @@ gem 'simple_form'
 gem 'uglifier'
 
 group :assets do
+  gem 'requirejs-rails'
   gem 'jquery-rails'
   gem 'coffee-rails'
   gem 'sass-rails'
@@ -80,6 +82,7 @@ group :development, :test do
   gem 'pry-rails'
   gem 'quiet_assets'
   gem 'rb-fsevent'
+  gem 'rspec_api_documentation', git: 'git://github.com/kevinthompson/rspec_api_documentation.git'
   gem 'rspec-rails'
   gem 'shoulda-matchers'
 end

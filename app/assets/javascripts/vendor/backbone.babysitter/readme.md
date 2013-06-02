@@ -4,7 +4,7 @@ Manage child views in a Backbone.View.
 
 ## About Backbone.BabySitter
 
-Backbone provides a lot of functionality in its views, but does not directly
+Backbone provides a lot of functionality in it's views, but does not directly
 provide a way to manage child views or nested views. This is not terribly
 difficult to do on your own, but it gets tedious to write the same code
 over and over again.
@@ -92,9 +92,6 @@ var s = container.findByCid(someView.cid);
 
 // find by model
 var av = container.findByModel(anotherView.model);
-
-// find by model cid
-var av2 = container.findByModelCid(anotherView.model.cid);
 
 // find by collection
 var cv = container.findByCollection(collectionView.collection);

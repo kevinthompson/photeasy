@@ -1,24 +1,21 @@
 require 'spec_helper'
+require 'rspec_api_documentation/dsl'
 
-describe 'Photos', type: :api do
+resource 'Photos' do
+  parameter :auth_token, 'Authentication token'
+
   let(:user){ create(:user) }
-  let(:url) { '/api/v1/photos.json' }
+  let(:auth_token){ user.authentication_token }
 
-  before do
-    host! 'app.photeasy.com'
-  end
+  get 'https://app.photeasy.com/api/v1/photos.json' do
 
-  describe 'GET /api/v1/photos.json' do
     before do
       create(:photo, user: user)
     end
 
-    it 'returns an array of photos' do
-      sign_in user
-      get url
-
-      response.status.should eql(200)
-      response_json = JSON.parse(response.body)
+    example_request 'List Photos' do
+      response_status.should eql(200)
+      response_json = JSON.parse(response_body)
 
       response_json['errors'].should be_empty
       photos = response_json['data']

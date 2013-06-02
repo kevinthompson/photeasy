@@ -16,10 +16,6 @@ define ['marionette', 'controller'], (Marionette, controller) ->
 
     appRoutes:
       '(photos)': 'showRoot'
-      # 'albums/:id': 'showAlbum'
-      'shares/:id': 'showShare'
-      # 'prints/:id': 'showPrint'
-      # 'orders/:id': 'showOrders'
       'sign_in': 'ignoreRoute'
       'sign_out': 'ignoreRoute'
       'users/*path': 'ignoreRoute'

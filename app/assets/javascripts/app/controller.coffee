@@ -7,13 +7,6 @@ define ['marionette', 'layout'], (Marionette, Layout) ->
         photoView.collection.fetch()
         Layout.popOver.show new AlbumPopOver()
 
-    showShare: (id) ->
-      require ['views/photos', 'collection/share'], (PhotosPage, ShareCollection) ->
-        photoView = new PhotosPage()
-        Layout.main.show new PhotosPage
-          collection: new ShareCollection(id: id)
-        photoView.collection.fetch()
-
     show404: ->
       require ['views/404'], (NotFoundView)->
         Layout.main.show new NotFoundView()
