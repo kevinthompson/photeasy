@@ -41,6 +41,7 @@ Photeasy::Application.routes.draw do
           resources :photos, only: [:index]
           resources :albums, except: [:edit, :new]
           resources :shares, only: [:show]
+          resources :users, only: [:show], contraints: { id: 'current' }
         end
       end
 
