@@ -11,9 +11,6 @@ define ['marionette', 'controller'], (Marionette, controller) ->
       '*path': 'show404'
 
     initialize: ->
-      @on 'route:before', (route) =>
-        if !window.current_user and route != 'sign_in' and window.location.pathName != '/sign_in'
-          window.location = '/sign_in'
       super
 
     route: (route, name, handler) ->
