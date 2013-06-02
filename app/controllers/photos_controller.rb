@@ -1,4 +1,5 @@
 class PhotosController < ApplicationController
+  before_filter :authenticate_user!
 
   def thumbnail
     params[:size] ||= :medium

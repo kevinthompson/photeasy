@@ -84,8 +84,5 @@ group :development, :test do
   gem 'rspec_api_documentation', git: 'git://github.com/kevinthompson/rspec_api_documentation.git'
   gem 'rspec-rails'
   gem 'shoulda-matchers'
-end
-
-group :test do
   gem 'simplecov', require: false
 end
