@@ -1,37 +1,36 @@
 require 'spec_helper'
+require 'rspec_api_documentation/dsl'
 
-describe 'Albums', type: :api do
+resource 'Albums' do
+  parameter :auth_token, 'Authentication token'
+
   let(:user){ create(:user) }
-  let(:url) { "/api/v1/users/#{user.id}/albums.json" }
+  let(:auth_token){ user.authentication_token }
 
-  before do
-    host! 'app.photeasy.com'
-    sign_in user
-  end
+  get 'https://app.photeasy.com/api/v1/albums.json' do
 
-  describe 'GET /api/v1/users/:id/albums.json' do
     before do
       create(:album, user: user)
     end
 
-    it 'returns an array of albums' do
-      get url
-
-      response.status.should eql(200)
-      response_json = JSON.parse(response.body)
+    example_request 'List Albums' do
+      status.should == 200
+      response_json = JSON.parse(response_body)
       response_json['errors'].should be_empty
-
       albums = response_json['data']
       albums.any?{ |album| album['name'] == 'Example Album' }.should be_true
     end
   end
 
-  describe 'POST /api/v1/users/:id/albums.json' do
-    it 'creates a new album' do
-      post url, album: { name: 'New Album' }
+  post 'https://app.photeasy.com/api/v1/albums.json' do
+    parameter :name, 'The name of the album'
+    scope_parameters :album, [:name]
 
-      response.status.should eql(201)
-      response_json = JSON.parse(response.body)
+    let(:name){ 'New Album' }
+
+    example_request 'Create Album' do
+      status.should eql(201)
+      response_json = JSON.parse(response_body)
       response_json['errors'].should be_empty
 
       album = response_json['data']
@@ -39,87 +38,73 @@ describe 'Albums', type: :api do
       album['id'].should_not be_nil
     end
 
-    context 'when album data is not valid' do
-      it 'returns validation errors' do
-        post url, album: {}
+    example_request 'Create Album: Invalid Data', { album: nil } do
+      response_status.should eql(422)
+      response_json = JSON.parse(response_body)
+      response_json['errors'].should_not be_empty
+      response_json['errors'].any?{ |error| error[1].include?("can't be blank") }.should be_true
 
-        response.status.should eql(422)
-        response_json = JSON.parse(response.body)
-        response_json['errors'].should_not be_empty
-        response_json['errors'].any?{ |error| error[1].include?("can't be blank") }.should be_true
-
-        album = response_json['data']
-        album['id'].should be_nil
-      end
+      album = response_json['data']
+      album['id'].should be_nil
     end
   end
 
-  describe 'GET /api/v1/users/:user_id/albums/:id.json' do
-    let!(:album){ create(:album, name: 'Existing Album', user: user) }
-    let(:url){ "/api/v1/users/#{user.id}/albums/#{album.id}.json" }
+  get 'https://app.photeasy.com/api/v1/albums/:id.json' do
 
-    it 'returns the selected album' do
-      get url
+    let(:album){ create(:album, user: user) }
+    let(:id){ album.id }
 
-      response.status.should eql(200)
-      response_json = JSON.parse(response.body)
+    example_request 'Show Album' do
+      response_status.should eql(200)
+      response_json = JSON.parse(response_body)
       response_json['errors'].should be_empty
 
       existing_album = response_json['data']
       existing_album['id'].should == album.id
-      existing_album['name'].should == 'Existing Album'
+      existing_album['name'].should == 'Example Album'
     end
   end
 
-  describe 'PUT /api/v1/users/:user_id/albums/:id.json' do
+  put 'https://app.photeasy.com/api/v1/albums/:id.json' do
+    parameter :name, 'The name of the album'
+    scope_parameters :album, [:name]
+
     let!(:album){ create(:album, name: 'Existing Album', user: user) }
-    let(:url){ "/api/v1/users/#{user.id}/albums/#{album.id}.json" }
+    let(:id){ album.id }
 
-    it 'updates the album' do
-      put url, album: { name: 'Updated Album' }
-
-      response.status.should eql(200)
-      response_json = JSON.parse(response.body)
+    example_request 'Update Album', { album: { name: 'Updated Album' } } do
+      response_status.should eql(200)
+      response_json = JSON.parse(response_body)
 
       updated_album = response_json['data']
       updated_album['name'].should == 'Updated Album'
     end
 
-    context 'when share objects are included' do
-      it 'creates new shares' do
-        put url, album: { shares_attributes: [ { email: 'sterling@isis.org' } ] }
-
-        response.status.should eql(200)
-        response_json = JSON.parse(response.body)
-        response_json['errors'].should be_empty
-
-        Share.where(album_id: album['id'], email: 'sterling@isis.org').count.should == 1
-      end
+    example_request 'Update Album: Shares', album: { shares_attributes: [ { email: 'sterling@isis.org' } ] } do
+      response_status.should eql(200)
+      response_json = JSON.parse(response_body)
+      response_json['errors'].should be_empty
+      Share.where(album_id: album['id'], email: 'sterling@isis.org').count.should == 1
     end
 
-    context 'when album data is not valid' do
-      it 'returns validation errors' do
-        put url, album: { name: '', user_id: nil }
-
-        response.status.should eql(422)
-        response_json = JSON.parse(response.body)
-        response_json['errors'].should_not be_empty
-        response_json['errors'].any?{ |error| error[1].should include(%Q[can't be blank]) }
-      end
+    example_request 'Update Album: Invalid Data', album: { name: '', user_id: nil } do
+      response_status.should eql(422)
+      response_json = JSON.parse(response_body)
+      response_json['errors'].should_not be_empty
+      response_json['errors'].any?{ |error| error[1].should include(%Q[can't be blank]) }
     end
   end
 
-  describe 'DELETE /api/v1/users/:user_id/albums/:id.json' do
-    let!(:album){ create(:album, name: 'Existing Album', user: user) }
-    let(:url){ "/api/v1/users/#{user.id}/albums/#{album.id}.json" }
+  delete 'https://app.photeasy.com/api/v1/albums/:id.json' do
+    let!(:album){ create(:album, user: user) }
+    let(:id){ album.id }
 
-    it 'deletes the album' do
-      delete url
-
-      response.status.should eql(200)
-      response_json = JSON.parse(response.body)
+    example_request 'Delete Album' do
+      response_status.should eql(200)
+      response_json = JSON.parse(response_body)
       response_json['data'].should be_empty
       response_json['errors'].should be_empty
     end
   end
+
 end
