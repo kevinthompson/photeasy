@@ -5,7 +5,8 @@ define ['marionette', 'utils/url', 'cocktail', 'utils/mixins'], (Marionette, url
   Cocktail.mixin Base.ItemView, 'eventBus', 'states'
 
   class Base.Region extends Marionette.Region
-  Cocktail.mixin Base.Region, 'eventBus'
+    onShow: -> @setState 'rendered'
+  Cocktail.mixin Base.Region, 'eventBus', 'states'
 
   class Base.Collection extends Backbone.Collection
     url: -> url.apiTo(@api) or undefined
