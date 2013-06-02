@@ -1,6 +1,6 @@
 define ['marionette', 'utils/event_bus', 'views/layout/header', 'regions/overlay'], (Marionette, EventBus, HeaderView, OverlayRegion) ->
   class Layout extends Marionette.Layout
-    el: '#wrap'
+    el: 'body'
 
     regions:
       header: '#header'

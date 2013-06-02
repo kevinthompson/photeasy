@@ -1,0 +1,1 @@
+Raddocs.configuration.api_name = 'Photeasy API'

@@ -1,5 +1,5 @@
-define ['dust', 'underscore', 'utils/url'], (dust, _, url) ->
-  dust.helpers = _.extend dust.helpers,
+define ['dust', 'utils/url'], (dust, url) ->
+  dust.helpers =
 
     url: (chunk, context, bodies, params) ->
       chunk.write(url.urlTo(params.key))

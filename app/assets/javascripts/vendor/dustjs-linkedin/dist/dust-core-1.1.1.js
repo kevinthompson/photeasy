@@ -422,6 +422,7 @@ Chunk.prototype.section = function(elem, context, bodies, params) {
           if(context.stack.head) {
            context.stack.head['$idx'] = i;
           }
+          this.global = elem;
           chunk = body(chunk, context.push(elem[i], i, len));
         }
         if(context.stack.head) {

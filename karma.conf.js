@@ -10,6 +10,7 @@ basePath = 'app/assets/javascripts/';
 files = [
   MOCHA,
   MOCHA_ADAPTER,
+  'vendor/requirejs-conf.js',
   REQUIRE,
   REQUIRE_ADAPTER,
   {pattern: 'app/**/*.coffee', included: false},

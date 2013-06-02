@@ -16,5 +16,17 @@
     "test": "phantomjs test/vendor/runner.js test/index.html?noglobals=true && coffee test/model.coffee"
   },
   "main"          : "backbone.js",
-  "version"       : "1.0.0"
+  "version"       : "1.0.0",
+  "jam": {
+    "main": "backbone.js",
+    "include": ["backbone.js"],
+    "dependencies": {
+      "underscore": "~1.4",
+      "jquery": ">=1.6"
+    },
+    "shim": {
+      "deps": ["underscore", "jquery"],
+      "exports": "Backbone"
+    }
+  }
 }

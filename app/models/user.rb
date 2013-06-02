@@ -1,9 +1,8 @@
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
-  # :token_authenticatable, :confirmable,
-  # :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable,
+  # :confirmable, :lockable, :timeoutable and :omniauthable,
+  devise :database_authenticatable, :registerable, :token_authenticatable,
+       :recoverable, :rememberable, :trackable, :validatable,
          :omniauthable, omniauth_providers: [:dropbox]
 
   # Setup accessible (or protected) attributes for your model
@@ -16,6 +15,8 @@ class User < ActiveRecord::Base
   has_many :albums, dependent: :destroy
   has_many :orders
   has_many :shares, through: :albums
+
+  before_save :ensure_authentication_token
 
   def self.find_for_dropbox_oauth(auth, signed_in_resource=nil)
     user = where(provider: auth.provider, uid: auth.uid.to_s).first

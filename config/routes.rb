@@ -3,11 +3,14 @@ require 'sidekiq/web'
 Photeasy::Application.routes.draw do
 
   # Domain Constraints
-  host_regex_pattern = Rails.env.production? ? /^photeasy\.com/ : /^(app\.)?photeasy\.(com|dev)/
+  host_regex_pattern = Rails.env.production? ? /^photeasy\.com/ : /^(app\.)?(staging\.)?photeasy\.(com|dev)/
   constraints lambda { |request| !(request.host =~ host_regex_pattern) } do
     root to: redirect { |params,request| "#{request.protocol}photeasy.#{request.domain.split('.').last}" }
     match '/*path', to: redirect { |params,request| "#{request.protocol}photeasy.#{request.domain.split('.').last}/#{params[:path]}" }
   end
+
+  # Docs
+  mount Raddocs::App => '/docs', anchor: false if Rails.env.development?
 
   # Authentication
   if Rails.env.production?
@@ -18,7 +21,7 @@ Photeasy::Application.routes.draw do
 
   if !Rails.env.production?
     # App
-    constraints subdomain: 'app' do
+    constraints lambda { |request| request.host =~ /^app\./ } do
 
       # Index
       root to: 'pages#show', id: 'app'
@@ -36,9 +39,7 @@ Photeasy::Application.routes.draw do
       namespace :api, format: true, constraints: { format: :json } do
         namespace :v1 do
           resources :photos, only: [:index]
-          resources :users, only: [:show] do
-            resources :albums
-          end
+          resources :albums, except: [:edit, :new]
           resources :shares, only: [:show]
         end
       end

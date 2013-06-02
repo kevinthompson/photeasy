@@ -20,6 +20,12 @@ Spork.prefork do
     config.include FactoryGirl::Syntax::Methods
     config.include Devise::TestHelpers, type: :controller
   end
+
+  RspecApiDocumentation.configure do |config|
+    config.docs_dir = Rails.root.join('docs')
+    config.format = [:json]
+    config.api_name = 'Photeasy API'
+  end
 end
 
 Spork.each_run do
