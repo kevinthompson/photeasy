@@ -44,3 +44,8 @@ define [
       it 'should fire the album remove event', (done) ->
         EventBus.on REMOVE_ALBUM, -> done()
         album.removePhoto photo
+
+    # TODO: figure out how to test template helpers
+    describe 'template helpers', ->
+      describe 'photoCount', ->
+        it 'should be singular if count is 1', ->

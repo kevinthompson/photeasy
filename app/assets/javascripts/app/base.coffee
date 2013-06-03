@@ -13,7 +13,8 @@ define ['marionette', 'utils/url', 'cocktail', 'utils/mixins'], (Marionette, url
   Cocktail.mixin Base.Collection, 'parseApi', 'eventBus'
 
   class Base.Model extends Backbone.Model
-    url: -> if url.apiTo(@api) then "#{url.apiTo(@api)}/#{@id}" else undefined
+    url: -> if url.apiTo(@api, @id) then "#{url.apiTo(@api, @id)}" else undefined
+
   Cocktail.mixin Base.Model, 'parseApi', 'eventBus'
 
   return Base
