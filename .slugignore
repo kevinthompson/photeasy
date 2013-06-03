@@ -5,3 +5,5 @@ spec
 features
 doc
 docs
+.js
+node_modules

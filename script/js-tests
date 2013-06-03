@@ -1,0 +1,34 @@
+#!/usr/bin/env observr
+
+CODE = 'app/assets/javascripts'
+OUTPUT = '.js'
+
+unless File.exists? OUTPUT
+  Dir::mkdir OUTPUT
+end
+
+def sync_js_dust
+  # rsync -a --include='*.js' --include='*.dust' --include='*/' --exclude='*' app/assets/javascripts .js
+  system( "rsync -a --include='*.js' --include='*.dust' --include='*/' --exclude='*' #{CODE}/ #{OUTPUT}/" )
+end
+
+def watch_js_dust
+  watch("#{CODE}/*.(js|dust)") { sync_js_dust() }
+end
+
+def watch_coffee
+  system( "nohup coffee -cwo #{OUTPUT} #{CODE} >>/dev/null 2>>/dev/null &" )
+end
+
+def watch_all
+  watch_js_dust()
+  watch_coffee()
+end
+
+def init
+  sync_js_dust()
+  watch_all()
+  system( "karma start karma.conf.js" )
+end
+
+init()

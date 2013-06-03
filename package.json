@@ -1,4 +1,9 @@
 {
+  "name": "Photeasy",
+  "version": "1.0.0",
+  "dependencies": {
+    "docco": "0.6.2"
+  },
   "jam": {
     "packageDir": "app/assets/javascripts/vendor",
     "baseUrl": "app/assets/javascripts/app",
