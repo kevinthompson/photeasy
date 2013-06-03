@@ -10,7 +10,7 @@ class Api::V1::SharesController < Api::V1::BaseController
   private
 
   def load_data
-    @share = Share.where(id: params[:id]).includes(:photos, :album, :user).first
+    @share = Share.where(uuid: params[:id]).includes(:album, :user).first
   end
 
 end

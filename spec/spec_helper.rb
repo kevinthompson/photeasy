@@ -1,7 +1,4 @@
 require File.expand_path('../../config/environment', __FILE__)
-require 'capybara/rspec'
-require 'fakeweb'
-require 'rspec/rails'
 require 'spork'
 
 Spork.prefork do
@@ -9,6 +6,11 @@ Spork.prefork do
     require 'simplecov'
     SimpleCov.start 'rails'
   end
+
+  require 'rspec/rails'
+  require 'capybara/rspec'
+  require 'sidekiq/testing'
+  require 'fakeweb'
 
   Dir[Rails.root.join('spec/support/**/*.rb')].each {|f| require f}
   Capybara.javascript_driver = :webkit

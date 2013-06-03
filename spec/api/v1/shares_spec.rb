@@ -9,7 +9,7 @@ resource 'Shares' do
   let(:album){ create(:album, photo_ids: [photo.id]) }
   let(:auth_token){ user.authentication_token }
   let(:share){ create(:share, user: user, album: album) }
-  let(:id){ share.id }
+  let(:id){ share.uuid }
 
   get 'https://app.photeasy.com/api/v1/shares/:id.json' do
     example_request 'Show Share' do
