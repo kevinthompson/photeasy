@@ -13,9 +13,9 @@ define ['base', 'utils/url'], (Base, url) ->
 
     describe 'url', ->
 
-      it 'should be a function', ->
-        expect(collection.url).to.be.a('function')
-
-      it 'should return an api url', ->
+      it 'should return an api url if api is set', ->
         collection.api = 'photos'
         expect(collection.url()).to.equal(url.apiTo('photos'))
+
+      it 'should return undefined if not api is set', ->
+        expect(collection.url()).to.be(undefined)
