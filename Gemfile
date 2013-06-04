@@ -50,7 +50,6 @@ gem 'simple_form'
 gem 'uglifier'
 
 group :assets do
-  gem 'requirejs-rails'
   gem 'jquery-rails'
   gem 'coffee-rails'
   gem 'sass-rails'
