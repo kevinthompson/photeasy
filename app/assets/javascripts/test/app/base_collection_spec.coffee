@@ -4,7 +4,7 @@ define ['base', 'utils/url'], (Base, url) ->
     collection = new Base.Collection()
 
     beforeEach ->
-      collection = new Base.Collection [], api: 'photos'
+      collection = new Base.Collection []
 
     describe 'url', ->
 

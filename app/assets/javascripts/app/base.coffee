@@ -22,7 +22,8 @@ define [
     initialize: (models, options) ->
       @api = options?.api or ''
       super
-    url: -> url.apiTo(@api)
+    url: ->
+      url.apiTo(@api)
     save: ->
       console.log @collection.attributes
       response = []
@@ -38,7 +39,7 @@ define [
       @api = options?.api or ''
       super
     constructor: (@api) -> super
-    url: -> if url.apiTo(@api) then "#{url.apiTo(@api)}/#{@id}" else undefined
+    url: -> if url.apiTo(@api, @id) then "#{url.apiTo(@api, @id)}" else undefined
 
 
   Cocktail.mixin Base.Model, 'parseApi', 'eventBus'
