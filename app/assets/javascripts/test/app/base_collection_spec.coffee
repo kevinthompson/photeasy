@@ -12,5 +12,5 @@ define ['base', 'utils/url'], (Base, url) ->
         collection.api = 'photos'
         expect(collection.url()).to.equal(url.apiTo('photos'))
 
-      it 'should return undefined if not api is set', ->
+      it 'should return undefined if no api is set', ->
         expect(collection.url()).to.be(undefined)

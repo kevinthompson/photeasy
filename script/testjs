@@ -6,14 +6,11 @@ CODE = 'app/assets/javascripts'
 OUTPUT = '.js'
 
 Signal.trap 'EXIT' do
-  FileUtils.rm_rf OUTPUT
-  clean_up()
   puts ''
-  puts 'I knew you didnt care about me! NOW I\'M GOING TO DELETE SHIT...'
-end
-
-def clean_up
+  print 'Removing temp files... '
+  FileUtils.rm_rf OUTPUT
   Dir.glob('docs/js/coverage/*.json').each { |f| File.delete(f) }
+  puts 'DONE'
 end
 
 def sync_all
@@ -40,9 +37,11 @@ def compile_coffee
   puts "DONE"
 end
 
-def update_docs
+def update_docs(path)
   print "Updating Docco docs..."
-  system( "docco #{CODE}**/*.coffee -o docs/js > /dev/null" )
+  FileUtils.rm_rf 'docs/js'
+  Dir::mkdir 'docs/js'
+  system( "docco #{path} -o docs/js" )
   puts "DONE"
 end
 
@@ -63,11 +62,6 @@ def create_directory
 end
 
 def watch_all
-  watch("#{CODE}/.*\.(js|dust|coffee|litcoffee)$") do |path|
-    path = "#{path}"
-    path.slice! CODE
-    puts "#{path} modified"
-  end
   watch("#{CODE}/.*\.js$") do
     sync_js()
     sleep 1
@@ -78,9 +72,11 @@ def watch_all
   end
   watch("#{CODE}/.*\.(coffee|litcoffee)$") do
     compile_coffee()
-    update_docs()
     sleep 1
     run_karma()
+  end
+  watch("#{CODE}/.*\.(litcoffee)$") do |path|
+    update_docs(path)
   end
 end
 
