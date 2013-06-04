@@ -4,8 +4,8 @@ class PagesController < HighVoltage::PagesController
   protected
 
   def layout_for_page
-    case request.subdomain
-    when 'app'
+    case request.host
+    when /^app\./
       'application'
     else
       'marketing'
