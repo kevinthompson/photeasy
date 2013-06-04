@@ -41,8 +41,12 @@ Photeasy::Application.routes.draw do
           resources :photos, only: [:index]
           resources :albums, except: [:edit, :new]
           resources :shares, only: [:show]
+          resources :users, only: [:show], contraints: { id: 'current' }
         end
       end
+
+      # Shares
+      get '/shares/:uuid', constraints: { uuid: /[\d\w-]{36}/ }, controller: :pages, action: :show, id: 'app', as: :share
 
       # Catch All for Single Page App
       match '*path' => 'pages#show', id: 'app', constraints: lambda { |request| request.format == :html }

@@ -5,7 +5,6 @@ ruby '2.0.0'
 gem 'active_model_serializers', '~> 0.8.0'
 gem 'activeadmin'
 gem 'aws-sdk'
-gem 'devise'
 gem 'dropbox-api'
 gem 'figaro'
 gem 'foreman'
@@ -34,6 +33,8 @@ gem 'mandrill-api'
 gem 'mandrill-rails'
 
 # Authentication
+gem 'devise'
+gem 'devise-async'
 gem 'omniauth'
 gem 'omniauth-dropbox'
 
@@ -89,5 +90,8 @@ group :development, :test do
 end
 
 group :test do
+  gem 'capybara-webkit'
+  gem 'timecop'
+  gem 'fakeredis', require: 'fakeredis/rspec'
   gem 'simplecov', require: false
 end

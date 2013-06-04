@@ -16,7 +16,7 @@ describe MailingListSubscription do
 
     context 'when the subscription is successful' do
       it 'returns status 200' do
-        Gibbon.any_instance.stub(:list_subscribe).and_return('true')
+        Gibbon.any_instance.stub(:list_subscribe).and_return(true)
         subscription.subscribe
         subscription.code.should be_nil
         subscription.errors.should be_empty
