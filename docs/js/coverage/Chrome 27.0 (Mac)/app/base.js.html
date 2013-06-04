@@ -183,16 +183,16 @@
     <h1>Code coverage report for <span class="entity">app/base.js</span></h1>
     <h2>
         
-        Statements: <span class="metric">100% <small>(51 / 51)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Statements: <span class="metric">89.23% <small>(58 / 65)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
         
         
-        Branches: <span class="metric">83.33% <small>(5 / 6)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Branches: <span class="metric">83.33% <small>(10 / 12)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
         
         
-        Functions: <span class="metric">100% <small>(15 / 15)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Functions: <span class="metric">89.47% <small>(17 / 19)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
         
         
-        Lines: <span class="metric">100% <small>(43 / 43)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Lines: <span class="metric">87.72% <small>(50 / 57)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
         
     </h2>
     <div class="path"><a href="../index.html">All files</a> &#187; <a href="index.html">app/</a> &#187; base.js</div>
@@ -276,7 +276,33 @@
 75
 76
 77
-78</td><td class="line-coverage"><span class="cline-any cline-neutral">&nbsp;</span>
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104</td><td class="line-coverage"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1</span>
 <span class="cline-any cline-yes">1</span>
 <span class="cline-any cline-yes">6</span>
@@ -322,15 +348,41 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
 <span class="cline-any cline-yes">2</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1</span>
 <span class="cline-any cline-yes">1</span>
 <span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">11</span>
+<span class="cline-any cline-yes">11</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1</span>
 <span class="cline-any cline-yes">11</span>
@@ -358,8 +410,8 @@
   var __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { <span class="missing-if-branch" title="else path not taken"" >E</span>if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 &nbsp;
-  define(['marionette', 'utils/url', 'cocktail', 'utils/mixins'], function(Marionette, url, Cocktail) {
-    var Base, _ref, _ref1, _ref2, _ref3;
+  define(['marionette', 'cocktail', 'utils/url', 'utils/mixins'], function(Marionette, Cocktail, url) {
+    var Base, _ref, _ref1, _ref2;
 &nbsp;
     Base = {};
     Base.ItemView = (function(_super) {
@@ -398,8 +450,29 @@
         return _ref2;
       }
 &nbsp;
+      Collection.prototype.initialize = function(models, options) {
+        this.api = (options != null ? options.api : void 0) || '';
+        return Collection.__super__.initialize.apply(this, arguments);
+      };
+&nbsp;
       Collection.prototype.url = function() {
-        return url.apiTo(this.api) || void 0;
+        return url.apiTo(this.api);
+      };
+&nbsp;
+      Collection.prototype.save = <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >        var collection, response;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        console.log(this.collection.attributes);</span>
+<span class="cstat-no" title="statement not covered" >        response = [];</span>
+<span class="cstat-no" title="statement not covered" >        _.each(this.models, <span class="fstat-no" title="function not covered" >function(model) {</span></span>
+<span class="cstat-no" title="statement not covered" >          return response.push(model.attributes);</span>
+        });
+<span class="cstat-no" title="statement not covered" >        collection = new Backbone.Model({</span>
+          data: response
+        });
+<span class="cstat-no" title="statement not covered" >        return this.sync('create', collection, {</span>
+          url: this.url()
+        });
       };
 &nbsp;
       return Collection;
@@ -409,14 +482,19 @@
     Base.Model = (function(_super) {
       __extends(Model, _super);
 &nbsp;
-      function Model() {
-        _ref3 = Model.__super__.constructor.apply(this, arguments);
-        return _ref3;
+      Model.prototype.initialize = function(attributes, options) {
+        this.api = (options != null ? <span class="branch-0 cbranch-no" title="branch not covered" >options.api </span>: void 0) || '';
+        return Model.__super__.initialize.apply(this, arguments);
+      };
+&nbsp;
+      function Model(api) {
+        this.api = api;
+        Model.__super__.constructor.apply(this, arguments);
       }
 &nbsp;
       Model.prototype.url = function() {
-        if (url.apiTo(this.api, this.id)) {
-          return "" + (url.apiTo(this.api, this.id));
+        if (url.apiTo(this.api)) {
+          return "" + (url.apiTo(this.api)) + "/" + this.id;
         } else {
           return void 0;
         }
@@ -435,7 +513,7 @@
 
 </div>
 <div class="footer">
-    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Jun 03 2013 17:04:29 GMT-0700 (PDT)</div>
+    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Jun 03 2013 20:31:04 GMT-0700 (PDT)</div>
 </div>
 
 <script src="../prettify.js"></script>

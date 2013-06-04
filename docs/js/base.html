@@ -81,7 +81,17 @@
               
             </div>
             
-            <div class="content"><div class='highlight'><pre>define [<span class="string">'marionette'</span>, <span class="string">'utils/url'</span>, <span class="string">'cocktail'</span>, <span class="string">'utils/mixins'</span>], (Marionette, url, Cocktail) -&gt;
+            <div class="content"><div class='highlight'><pre>define [
+  <span class="string">'marionette'</span>
+  <span class="string">'cocktail'</span>
+  <span class="string">'utils/url'</span>
+  <span class="string">'utils/mixins'</span>
+], (
+  Marionette
+  Cocktail
+  url
+) -&gt;
+
   Base = {}
 
   <span class="class"><span class="keyword">class</span> <span class="title">Base</span>.<span class="title">ItemView</span> <span class="keyword">extends</span> <span class="title">Marionette</span>.<span class="title">ItemView</span></span>
@@ -92,12 +102,26 @@
   Cocktail.mixin Base.Region, <span class="string">'eventBus'</span>, <span class="string">'states'</span>
 
   <span class="class"><span class="keyword">class</span> <span class="title">Base</span>.<span class="title">Collection</span> <span class="keyword">extends</span> <span class="title">Backbone</span>.<span class="title">Collection</span></span>
+    initialize: (models, options) -&gt;
+      <span class="property">@api</span> = options?.api <span class="keyword">or</span> <span class="string">''</span>
+      <span class="keyword">super</span>
     url: -&gt; url.apiTo(<span class="property">@api</span>) <span class="keyword">or</span> <span class="literal">undefined</span>
+    save: -&gt;
+      console.log <span class="property">@collection</span>.attributes
+      response = []
+      _.each <span class="property">@models</span>, (model) -&gt;
+        response.push model.attributes
+      collection = <span class="keyword">new</span> Backbone.Model(data: response)
+      <span class="property">@sync</span> <span class="string">'create'</span>, collection, url: <span class="property">@url</span>()
+
   Cocktail.mixin Base.Collection, <span class="string">'parseApi'</span>, <span class="string">'eventBus'</span>
 
   <span class="class"><span class="keyword">class</span> <span class="title">Base</span>.<span class="title">Model</span> <span class="keyword">extends</span> <span class="title">Backbone</span>.<span class="title">Model</span></span>
-    url: -&gt; <span class="keyword">if</span> url.apiTo(<span class="property">@api</span>, <span class="property">@id</span>) <span class="keyword">then</span> <span class="string">"<span class="subst">#{url.apiTo(@api, @id)}</span>"</span> <span class="keyword">else</span> <span class="literal">undefined</span>
-
+    initialize: (attributes, options) -&gt;
+      <span class="property">@api</span> = options?.api <span class="keyword">or</span> <span class="string">''</span>
+      <span class="keyword">super</span>
+    constructor: (<span class="property">@api</span>) -&gt; <span class="keyword">super</span>
+    url: -&gt; <span class="keyword">if</span> url.apiTo(<span class="property">@api</span>) <span class="keyword">then</span> <span class="string">"<span class="subst">#{url.apiTo(@api)}</span>/<span class="subst">#{@id}</span>"</span> <span class="keyword">else</span> <span class="literal">undefined</span>
   Cocktail.mixin Base.Model, <span class="string">'parseApi'</span>, <span class="string">'eventBus'</span>
 
   <span class="keyword">return</span> Base</pre></div></div>

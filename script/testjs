@@ -1,23 +1,36 @@
 #!/usr/bin/env watchr
 
-CODE = 'app/assets/javascripts/'
-OUTPUT = '.js/'
+require 'fileutils'
+
+CODE = 'app/assets/javascripts'
+OUTPUT = '.js'
+
+Signal.trap 'EXIT' do
+  FileUtils.rm_rf OUTPUT
+  clean_up()
+  puts ''
+  puts 'I knew you didnt care about me! NOW I\'M GOING TO DELETE SHIT...'
+end
+
+def clean_up
+  Dir.glob('docs/js/coverage/*.json').each { |f| File.delete(f) }
+end
 
 def sync_all
   print "Syncing all files... "
-  system( "rsync -a --include='*.js' --include='*.dust' --include='*/' --exclude='*' #{CODE} #{OUTPUT}" )
+  system( "rsync -a --include='*.js' --include='*.dust' --include='*/' --exclude='*' #{CODE}/ #{OUTPUT}/" )
   puts "DONE"
 end
 
 def sync_js
   print "JS changes detected! Syncing files... "
-  system( "rsync -a --include='*.js' --include='*/' --exclude='*' #{CODE} #{OUTPUT}" )
+  system( "rsync -a --include='*.js' --include='*/' --exclude='*' #{CODE}/ #{OUTPUT}/" )
   puts "DONE"
 end
 
 def sync_dust
   print "Dust changes detected! Syncing files... "
-  system( "rsync -a --include='*.dust' --include='*/' --exclude='*' #{CODE} #{OUTPUT}" )
+  system( "rsync -a --include='*.dust' --include='*/' --exclude='*' #{CODE}/ #{OUTPUT}/" )
   puts "DONE"
 end
 
@@ -33,13 +46,12 @@ def update_docs
   puts "DONE"
 end
 
-def run_karma
-  puts "Running Karma..."
-  system( "karma run karma.conf.js --port 6660")
+def start_karma
+  system( "karma start karma.conf.js --no-auto-watch > /dev/null &" )
 end
 
-def start_karma
-  system( "karma start karma.conf.js --no-auto-watch --port 6660 >>/dev/null 2>>/dev/null &" )
+def run_karma
+  system( "karma run karma.conf.js" )
 end
 
 def create_directory
@@ -51,21 +63,23 @@ def create_directory
 end
 
 def watch_all
-  watch("#{CODE}.*\.(js|dust|coffee|litcoffee)$") do |path|
+  watch("#{CODE}/.*\.(js|dust|coffee|litcoffee)$") do |path|
     path = "#{path}"
     path.slice! CODE
     puts "#{path} modified"
   end
-  watch("#{CODE}.*\.js$") do
+  watch("#{CODE}/.*\.js$") do
     sync_js()
+    sleep 1
     run_karma()
   end
-  watch("#{CODE}.*\.dust$") do
+  watch("#{CODE}/.*\.dust$") do
     sync_dust()
   end
-  watch("#{CODE}.*\.(coffee|litcoffee)$") do
+  watch("#{CODE}/.*\.(coffee|litcoffee)$") do
     compile_coffee()
     update_docs()
+    sleep 1
     run_karma()
   end
 end

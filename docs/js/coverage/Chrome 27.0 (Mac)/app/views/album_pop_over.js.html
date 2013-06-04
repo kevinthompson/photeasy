@@ -183,16 +183,16 @@
     <h1>Code coverage report for <span class="entity">app/views/album_pop_over.js</span></h1>
     <h2>
         
-        Statements: <span class="metric">100% <small>(52 / 52)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Statements: <span class="metric">96.43% <small>(54 / 56)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
         
         
         Branches: <span class="metric">75% <small>(9 / 12)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
         
         
-        Functions: <span class="metric">100% <small>(15 / 15)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Functions: <span class="metric">93.75% <small>(15 / 16)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
         
         
-        Lines: <span class="metric">100% <small>(41 / 41)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Lines: <span class="metric">95.56% <small>(43 / 45)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
         
     </h2>
     <div class="path"><a href="../../index.html">All files</a> &#187; <a href="index.html">app/views/</a> &#187; album_pop_over.js</div>
@@ -279,7 +279,18 @@
 78
 79
 80
-81</td><td class="line-coverage"><span class="cline-any cline-neutral">&nbsp;</span>
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92</td><td class="line-coverage"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1</span>
 <span class="cline-any cline-yes">13</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -300,11 +311,19 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">13</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">13</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">13</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">13</span>
+<span class="cline-any cline-yes">13</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -327,6 +346,22 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
 <span class="cline-any cline-yes">29</span>
 <span class="cline-any cline-yes">29</span>
 <span class="cline-any cline-yes">29</span>
@@ -338,19 +373,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1</span>
 <span class="cline-any cline-yes">13</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1</span>
-<span class="cline-any cline-yes">13</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">13</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">13</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">13</span>
-<span class="cline-any cline-yes">13</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1</span>
@@ -365,7 +387,7 @@
     __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { <span class="missing-if-branch" title="else path not taken"" >E</span>if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 &nbsp;
-  define(['base', 'collections/photos', 'dusty!album_pop_over'], function(Base, PhotosCollection, template) {
+  define(['base', 'dusty!album_pop_over'], function(Base, template) {
     var AlbumPopOver, _ref;
 &nbsp;
     return AlbumPopOver = (function(_super) {
@@ -376,17 +398,25 @@
         return _ref;
       }
 &nbsp;
-      AlbumPopOver.prototype.template = template;
-&nbsp;
       AlbumPopOver.prototype.className = 'album-pop-over';
 &nbsp;
-      AlbumPopOver.prototype.collection = new PhotosCollection();
+      AlbumPopOver.prototype.collection = new Base.Collection([], {
+        api: 'albums'
+      });
 &nbsp;
-      AlbumPopOver.prototype.eventPrefix = 'album';
+      AlbumPopOver.prototype.template = template;
 &nbsp;
-      AlbumPopOver.prototype.busEvents = {
-        'photo:state:set:selected': 'addPhoto',
-        'photo:state:unset:selected': 'removePhoto'
+      AlbumPopOver.prototype.templateHelpers = function() {
+        var _this = this;
+&nbsp;
+        return {
+          photoCount: function() {
+            var plural;
+&nbsp;
+            plural = _this.collection.length === 1 ? '' : <span class="branch-1 cbranch-no" title="branch not covered" >'s';</span>
+            return "" + _this.collection.length + " Photo" + plural;
+          }
+        };
       };
 &nbsp;
       AlbumPopOver.prototype.initialize = function() {
@@ -399,11 +429,27 @@
           _this.eventBus.trigger('album:update', _this);
           if (_this.collection.length &gt; 0 &amp;&amp; !_this.hasState('show')) {
             return _this.setState('show');
-          } else <span class="missing-if-branch" title="else path not taken"" >E</span>if (_this.collection.length === 0) {
+          } else <span class="missing-if-branch" title="else path not taken"" >E</span>if (!_this.collection.length) {
             return _this.unsetState('show');
           }
         });
-        return AlbumPopOver.__super__.initialize.call(this);
+        return AlbumPopOver.__super__.initialize.apply(this, arguments);
+      };
+&nbsp;
+      AlbumPopOver.prototype.eventPrefix = 'album';
+&nbsp;
+      AlbumPopOver.prototype.events = {
+        'click button': 'onShareClick'
+      };
+&nbsp;
+      AlbumPopOver.prototype.busEvents = {
+        'photo:state:set:selected': 'addPhoto',
+        'photo:state:unset:selected': 'removePhoto'
+      };
+&nbsp;
+      AlbumPopOver.prototype.onShareClick = <span class="fstat-no" title="function not covered" >function(event) {</span>
+<span class="cstat-no" title="statement not covered" >        event.preventDefault();</span>
+<span class="cstat-no" title="statement not covered" >        return this.collection.save();</span>
       };
 &nbsp;
       AlbumPopOver.prototype.photoAction = function(photo, action) {
@@ -420,19 +466,6 @@
         return this.photoAction(photo, 'remove');
       };
 &nbsp;
-      AlbumPopOver.prototype.templateHelpers = function() {
-        var _this = this;
-&nbsp;
-        return {
-          photoCount: function() {
-            var plural;
-&nbsp;
-            plural = _this.collection.length === 1 ? '' : <span class="branch-1 cbranch-no" title="branch not covered" >'s';</span>
-            return "" + _this.collection.length + " Photo" + plural;
-          }
-        };
-      };
-&nbsp;
       return AlbumPopOver;
 &nbsp;
     })(Base.ItemView);
@@ -444,7 +477,7 @@
 
 </div>
 <div class="footer">
-    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Jun 03 2013 17:04:29 GMT-0700 (PDT)</div>
+    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Jun 03 2013 20:31:04 GMT-0700 (PDT)</div>
 </div>
 
 <script src="../../prettify.js"></script>
