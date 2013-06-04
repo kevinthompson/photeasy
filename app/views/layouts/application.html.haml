@@ -21,4 +21,4 @@
       :javascript
         window.current_user = #{current_user.to_json}
 
-    = requirejs_include_tag 'main'
+    = javascript_include_tag 'vendor/require', 'data-main' => '/assets/main.js'

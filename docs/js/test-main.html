@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>test-main.coffee</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+      <ul id="jump_to">
+        <li>
+          <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
+          <a class="small" href="javascript:void(0);">+</a>
+          <div id="jump_wrapper">
+          <div id="jump_page">
+            
+              
+              <a class="source" href="base.html">
+                base.coffee
+              </a>
+            
+              
+              <a class="source" href="controller.html">
+                controller.coffee
+              </a>
+            
+              
+              <a class="source" href="layout.html">
+                layout.coffee
+              </a>
+            
+              
+              <a class="source" href="photeasy.html">
+                photeasy.coffee
+              </a>
+            
+              
+              <a class="source" href="router.html">
+                router.coffee
+              </a>
+            
+              
+              <a class="source" href="dust.helpers.html">
+                dust.helpers.coffee
+              </a>
+            
+              
+              <a class="source" href="sanity_spec.html">
+                sanity_spec.coffee
+              </a>
+            
+              
+              <a class="source" href="test-main.html">
+                test-main.coffee
+              </a>
+            
+          </div>
+        </li>
+      </ul>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>test-main.coffee</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>deps = Object.keys(window.__karma__.files).filter (file) -&gt;
+  <span class="keyword">return</span> <span class="regexp">/base\/test\/(.*?)_spec/</span>.test(file)
+
+deps.push <span class="string">'dust'</span>
+deps.push <span class="string">'dust.helpers'</span>
+deps.push <span class="string">'expect'</span>
+
+require.config
+  baseUrl: <span class="string">'/base/app/'</span>
+  packages: [
+    name: <span class="string">"backbone"</span>
+    location: <span class="string">"../vendor/backbone"</span>
+    main: <span class="string">"backbone.js"</span>
+  ,
+    name: <span class="string">"backbone.babysitter"</span>
+    location: <span class="string">"../vendor/backbone.babysitter"</span>
+    main: <span class="string">"lib/amd/backbone.babysitter.js"</span>
+  ,
+    name: <span class="string">"marionette"</span>
+    location: <span class="string">"../vendor/backbone.marionette"</span>
+    main: <span class="string">"lib/core/amd/backbone.marionette.js"</span>
+  ,
+    name: <span class="string">"backbone.wreqr"</span>
+    location: <span class="string">"../vendor/backbone.wreqr"</span>
+    main: <span class="string">"lib/amd/backbone.wreqr.js"</span>
+  ,
+    name: <span class="string">"dust"</span>
+    location: <span class="string">"../vendor/dustjs-linkedin"</span>
+    main: <span class="string">"./dist/dust-full-1.1.1"</span>
+  ,
+    name: <span class="string">"jquery"</span>
+    location: <span class="string">"../vendor/jquery"</span>
+    main: <span class="string">"dist/jquery.js"</span>
+  ,
+    name: <span class="string">"json"</span>
+    location: <span class="string">"../vendor/json"</span>
+    main: <span class="string">"json.js"</span>
+  ,
+    name: <span class="string">"text"</span>
+    location: <span class="string">"../vendor/text"</span>
+    main: <span class="string">"text.js"</span>
+  ,
+    name: <span class="string">"underscore"</span>
+    location: <span class="string">"../vendor/underscore"</span>
+    main: <span class="string">"underscore.js"</span>
+  ]
+
+  shim:
+    backbone:
+      deps: [<span class="string">"underscore"</span>, <span class="string">"jquery"</span>]
+      exports: <span class="string">"Backbone"</span>
+
+    dust: exports: <span class="string">'dust'</span>
+    cocktail: exports: <span class="string">'Cocktail'</span>
+
+    underscore:
+      exports: <span class="string">"_"</span>
+
+  paths:
+    <span class="string">'expect'</span>: <span class="string">'../lib/expect'</span>
+    <span class="string">'cocktail'</span>: <span class="string">'../lib/cocktail'</span>
+    <span class="string">'dusty'</span>: <span class="string">'../lib/dusty'</span>
+    <span class="string">'dust.helpers'</span>: <span class="string">'../lib/dust.helpers'</span>
+
+  deps: deps
+
+  callback: window.__karma__.start</pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>

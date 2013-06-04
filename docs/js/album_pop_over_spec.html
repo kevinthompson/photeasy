@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>album_pop_over_spec.coffee</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+      <ul id="jump_to">
+        <li>
+          <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
+          <a class="small" href="javascript:void(0);">+</a>
+          <div id="jump_wrapper">
+          <div id="jump_page">
+            
+              
+              <a class="source" href="base.html">
+                base.coffee
+              </a>
+            
+              
+              <a class="source" href="photos.html">
+                photos.coffee
+              </a>
+            
+              
+              <a class="source" href="controller.html">
+                controller.coffee
+              </a>
+            
+              
+              <a class="source" href="layout.html">
+                layout.coffee
+              </a>
+            
+              
+              <a class="source" href="photo.html">
+                photo.coffee
+              </a>
+            
+              
+              <a class="source" href="photeasy.html">
+                photeasy.coffee
+              </a>
+            
+              
+              <a class="source" href="overlay.html">
+                overlay.coffee
+              </a>
+            
+              
+              <a class="source" href="router.html">
+                router.coffee
+              </a>
+            
+              
+              <a class="source" href="event_bus.html">
+                event_bus.coffee
+              </a>
+            
+              
+              <a class="source" href="globals.html">
+                globals.coffee
+              </a>
+            
+              
+              <a class="source" href="mixins.html">
+                mixins.coffee
+              </a>
+            
+              
+              <a class="source" href="url.html">
+                url.coffee
+              </a>
+            
+              
+              <a class="source" href="404.html">
+                404.coffee
+              </a>
+            
+              
+              <a class="source" href="album_pop_over.html">
+                album_pop_over.coffee
+              </a>
+            
+              
+              <a class="source" href="header.html">
+                header.coffee
+              </a>
+            
+              
+              <a class="source" href="photo.html">
+                photo.coffee
+              </a>
+            
+              
+              <a class="source" href="photo_detail.html">
+                photo_detail.coffee
+              </a>
+            
+              
+              <a class="source" href="photos.html">
+                photos.coffee
+              </a>
+            
+              
+              <a class="source" href="dust.helpers.html">
+                dust.helpers.coffee
+              </a>
+            
+              
+              <a class="source" href="main.html">
+                main.coffee
+              </a>
+            
+              
+              <a class="source" href="marketing.html">
+                marketing.coffee
+              </a>
+            
+              
+              <a class="source" href="base_collection_spec.html">
+                base_collection_spec.coffee
+              </a>
+            
+              
+              <a class="source" href="base_model_spec.html">
+                base_model_spec.coffee
+              </a>
+            
+              
+              <a class="source" href="photeasy_spec.html">
+                photeasy_spec.coffee
+              </a>
+            
+              
+              <a class="source" href="event_bus_spec.html">
+                event_bus_spec.coffee
+              </a>
+            
+              
+              <a class="source" href="mixins_spec.html">
+                mixins_spec.coffee
+              </a>
+            
+              
+              <a class="source" href="url_spec.html">
+                url_spec.coffee
+              </a>
+            
+              
+              <a class="source" href="album_pop_over_spec.html">
+                album_pop_over_spec.coffee
+              </a>
+            
+              
+              <a class="source" href="photo_spec.html">
+                photo_spec.coffee
+              </a>
+            
+              
+              <a class="source" href="dust.helpers_spec.html">
+                dust.helpers_spec.coffee
+              </a>
+            
+              
+              <a class="source" href="dusty_spec.html">
+                dusty_spec.coffee
+              </a>
+            
+              
+              <a class="source" href="sanity_spec.html">
+                sanity_spec.coffee
+              </a>
+            
+              
+              <a class="source" href="test-main.html">
+                test-main.coffee
+              </a>
+            
+          </div>
+        </li>
+      </ul>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>album_pop_over_spec.coffee</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>define [
+  <span class="string">'views/album_pop_over'</span>
+  <span class="string">'models/photo'</span>
+  <span class="string">'utils/event_bus'</span>
+  <span class="string">'utils/mixins'</span>
+], (
+  AlbumPopOver
+  PhotoModel
+  EventBus
+) -&gt;
+
+  describe <span class="string">'AlbumPopOver class'</span>, -&gt;
+
+    album = photo =
+    ADD_ALBUM = <span class="string">'album:add'</span>
+    REMOVE_ALBUM = <span class="string">'album:remove'</span>
+    UPDATE_ALBUM = <span class="string">'album:update'</span>
+
+    beforeEach -&gt;
+      album = <span class="keyword">new</span> AlbumPopOver()
+      photo = model: <span class="keyword">new</span> PhotoModel(id: <span class="number">1</span>)
+
+    describe <span class="string">'method photoAction'</span>, -&gt;
+      it <span class="string">'should trigger the add or remove event on the collection'</span>, (done) -&gt;
+        EventBus.<span class="literal">on</span> UPDATE_ALBUM, -&gt; done()
+        album.photoAction photo, <span class="string">'add'</span>
+
+      it <span class="string">'should fire an event on the event bus'</span>, (done) -&gt;
+        EventBus.<span class="literal">on</span> ADD_ALBUM, -&gt; done()
+        album.photoAction photo, <span class="string">'add'</span>
+
+      it <span class="string">'should attach the photo to the event'</span>, (done) -&gt;
+        EventBus.<span class="literal">on</span> ADD_ALBUM, (data) -&gt;
+          expect(data.model.get <span class="string">'id'</span>).to.equal photo.model.get <span class="string">'id'</span>
+          done()
+        album.photoAction photo, <span class="string">'add'</span>
+
+    describe <span class="string">'method addPhoto'</span>, -&gt;
+      it <span class="string">'should fire the album add event'</span>, (done) -&gt;
+        EventBus.<span class="literal">on</span> ADD_ALBUM, -&gt; done()
+        album.addPhoto photo
+
+    describe <span class="string">'method removePhoto'</span>, -&gt;
+      it <span class="string">'should fire the album remove event'</span>, (done) -&gt;
+        EventBus.<span class="literal">on</span> REMOVE_ALBUM, -&gt; done()
+        album.removePhoto photo</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <p>TODO: figure out how to test template helpers</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    describe <span class="string">'template helpers'</span>, -&gt;
+      describe <span class="string">'photoCount'</span>, -&gt;
+        it <span class="string">'should be singular if count is 1'</span>, -&gt;</pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>

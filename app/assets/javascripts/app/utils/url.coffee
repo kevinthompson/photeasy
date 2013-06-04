@@ -13,6 +13,8 @@ define [], ->
   urlTo: (key, id) ->
     if @urls[key]
       return @urls[key] + (if id then "/#{id}" else '')
+    else
+      return undefined
 
   linkTo: (key, text, options) ->
     if typeof key == 'object'
@@ -36,3 +38,5 @@ define [], ->
   apiTo: (key, id) ->
     if @urlTo(key, id)
       return @urls.api + @urlTo(key, id) + '.json'
+    else
+      return undefined

@@ -23,6 +23,7 @@ class Photo < ActiveRecord::Base
     end
   end
 
+  # TODO: Move this logic out of Photo. PhotoImporter?
   def import_thumbnail
     image = Tempfile.new("thumbnail_#{provider_id}")
     image.binmode

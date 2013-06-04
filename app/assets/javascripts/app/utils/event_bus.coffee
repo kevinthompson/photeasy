@@ -1,6 +1,10 @@
 define ['backbone.wreqr'], (Wreqr) ->
   vent = new Wreqr.EventAggregator()
-  # TODO: figure out what im doing wrong here
-  vent.on 'all', (event) ->
-    console.log event if window.logEventBus
+
+  vent.debugger = (event) ->
+    if vent.debug then console.log event
+    return vent.debug
+
+  vent.on 'all', (event) => vent.debugger(event)
+
   return vent

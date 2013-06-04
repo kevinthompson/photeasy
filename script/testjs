@@ -1,0 +1,81 @@
+#!/usr/bin/env watchr
+
+CODE = 'app/assets/javascripts/'
+OUTPUT = '.js/'
+
+def sync_all
+  print "Syncing all files... "
+  system( "rsync -a --include='*.js' --include='*.dust' --include='*/' --exclude='*' #{CODE} #{OUTPUT}" )
+  puts "DONE"
+end
+
+def sync_js
+  print "JS changes detected! Syncing files... "
+  system( "rsync -a --include='*.js' --include='*/' --exclude='*' #{CODE} #{OUTPUT}" )
+  puts "DONE"
+end
+
+def sync_dust
+  print "Dust changes detected! Syncing files... "
+  system( "rsync -a --include='*.dust' --include='*/' --exclude='*' #{CODE} #{OUTPUT}" )
+  puts "DONE"
+end
+
+def compile_coffee
+  print "CoffeeScript changes detected! Compiling files... "
+  system( "coffee -co #{OUTPUT} #{CODE}" )
+  puts "DONE"
+end
+
+def update_docs
+  print "Updating Docco docs..."
+  system( "docco #{CODE}**/*.coffee -o docs/js > /dev/null" )
+  puts "DONE"
+end
+
+def run_karma
+  puts "Running Karma..."
+  system( "karma run karma.conf.js --port 6660")
+end
+
+def start_karma
+  system( "karma start karma.conf.js --no-auto-watch --port 6660 >>/dev/null 2>>/dev/null &" )
+end
+
+def create_directory
+  unless File.exists? OUTPUT
+    print "Creating temp directory..."
+    Dir::mkdir OUTPUT
+    puts "DONE"
+  end
+end
+
+def watch_all
+  watch("#{CODE}.*\.(js|dust|coffee|litcoffee)$") do |path|
+    path = "#{path}"
+    path.slice! CODE
+    puts "#{path} modified"
+  end
+  watch("#{CODE}.*\.js$") do
+    sync_js()
+    run_karma()
+  end
+  watch("#{CODE}.*\.dust$") do
+    sync_dust()
+  end
+  watch("#{CODE}.*\.(coffee|litcoffee)$") do
+    compile_coffee()
+    update_docs()
+    run_karma()
+  end
+end
+
+def init
+  create_directory()
+  sync_all()
+  watch_all()
+  start_karma()
+end
+
+init()
+
