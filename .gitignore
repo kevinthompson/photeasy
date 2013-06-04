@@ -8,6 +8,7 @@
 .sass-cache
 /node_modules
 /.js
+/docs/js/*
 /.bundle
 /config/application.yml
 /config/database.yml

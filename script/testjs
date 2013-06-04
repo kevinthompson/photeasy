@@ -70,13 +70,16 @@ def watch_all
   watch("#{CODE}/.*\.dust$") do
     sync_dust()
   end
-  watch("#{CODE}/.*\.(coffee|litcoffee)$") do
+  watch("#{CODE}/.*\.coffee$") do
     compile_coffee()
     sleep 1
     run_karma()
   end
-  watch("#{CODE}/.*\.(litcoffee)$") do |path|
+  watch("#{CODE}/.*\.litcoffee$") do |path|
     update_docs(path)
+    compile_coffee()
+    sleep 1
+    run_karma()
   end
 end
 
