@@ -22,7 +22,8 @@ define [
     initialize: (models, options) ->
       @api = options?.api or ''
       super
-    url: -> url.apiTo(@api)
+    url: ->
+      url.apiTo(@api)
     save: ->
       console.log @collection.attributes
       response = []
