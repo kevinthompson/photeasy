@@ -239,7 +239,6 @@ GEM
     newrelic_rpm (3.6.2.96)
     nokogiri (1.5.9)
     oauth (0.4.7)
-    observr (1.0.5)
     omniauth (1.1.4)
       hashie (>= 1.2, < 3)
       rack
@@ -402,6 +401,7 @@ GEM
     uuidtools (2.1.4)
     warden (1.2.1)
       rack (>= 1.0)
+    watchr (0.7)
     webmock (1.11.0)
       addressable (>= 2.2.7)
       crack (>= 0.3.2)
@@ -443,7 +443,6 @@ DEPENDENCIES
   mandrill-rails
   meta_request
   newrelic_rpm
-  observr
   omniauth
   omniauth-dropbox
   paperclip
@@ -472,3 +471,4 @@ DEPENDENCIES
   susy
   uglifier
   uuidtools
+  watchr
