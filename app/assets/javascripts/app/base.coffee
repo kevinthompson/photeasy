@@ -15,6 +15,7 @@ define [
   Cocktail.mixin Base.ItemView, 'eventBus', 'states'
 
   class Base.Region extends Marionette.Region
+    $el: -> return $(@el)
     onShow: -> @setState 'rendered'
   Cocktail.mixin Base.Region, 'eventBus', 'states'
 
@@ -22,15 +23,7 @@ define [
     initialize: (models, options) ->
       @api = options?.api or ''
       super
-    url: ->
-      url.apiTo(@api)
-    save: ->
-      console.log @collection.attributes
-      response = []
-      _.each @models, (model) ->
-        response.push model.attributes
-      collection = new Backbone.Model(data: response)
-      @sync 'create', collection, url: @url()
+    url: -> url.apiTo(@api)
 
   Cocktail.mixin Base.Collection, 'parseApi', 'eventBus'
 
@@ -38,9 +31,11 @@ define [
     initialize: (attributes, options) ->
       @api = options?.api or ''
       super
-    constructor: (@api) -> super
     url: -> if url.apiTo(@api, @id) then "#{url.apiTo(@api, @id)}" else undefined
-
+    toJSON: ->
+      json = super()
+      delete json.api
+      return json
 
   Cocktail.mixin Base.Model, 'parseApi', 'eventBus'
 

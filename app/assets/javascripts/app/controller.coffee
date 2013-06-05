@@ -1,10 +1,10 @@
 define ['marionette', 'layout'], (Marionette, Layout) ->
   class Controller extends Marionette.Controller
     showRoot: ->
-      require ['views/photos', 'views/album_pop_over'], (PhotosPage, AlbumPopOver) ->
+      require ['views/photos', 'views/pop_overs/album'], (PhotosPage, AlbumPopOver) ->
         photoView = new PhotosPage()
-        Layout.main.show photoView
         photoView.collection.fetch()
+        Layout.main.show photoView
         Layout.popOver.show new AlbumPopOver()
 
     show404: ->

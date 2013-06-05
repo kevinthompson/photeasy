@@ -1,25 +1,52 @@
 define ['base'], (Base) ->
-  SHOW = 'show'
 
-  class OverlayRegion extends Base.Region
+  class Overlay extends Base.Region
+    SHOW = 'show'
+    ESC = 27
+
     el: '#overlay'
 
     events:
       'click': 'onClick'
 
     busEvents:
-      'overlay:photo-detail': 'showPhotoDetail'
+      'overlay:show': 'show'
+      'overlay:close': 'close'
 
-    # event handlers
-    onClick: (event) ->
-      @close() if event.target == @$el[0]
+    initialize: ->
+      @$el = $(@el).on('click', @onClick)
+      $(window).on('keyup', @onKeyUp)
+      super
 
-    # bus event handlers
-    showPhotoDetail: ->
 
-    # marionette events
+    show: (overlay) ->
+      if _.isString overlay
+        require ["views/overlays/#{overlay}"], (Modal) =>
+          super new Modal
+      else
+        super
+
+    onClick: (event) =>
+      if event.target == @$el[0]
+        event.preventDefault()
+        @close()
+
+    onKeyUp: (event) =>
+      if event.which == ESC
+        event.preventDefault()
+        @close()
+
     onShow: ->
-      @$el.addClass(SHOW)
+      @setState SHOW
+      $('body').css
+        'overflow': 'hidden'
+        'height': $(window).height()
+      @$el.children().first().attr('tabindex', '0').focus()
+      @eventBus.trigger 'overlay:shown'
 
     onClose: ->
-      @$el.removeClass(SHOW)
+      $('body').css
+        'overflow': ''
+        'height': ''
+      @unsetState SHOW
+      @eventBus.trigger 'overlay:closed'

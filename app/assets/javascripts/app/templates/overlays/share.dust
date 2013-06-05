@@ -1,0 +1,9 @@
+<form>
+  <legend>
+    <abbr class="icon-photos" title="Photos Icon"></abbr>
+    Album Share Details
+  </legend>
+  <input type="text" placeholder="Album Title"/>
+  <input type="email" placeholder="Recipient's Email"/>
+  <button class="button">Done</button>
+</form>

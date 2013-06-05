@@ -4,12 +4,14 @@ define [
   'utils/event_bus'
   'views/layout/header'
   'regions/overlay'
+  'regions/pop_over'
 ], (
   Base
   Marionette
   EventBus
   HeaderView
-  OverlayRegion
+  Overlay
+  PopOver
 ) ->
   class Layout extends Marionette.Layout
     el: 'body'
@@ -18,14 +20,12 @@ define [
       header:
         selector: '#header'
         regionType: Base.Region
-
       main:
         selector: '#main'
         regionType: Base.Region
-
       footer: '#footer'
-      overlay: OverlayRegion
-      popOver: '#pop-over'
+      overlay: Overlay
+      popOver: PopOver
 
     onRender: ->
       @header.show new HeaderView()
