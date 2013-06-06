@@ -1,7 +1,7 @@
 class Share < ActiveRecord::Base
   include Extensions::UUID
   before_validation :ensure_user_id
-  after_create :send_email
+  after_create :queue_new_share_email
 
   attr_accessible :album_id, :disabled_at, :email, :user_id
 
@@ -9,8 +9,9 @@ class Share < ActiveRecord::Base
   belongs_to :user
 
   validates :album_id, :user_id, presence: true
+  validates :email, uniqueness: { scope: :album_id }
 
-  def send_email
+  def queue_new_share_email
     ShareMailer.delay.new_share(self)
   end
 

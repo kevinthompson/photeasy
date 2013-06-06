@@ -17,6 +17,7 @@ class User < ActiveRecord::Base
   has_many :shares, through: :albums
 
   before_save :ensure_authentication_token
+  after_create :queue_photo_import
 
   def self.find_for_dropbox_oauth(auth, signed_in_resource=nil)
     user = where(provider: auth.provider, uid: auth.uid.to_s).first
@@ -34,10 +35,6 @@ class User < ActiveRecord::Base
     user
   end
 
-  def as_json(options = {})
-    super(only: [:id, :email, :name])
-  end
-
   def dropbox
     DropboxProvider.new(dropbox_token, dropbox_secret)
   end
@@ -51,10 +48,17 @@ class User < ActiveRecord::Base
   end
 
   def import_photos
+    self.update_attribute(:importing_photos, true)
     providers.each do |provider|
       PhotoImporter.new(self, provider).import
       Notification.new(channel: notification_channel, event: :import_photos, data: photos).send
     end
+  ensure
+    self.update_attribute(:importing_photos, false)
+  end
+
+  def queue_photo_import
+    PhotoImportWorker.perform_async(user_id: id)
   end
 
   def notification_channel

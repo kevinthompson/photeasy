@@ -3,13 +3,11 @@ require 'spec_helper'
 describe User do
   describe '.find_for_dropbox_oauth' do
 
-    context 'when the user exists' do
-      it 'finds a user by their auth provider and uid' do
-        create(:user, provider: :dropbox, uid: 95241)
-        auth = OpenStruct.new(provider: :dropbox, uid: 95241)
-        user = User.find_for_dropbox_oauth(auth)
-        user.should_not be_nil
-      end
+    it 'finds a user by their auth provider and uid' do
+      create(:user, provider: :dropbox, uid: 95241)
+      auth = OpenStruct.new(provider: :dropbox, uid: 95241)
+      user = User.find_for_dropbox_oauth(auth)
+      user.should_not be_nil
     end
 
     context 'when the user does not exist' do
@@ -34,5 +32,13 @@ describe User do
       end
     end
 
+  end
+
+  describe '.create' do
+    it 'queues the import photos job' do
+      expect {
+        create(:user)
+      }.to change(PhotoImportWorker.jobs, :size).by(1)
+    end
   end
 end

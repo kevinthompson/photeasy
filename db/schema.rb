@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130602204024) do
+ActiveRecord::Schema.define(:version => 20130606054355) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -39,20 +39,6 @@ ActiveRecord::Schema.define(:version => 20130602204024) do
     t.integer "album_id"
     t.integer "photo_id"
   end
-
-  create_table "credentials", :force => true do |t|
-    t.string   "provider"
-    t.integer  "user_id"
-    t.string   "uid"
-    t.string   "token"
-    t.string   "secret"
-    t.text     "data"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  add_index "credentials", ["provider", "uid"], :name => "index_credentials_on_provider_and_uid"
-  add_index "credentials", ["user_id"], :name => "index_credentials_on_user_id"
 
   create_table "orders", :force => true do |t|
     t.integer  "user_id"
@@ -127,6 +113,7 @@ ActiveRecord::Schema.define(:version => 20130602204024) do
     t.boolean  "admin",                  :default => false
     t.datetime "photos_imported_at"
     t.string   "authentication_token"
+    t.boolean  "importing_photos",       :default => false
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

@@ -8,6 +8,12 @@ describe Share do
       share.save
       share.uuid.should_not be_nil
     end
+
+    it 'should queue a new share email' do
+      expect {
+        create(:share)
+      }.to change(Sidekiq::Extensions::DelayedMailer.jobs, :size).by(1)
+    end
   end
 
 end
