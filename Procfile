@@ -1,2 +1,2 @@
-web: bundle exec puma -p $PORT
+web: bundle exec unicorn -p $PORT -c ./config/unicorn.rb
 worker: bundle exec sidekiq -q mailer,10 -q default

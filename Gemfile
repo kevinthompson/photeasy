@@ -13,11 +13,11 @@ gem 'high_voltage'
 gem 'jbuilder'
 gem 'memcachier'
 gem 'pg'
-gem 'puma'
 gem 'pusher'
 gem 'raddocs', git: 'git://github.com/kevinthompson/raddocs.git'
 gem 'rails', '3.2.13'
 gem 'sentry-raven'
+gem 'unicorn'
 gem 'uuidtools'
 
 # Monitoring/Analytics
