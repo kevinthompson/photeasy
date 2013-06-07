@@ -119,6 +119,7 @@ GEM
     connection_pool (1.0.0)
     crack (0.3.2)
     daemons (1.1.9)
+    dalli (2.6.4)
     database_cleaner (1.0.1)
     debug_inspector (0.0.2)
     devise (2.2.4)
@@ -228,6 +229,7 @@ GEM
       json (~> 1.7.7)
     mandrill-rails (0.0.4)
       activesupport (>= 3.0.3)
+    memcachier (0.0.2)
     meta_request (0.2.6)
       callsite
       rack-contrib
@@ -428,6 +430,7 @@ DEPENDENCIES
   coffee-rails
   compass-rails
   compass-susy-plugin
+  dalli
   database_cleaner
   devise
   devise-async
@@ -450,6 +453,7 @@ DEPENDENCIES
   mailcatcher
   mandrill-api
   mandrill-rails
+  memcachier
   meta_request
   newrelic_rpm
   omniauth
