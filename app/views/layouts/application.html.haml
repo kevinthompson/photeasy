@@ -6,6 +6,9 @@
     = javascript_include_tag '//use.typekit.net/ydd6wgd.js'
     = stylesheet_link_tag 'http://fonts.googleapis.com/css?family=Varela+Round'
     = stylesheet_link_tag 'main'
+    %meta{ name: 'HandheldFriendly', content: 'True' }
+    %meta{ name: 'MobileOptimized', content: '320' }
+    %meta{:content => "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0", :name => "viewport"}
     :javascript
       try{Typekit.load();}catch(e){}
   %body

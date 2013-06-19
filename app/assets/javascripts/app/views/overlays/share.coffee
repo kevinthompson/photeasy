@@ -1,44 +1,40 @@
 define [
   'base'
-  '../../../lib/backbone-forms'
   'dusty!overlays/share'
+  'token.input'
 ], (
   Base
-  Forms
   template
 ) ->
 
   class ShareModal extends Base.ItemView
-
-    allTheEmails = ($el) ->
-      $el.on 'keyup', =>
-        if $el.val()
-          $clone = $el.clone().val('')
-          $el.after $clone
-          $el.off 'keyup'
-          allTheEmails($clone)
-
     template: template
     tagName: 'section'
     className: 'share-modal'
-    model: new Base.Model({}, api: 'shares')
+    model: new Base.Model({}, api: 'albums')
 
     initialize: ->
       @eventBus.trigger 'request:photos', @onPhotosReturned
       super
 
+    onRender: ->
+      @$('textarea').tokenField()
+
     events:
       'submit form': 'createShare'
+      'click .pills': 'onPills'
 
-    onRender: ->
-      allTheEmails(@$('input[type="email"]:last'))
+    onPills: (event) ->
+      event.preventDefault()
+
+    createInput: -> $('<input type="email" novalidate/>')
 
     onPhotosReturned: (photos) =>
       @collection = photos
 
     createShare: (event) ->
       event.preventDefault()
-      title = @$('input[type="text"]').val()
+      name = @$('input[type="text"]').val()
       $emails = @$('input[type="email"]')
       emails = []
       $emails.each ->
@@ -46,11 +42,11 @@ define [
         if val
           emails.push email: val
 
-      @model.set 'title', title
+      @model.set 'name', name
       @model.set 'share_attributes', emails
       @model.set 'photo_ids', _.values @collection.pluck 'id'
 
       console.log @model.url()
 
-      @model.save()
+      # @model.save()
 

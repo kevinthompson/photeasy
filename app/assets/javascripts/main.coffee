@@ -24,12 +24,14 @@ require.config
     'cocktail': '../lib/cocktail'
     'dusty': '../lib/dusty'
     'dust.helpers': '../lib/dust.helpers'
+    'token.input': '../lib/jquery.tokenfield'
     'dust': modulePath('dustjs-linkedin', 'dist/dust-full-1.1.1')
     'marionette': modulePath('backbone.marionette')
 
   shim:
     dust: exports: 'dust'
     cocktail: exports: 'Cocktail'
+    'token.input': ['jquery']
 
   deps: ['dust', 'dust.helpers']
 
