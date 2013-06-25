@@ -8,7 +8,8 @@ class Share < ActiveRecord::Base
   belongs_to :album
   belongs_to :user
 
-  validates :album_id, :user_id, presence: true
+  validates :user_id, presence: true
+  validates :album, :user, associated: true
   validates :email, uniqueness: { scope: :album_id }
 
   def queue_new_share_email

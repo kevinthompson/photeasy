@@ -2,7 +2,12 @@
 
 FactoryGirl.define do
   factory :album do
-    user_id 1
-    name 'Example Album'
+    name { Faker::Company.name }
+    user
+    photos {
+      Array(2..5).sample.times.map do
+        create(:photo, user: user)
+      end
+    }
   end
 end

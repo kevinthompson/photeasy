@@ -1,5 +1,5 @@
 class Order < ActiveRecord::Base
-  attr_accessible :album_id, :status, :user_id
+  attr_accessible :album_id, :status, :user_id, :prints_attributes
 
   belongs_to :album
   belongs_to :share
@@ -8,5 +8,5 @@ class Order < ActiveRecord::Base
   has_many :payments
   accepts_nested_attributes_for :prints
 
-  validates :user_id, :album_id, :prints, presence: true
+  validates :album_id, :prints, presence: true
 end

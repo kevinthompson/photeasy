@@ -19,7 +19,7 @@ resource 'Photos' do
 
       response_json['errors'].should be_empty
       photos = response_json['data']
-      photos.any?{ |photo| photo['filename'] == 'example.jpg' }.should be_true
+      photos.all?{ |photo| photo['filename'].present? }.should be_true
     end
   end
 end
