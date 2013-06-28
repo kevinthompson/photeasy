@@ -11,7 +11,7 @@ resource 'Albums' do
   get 'https://app.photeasy.com/api/v1/albums.json' do
 
     before do
-      create(:album, user: user)
+      create(:album, name: 'Example Album', user: user)
     end
 
     example_request 'List Albums' do
@@ -55,7 +55,7 @@ resource 'Albums' do
 
   get 'https://app.photeasy.com/api/v1/albums/:id.json' do
 
-    let(:album){ create(:album, user: user) }
+    let(:album){ create(:album, name: 'Example Album', user: user) }
     let(:id){ album.id }
 
     example_request 'Show Album' do

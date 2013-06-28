@@ -2,9 +2,9 @@
 
 FactoryGirl.define do
   factory :print do
-    size "MyString"
-    photo_id 1
-    order_id 1
-    quantity 1
+    size '4x6'
+    quantity { Array(1..4).sample }
+    order
+    photo
   end
 end

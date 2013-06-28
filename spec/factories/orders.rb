@@ -2,8 +2,7 @@
 
 FactoryGirl.define do
   factory :order do
-    user_id 1
-    status "MyString"
-    album_id 1
+    status :new
+    album
   end
 end

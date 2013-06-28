@@ -2,13 +2,8 @@ require 'spec_helper'
 require 'rspec_api_documentation/dsl'
 
 resource 'Shares' do
-  parameter :auth_token, 'Authentication token'
-
-  let(:user){ create(:user, name: 'Dylan Hudson') }
-  let(:photo){ create(:photo, user: user) }
-  let(:album){ create(:album, photo_ids: [photo.id]) }
-  let(:auth_token){ user.authentication_token }
-  let(:share){ create(:share, user: user, album: album) }
+  let(:user){ create(:user) }
+  let(:share){ create(:share, user: user) }
   let(:id){ share.uuid }
 
   get 'https://app.photeasy.com/api/v1/shares/:id.json' do
@@ -26,8 +21,9 @@ resource 'Shares' do
       album['photos'].should_not be_empty
 
       user = share['user']
+      user.should_not be_nil
       user['id'].should be_nil
-      user['name'].should == 'Dylan Hudson'
+      user['name'].should_not be_nil
     end
   end
 end

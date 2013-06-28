@@ -2,9 +2,9 @@
 
 FactoryGirl.define do
   factory :share do
-    email 'lana@isis.org'
+    email { Faker::Internet.email }
     visits 1
-    album
     user
+    album { create(:album, user: user) }
   end
 end

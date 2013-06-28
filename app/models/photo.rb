@@ -11,7 +11,7 @@ class Photo < ActiveRecord::Base
   has_and_belongs_to_many :albums
 
   validates :provider, :provider_id, :user_id, presence: true
-  validates :provider_id, uniqueness: { scope: [:provider, :user_id] }
+  validates :provider_id, uniqueness: { scope: [:provider, :user_id], message: 'photo already exists' }
 
   def images
     @images ||= begin

@@ -40,6 +40,7 @@ Photeasy::Application.routes.draw do
         namespace :v1 do
           resources :photos, only: [:index]
           resources :albums, except: [:edit, :new]
+          resources :orders, only: [:create]
           resources :shares, only: [:show]
           resources :users, only: [:show], contraints: { id: 'current' }
         end

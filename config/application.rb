@@ -60,5 +60,11 @@ module Photeasy
     config.assets.version = '1.0'
 
     config.assets.initialize_on_precompile = false
+
+    config.generators do |generate|
+      generate.helper false
+      generate.assets false
+      generate.view_specs false
+    end
   end
 end

@@ -1,4 +1,4 @@
-class Api::V1::SharesController < Api::V1::BaseController
+class API::V1::SharesController < API::V1::BaseController
   before_filter :load_data, only: [:show]
 
   def show

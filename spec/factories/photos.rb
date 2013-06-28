@@ -2,10 +2,12 @@
 
 FactoryGirl.define do
   factory :photo do
-    filename 'example.jpg'
+    word = Faker::Lorem.word
+
+    filename "#{word}.jpg"
     provider 'dropbox'
-    provider_id 'dr0pb0x'
-    url '/path/to/example.jpg'
+    provider_id { Faker::Lorem.characters(64) }
+    url "/path/to/#{word}.jpg"
     user
   end
 end
