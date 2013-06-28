@@ -1,0 +1,15 @@
+<form>
+  <header>
+    <h3>
+      <abbr class="icon-photos" title="Photos Icon"></abbr>
+      Album Share Details
+    </h3>
+  </header>
+  <section class="share-body">
+    <input class="input" type="text" placeholder="Add an album title&hellip;"/>
+    <textarea id="textarea" class="example" rows="1"></textarea>
+  </section>
+  <footer>
+    <button class="button-square-block">Done</button>
+  </footer>
+</form>

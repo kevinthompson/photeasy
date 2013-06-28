@@ -13,6 +13,7 @@ define ['marionette', 'layout', 'router', 'utils/mixins'], (Marionette, layout) 
     layout.render()
     # start the history manager
     Backbone.history.start pushState: true
+    $('html, body').animate({scrollTop:0,scrollLeft:0}, 1000)
 
     # handle internal links
     # check if push state is enabled

@@ -22,15 +22,17 @@ button.reset, a.reset
   // main styles
   background: $primary-color
   color: $foreground-color
-  line-height: 50px
-  height: 50px
-  padding: 0 20px
+  height: 60px
+  line-height: 60px
+  padding: 0 15px
   font-size: 18px
   font-weight: 700
   letter-spacing: 0.1em
   text-transform: uppercase
   +text-shadow(0 2px 1px rgba(black, 0.1))
   +border-radius(4px)
+
+  +breakpoint($bp-medium)
 
   abbr[class^='icon-']
     position: relative
@@ -42,6 +44,8 @@ button.reset, a.reset
   // types
   &[class*='-block']
     display: block
+    +box-sizing(border-box)
+    width: 100%
 
   &[class*='-square']
     +border-radius(0)

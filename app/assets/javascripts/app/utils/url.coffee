@@ -9,6 +9,7 @@ define [], ->
     'users': '/users'
     'photos': '/photos'
     'albums': '/albums'
+    'shares': '/shares'
 
   urlTo: (key, id) ->
     if @urls[key]

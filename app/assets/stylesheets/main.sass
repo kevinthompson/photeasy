@@ -12,6 +12,7 @@
 // Imports
 ///////////////////////////////////////
 @import compass
+@import compass/layout/stretching
 
 // No styles imported
 @import _vars
@@ -22,10 +23,10 @@
 @import compass/reset
 @import _placeholders
 @import _typography
-@import _grids
 @import _icons
 @import _animations
 @import _buttons
+@import _forms
 
 ///////////////////////////////////////
 // Views
@@ -33,15 +34,14 @@
 @import views/_header
 @import views/_photos
 @import views/_photo
-@import views/_photo_detail
-@import views/_album_pop_over
+@import views/_pop_over
+@import views/_overlay
 
 ///////////////////////////////////////
 // Global Styles
 ///////////////////////////////////////
 html
   +background($background-color)
-  @extend %primary-font
   +animate(fade-in, 500ms)
 
 #wrap
@@ -67,40 +67,3 @@ html
 
   +breakpoint($bp-max)
     width: $max-width
-
-// Should move out
-#overlay
-  position: fixed
-  top: 0
-  right: 0
-  bottom: 0
-  left: 0
-  z-index: 100
-  +background(rgba(black, 0.8))
-  text-align: center
-
-  visibility: hidden
-  +opacity(0)
-  +transition(visibility 0s linear 0.25s,opacity 0.25s linear 0s)
-
-  &:before
-    +inline-block
-    height: 100%
-    content: ''
-
-  & > *
-    +inline-block
-    text-align: left
-    vertical-align: middle
-
-
-  &.show
-    visibility: visible
-    +opacity(1)
-    +transition(visibility 0s linear 0s,opacity 0.25s linear 0s)
-
-#pop-over
-  position: fixed
-  bottom: 0
-  left: 0
-  right: 0

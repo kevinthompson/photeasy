@@ -5,12 +5,12 @@
 // base path, that will be used to resolve files and exclude
 basePath = '.js/';
 
-// frameworks to use
-frameworks = ['mocha', 'requirejs'];
-
-
 // list of files / patterns to load in the browser
 files = [
+  MOCHA,
+  MOCHA_ADAPTER,
+  REQUIRE,
+  REQUIRE_ADAPTER,
   {pattern: 'vendor/**/*.js', included: false},
   {pattern: 'lib/**/*.js', included: false},
   {pattern: 'app/templates/**/*.dust', included: false},
@@ -30,12 +30,7 @@ exclude = [
 
 // test results reporter to use
 // possible values: 'dots', 'progress', 'junit', 'growl', 'coverage'
-reporters = ['dots', 'coverage', 'growl'];
-
-coverageReporter = {
-  type : 'html',
-  dir : '../docs/js/coverage/'
-};
+reporters = ['dots', 'growl'];
 
 // web server port
 port = 9876;
@@ -81,12 +76,3 @@ preprocessors = {
   'lib/dust.helpers.js': 'coverage',
   'lib/dusty.js': 'coverage'
 };
-
-// plugins to load
-plugins = [
-  'karma-mocha',
-  'karma-requirejs',
-  'karma-coverage',
-  'karma-growl-reporter',
-  'karma-chrome-launcher'
-];

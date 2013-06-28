@@ -1,5 +1,5 @@
 define [
-  'views/album_pop_over'
+  'views/pop_overs/album'
   'models/photo'
   'utils/event_bus'
   'utils/mixins'

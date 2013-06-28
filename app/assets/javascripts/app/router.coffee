@@ -8,6 +8,7 @@ define ['marionette', 'controller'], (Marionette, controller) ->
       'sign_out': 'ignoreRoute'
       'users/*path': 'ignoreRoute'
       'auth/*path': 'ignoreRoute'
+      'test': 'test'
       '*path': 'show404'
 
     initialize: ->

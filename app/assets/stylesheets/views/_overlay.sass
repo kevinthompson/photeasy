@@ -1,0 +1,50 @@
+#overlay
+  position: fixed
+  top: 0
+  right: 0
+  bottom: 0
+  left: 0
+  z-index: 100
+  +background(rgba(black, 0.8))
+  text-align: center
+  padding: 10px
+
+  visibility: hidden
+  +opacity(0)
+  +transition(visibility 0s linear 0.25s,opacity 0.25s linear 0s)
+
+  &:before
+    +inline-block
+    height: 100%
+    content: ''
+
+  &.show
+    visibility: visible
+    +opacity(1)
+    +transition(visibility 0s linear 0s,opacity 0.25s linear 0s)
+
+.modal, [class$='-modal']
+  +inline-block
+  z-index: 2
+  text-align: left
+  max-height: 100%
+  width: 100%
+  position: relative
+  +breakpoint($bp-small)
+    width: 300px
+
+  &:focus
+    outline: none
+
+  header
+    line-height: 70px
+    height: 70px
+    padding: 0 30px
+    background: $foreground-color
+    text-align: center
+    font-size: 22px
+    color: #A5A6A4
+    abbr
+      margin-right: 20px
+      font-size: 22px
+
