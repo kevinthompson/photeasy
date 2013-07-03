@@ -51,7 +51,7 @@ class User < ActiveRecord::Base
     self.update_attribute(:importing_photos, true)
     providers.each do |provider|
       PhotoImporter.new(self, provider).import
-      Notification.new(channel: notification_channel, event: :import_photos, data: photos).send
+      # Notification.new(channel: notification_channel, event: :import_photos, data: photos).push
     end
   ensure
     self.update_attribute(:importing_photos, false)
