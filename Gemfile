@@ -26,6 +26,7 @@ gem 'rack-google-analytics'
 
 # Background Jobs
 gem 'sidekiq'
+gem 'sidekiq-failures'
 gem 'sinatra', '>= 1.3.0', :require => nil
 gem 'slim', '>= 1.3.0'
 
