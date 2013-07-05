@@ -3,8 +3,6 @@ class Share < ActiveRecord::Base
   before_validation :ensure_user_id
   after_create :queue_new_share_email
 
-  attr_accessible :album_id, :disabled_at, :email, :user_id
-
   belongs_to :album
   belongs_to :user
 

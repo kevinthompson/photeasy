@@ -1,6 +1,4 @@
 class Order < ActiveRecord::Base
-  attr_accessible :album_id, :status, :user_id, :prints_attributes
-
   belongs_to :album
   belongs_to :share
   belongs_to :user

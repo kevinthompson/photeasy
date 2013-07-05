@@ -17,6 +17,7 @@ gem 'pusher'
 gem 'raddocs', git: 'git://github.com/kevinthompson/raddocs.git'
 gem 'rails', '3.2.13'
 gem 'sentry-raven'
+gem 'strong_parameters'
 gem 'unicorn'
 gem 'uuidtools'
 

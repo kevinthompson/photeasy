@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
   private
 
   def http_authenticate
-    if ENV['HTTP_AUTH'] && ENV['HTTP_USERNAME'] && ENV['HTTP_PASSWORD']
+    if [ENV['HTTP_AUTH'], ENV['HTTP_USERNAME'], ENV['HTTP_PASSWORD']].all?
       authenticate_or_request_with_http_basic 'Staging' do |name, password|
         name == ENV['HTTP_USERNAME'] && password == ENV['HTTP_PASSWORD']
       end

@@ -8,9 +8,9 @@ class API::V1::AlbumsController < API::V1::BaseController
   end
 
   def create
-    album = current_user.albums.new(params[:album])
+    album = current_user.albums.new(album_params)
     album.save if album.valid?
-    status_code = album.errors.empty? ? 201 : 422
+    status_code = album.errors.empty? ? :created : :unprocessable_entity
     respond_to do |format|
       format.json { render json: album, meta: album.errors, meta_key: :errors, status: status_code, location: nil }
     end
@@ -25,8 +25,8 @@ class API::V1::AlbumsController < API::V1::BaseController
 
   def update
     album = current_user.albums.find(params[:id])
-    album.update_attributes(params[:album]) if album.valid?
-    status_code = album.errors.empty? ? 200 : 422
+    album.update_attributes(album_params) if album.valid?
+    status_code = album.errors.empty? ? :ok : :unprocessable_entity
     respond_to do |format|
       format.json { render json: album, meta: album.errors, meta_key: :errors, status: status_code }
     end
@@ -37,6 +37,13 @@ class API::V1::AlbumsController < API::V1::BaseController
     respond_to do |format|
       format.json { render json: { data: {}, errors: [] } }
     end
+  end
+
+  private
+
+  def album_params
+    params.permit(:auth_token)
+    params.required(:album).permit(:name, { photo_ids: [] }, { shares_attributes: [:email] })
   end
 
 end

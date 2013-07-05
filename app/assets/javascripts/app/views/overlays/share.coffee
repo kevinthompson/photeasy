@@ -45,8 +45,5 @@ define [
       @model.set 'name', name
       @model.set 'share_attributes', emails
       @model.set 'photo_ids', _.values @collection.pluck 'id'
-
-      console.log @model.url()
-
-      # @model.save()
+      @model.save()
 

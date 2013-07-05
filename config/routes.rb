@@ -53,11 +53,6 @@ Photeasy::Application.routes.draw do
       match '*path' => 'pages#show', id: 'app', constraints: lambda { |request| request.format == :html }
     end
 
-    # Photo Thumbnails
-    resources :photos, only: [] do
-      get :thumbnail
-    end
-
     # Albums
     resources :albums, only: [:show]
   end

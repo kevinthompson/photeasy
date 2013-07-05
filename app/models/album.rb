@@ -1,6 +1,4 @@
 class Album < ActiveRecord::Base
-  attr_accessible :name, :user_id, :photos, :photo_ids, :shares_attributes
-
   belongs_to :user
   has_many :orders
   has_many :shares, dependent: :destroy

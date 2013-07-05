@@ -2,7 +2,6 @@ class Photo < ActiveRecord::Base
   MIN_BYTE_SIZE = 1048576
   IMAGE_SIZES = %w[small large]
 
-  attr_accessible :filename, :provider, :provider_id, :thumbnail, :url, :user_id
   has_attached_file :thumbnail, styles: { small: '256x256#', large: '1024x1024>' }
 
   belongs_to :user

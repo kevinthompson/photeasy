@@ -5,12 +5,6 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable, :async,
          :omniauthable, omniauth_providers: [:dropbox]
 
-  # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :name,
-                  :password, :password_confirmation, :remember_me,
-                  :provider, :uid, :dropbox_token, :dropbox_secret,
-                  :photos_imported_at
-
   has_many :photos, dependent: :destroy
   has_many :albums, dependent: :destroy
   has_many :orders

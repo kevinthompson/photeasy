@@ -2,11 +2,15 @@ require 'spec_helper'
 require 'rspec_api_documentation/dsl'
 
 resource 'Albums' do
+  header 'Accept', 'application/json'
+  header 'Content-Type', 'application/json'
+
   parameter :auth_token, 'Authentication token'
 
   let(:user){ create(:user) }
   let(:photo){ create(:photo, user: user) }
   let(:auth_token){ user.authentication_token }
+  let(:raw_post) { params.to_json }
 
   get 'https://app.photeasy.com/api/v1/albums.json' do
 
@@ -27,6 +31,7 @@ resource 'Albums' do
     parameter :name, 'The name of the album'
     parameter :photo_ids, 'An array of ids relating to photos'
     scope_parameters :album, [:name, :photo_ids]
+    required_parameters :name
 
     let(:name){ 'New Album' }
     let(:photo_ids){ [photo.id] }
@@ -42,14 +47,21 @@ resource 'Albums' do
       album['photos'].should_not be_nil
     end
 
-    example_request 'Create Album: Invalid Data', { album: nil } do
+    example_request 'Create Album: Missing Parameters', { album: nil } do
       response_status.should eql(422)
       response_json = JSON.parse(response_body)
       response_json['errors'].should_not be_empty
-      response_json['errors'].any?{ |error| error[1].include?("can't be blank") }.should be_true
+      response_json['errors'].any?{ |error| error[1].include?('parameter is required') }.should be_true
 
       album = response_json['data']
       album['id'].should be_nil
+    end
+
+    example_request 'Create Album: Invalid Data', album: { name: '' } do
+      response_status.should eql(422)
+      response_json = JSON.parse(response_body)
+      response_json['errors'].should_not be_empty
+      response_json['errors'].any?{ |error| error[1].should include(%Q[can't be blank]) }
     end
   end
 
@@ -91,13 +103,6 @@ resource 'Albums' do
       response_json = JSON.parse(response_body)
       response_json['errors'].should be_empty
       Share.where(album_id: album['id'], email: 'sterling@isis.org').count.should == 1
-    end
-
-    example_request 'Update Album: Invalid Data', album: { name: '', user_id: nil } do
-      response_status.should eql(422)
-      response_json = JSON.parse(response_body)
-      response_json['errors'].should_not be_empty
-      response_json['errors'].any?{ |error| error[1].should include(%Q[can't be blank]) }
     end
   end
 

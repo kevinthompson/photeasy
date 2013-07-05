@@ -2,10 +2,14 @@ require 'spec_helper'
 require 'rspec_api_documentation/dsl'
 
 resource 'Users' do
+  header 'Accept', 'application/json'
+  header 'Content-Type', 'application/json'
+
   parameter :auth_token, 'Authentication token'
 
   let(:user){ create(:user, name: 'Sterling Archer') }
   let(:auth_token){ user.authentication_token }
+  let(:raw_post) { params.to_json }
 
   get 'https://app.photeasy.com/api/v1/users/current.json' do
     example_request 'Show Current User' do
