@@ -4,9 +4,7 @@ class API::V1::UsersController < API::V1::BaseController
   def show
     params[:id] = current_user.id if user_signed_in? and params[:id] == 'current'
     user = User.find(params[:id])
-    respond_to do |format|
-      format.json { render json: user, meta: [], meta_key: :errors }
-    end
+    respond_to_api user
   end
 
 end

@@ -8,7 +8,6 @@ resource 'Shares' do
   let(:user){ create(:user) }
   let(:share){ create(:share, user: user) }
   let(:id){ share.uuid }
-  let(:raw_post) { params.to_json }
 
   get 'https://app.photeasy.com/api/v1/shares/:id.json' do
     example_request 'Show Share' do

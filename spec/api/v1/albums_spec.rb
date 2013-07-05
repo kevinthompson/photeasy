@@ -31,7 +31,6 @@ resource 'Albums' do
     parameter :name, 'The name of the album'
     parameter :photo_ids, 'An array of ids relating to photos'
     scope_parameters :album, [:name, :photo_ids]
-    required_parameters :name
 
     let(:name){ 'New Album' }
     let(:photo_ids){ [photo.id] }
@@ -51,7 +50,7 @@ resource 'Albums' do
       response_status.should eql(422)
       response_json = JSON.parse(response_body)
       response_json['errors'].should_not be_empty
-      response_json['errors'].any?{ |error| error[1].include?('parameter is required') }.should be_true
+      response_json['errors'].any?{ |error| error['album'].should == ['parameter is required'] }.should be_true
 
       album = response_json['data']
       album['id'].should be_nil
@@ -61,7 +60,7 @@ resource 'Albums' do
       response_status.should eql(422)
       response_json = JSON.parse(response_body)
       response_json['errors'].should_not be_empty
-      response_json['errors'].any?{ |error| error[1].should include(%Q[can't be blank]) }
+      response_json['errors'].any?{ |error| error['name'].should == ["can't be blank"] }
     end
   end
 
