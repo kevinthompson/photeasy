@@ -14,6 +14,10 @@ class Share < ActiveRecord::Base
     ShareMailer.delay.new_share(self)
   end
 
+  def from
+    user.try(:name) || 'A user'
+  end
+
   private
 
   def ensure_user_id
