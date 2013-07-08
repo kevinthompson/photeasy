@@ -5,7 +5,7 @@ describe ShareMailer do
     let(:user){ create(:user, name: 'Sterling Archer') }
     let(:album){ create(:album, name: 'ISIS', user: user) }
     let(:share){ create(:share, album: album, user: user, email: 'cyril@isis.org') }
-    let(:mail){ ShareMailer.new_share(share.id) }
+    let(:mail){ ShareMailer.new_share(share_id: share.id) }
 
     before do
       share.generate_uuid

@@ -10,7 +10,7 @@ describe Order do
   it { should have_many(:payments) }
 
   it { should validate_presence_of :album_id }
-  it { should validate_presence_of :prints }
+  it { should validate_presence_of :user_id }
 
   describe '#save' do
     context 'with prints' do

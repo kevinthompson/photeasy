@@ -11,6 +11,7 @@ Spork.prefork do
   require 'capybara/rspec'
   require 'sidekiq/testing'
   require 'fakeweb'
+  require 'fake_ftp'
 
   Dir[Rails.root.join('spec/support/**/*.rb')].each {|f| require f}
   Capybara.javascript_driver = :webkit

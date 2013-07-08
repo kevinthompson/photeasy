@@ -4,7 +4,7 @@ describe OrderMailer do
   describe '#order_complete' do
     let(:user){ create(:user, name: 'Sterling Archer') }
     let(:order){ create(:order, user: user) }
-    let(:mail){ OrderMailer.order_complete(order.id) }
+    let(:mail){ OrderMailer.confirmation(order_id: order.id) }
 
     it 'sets the subject' do
       mail.subject.should == 'Your order is complete'

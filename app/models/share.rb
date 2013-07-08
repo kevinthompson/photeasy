@@ -10,15 +10,15 @@ class Share < ActiveRecord::Base
   validates :album, :user, associated: true
   validates :email, uniqueness: { scope: :album_id }
 
-  def queue_new_share_email
-    ShareMailer.delay.new_share(self)
-  end
-
   def from
     user.try(:name) || 'A user'
   end
 
   private
+
+  def queue_new_share_email
+    ShareMailer.delay.new_share(share_id: self)
+  end
 
   def ensure_user_id
     self.user_id = album.user_id if album.present?

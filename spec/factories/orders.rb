@@ -4,5 +4,7 @@ FactoryGirl.define do
   factory :order do
     status :new
     album
+    share
+    user
   end
 end

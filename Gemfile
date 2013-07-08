@@ -74,6 +74,7 @@ end
 group :development, :test do
   gem 'capybara'
   gem 'database_cleaner'
+  gem 'fake_ftp'
   gem 'fakeweb'
   gem 'faker'
   gem 'factory_girl_rails', '~> 4.0.0'
