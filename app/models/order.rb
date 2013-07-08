@@ -1,5 +1,5 @@
 class Order < ActiveRecord::Base
-  after_update :queue_order_completion, if: :ready_for_completion?
+  after_update :queue_order_completion, if: :ready_to_submit?
 
   belongs_to :album
   belongs_to :share
@@ -14,8 +14,8 @@ class Order < ActiveRecord::Base
     payments.map(&:successful?).any?
   end
 
-  def ready_for_completion?
-    self.paid? && self.status == :complete
+  def ready_to_submit?
+    self.paid? && self.prints.present?
   end
 
   def submit

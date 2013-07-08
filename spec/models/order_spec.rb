@@ -21,4 +21,42 @@ describe Order do
       end
     end
   end
+
+  describe 'paid?' do
+    context 'when the order has a successful payment' do
+      it 'should return true' do
+        create(:payment, order: order)
+        order.paid?.should == true
+      end
+    end
+
+    context 'when the order does not have a successful payment' do
+      it 'should return true' do
+        order.paid?.should == false
+      end
+    end
+  end
+
+  describe 'ready_to_submit?' do
+    context 'when a suffessful payment and prints exist' do
+      it 'should return true' do
+        create(:payment, order: order)
+        create(:print, order: order)
+        order.ready_to_submit?.should == true
+      end
+    end
+
+    context 'when prints do not exist' do
+      it 'should return true' do
+        order.ready_to_submit?.should == false
+      end
+    end
+  end
+
+  describe '#submit' do
+    it 'submits the order' do
+      OrderSubmission.any_instance.should_receive(:submit)
+      order.submit
+    end
+  end
 end
