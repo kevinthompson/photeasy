@@ -15,10 +15,8 @@ class Photo < ActiveRecord::Base
   def images
     @images ||= begin
       image_urls = {}
-      IMAGE_SIZES.map do |size|
-        image_urls[size] = thumbnail.url(size)
-      end
-      image_urls
+      IMAGE_SIZES.map { |size| image_urls[size] = thumbnail.url(size) }
+      image_urls.with_indifferent_access
     end
   end
 
