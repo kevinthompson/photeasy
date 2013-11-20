@@ -28,7 +28,7 @@ What follows is the rest of the original README.
 
 ## Installation
 
-1. Clone the repo: `git clone git@github.com:joelbeukelman/photeasy.git`
+1. Clone the repo: `git clone git@github.com:kevinthompson/photeasy.git`
 2. Install dependencies: `bundle install`
 3. Install Postgres App: [http://postgresapp.com/](http://postgresapp.com/)
 4. Create databases:
