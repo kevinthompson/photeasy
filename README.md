@@ -1,6 +1,17 @@
 Photeasy
 ====================
 
+This is the source code for [Photeasy](http://photeasy.com), a project that [Joel Beukelman](http://bkl.mn), [Dylan Hudson](https://twitter.com/dyln_hdsn)
+and [myself](http://kevinthompson.info) worked on in the Summer of 2013. Unfortunately, we were unable to
+complete the project, but we wanted to make the source available as an example
+of a Rails application with a versioned API and a Backbone.js front-end.
+
+Feel free to open an issue, or contact me at [kevin@kevinthompson.info](mailto:kevin@kevinthompson.info) if you have any questions.
+
+What follows is the rest of the original README.
+
+-------------------
+
 1. [Overview](#overview)
 2. [Installation](#installation)
 
